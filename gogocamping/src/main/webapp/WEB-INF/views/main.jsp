@@ -8,16 +8,16 @@
     </div> -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="img/캠핑장.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Organi Shop</h2>
-                        <div class="breadcrumb__option">
+                        <h2>Go Go Camping</h2>
+                        <!-- <div class="breadcrumb__option">
                             <a href="./index.html">Home</a>
                             <span>Shop</span>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -32,18 +32,16 @@
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
                         <div class="sidebar__item">
-                            <h4>Department</h4>
+                            <h4>Categories</h4>
                             <ul>
-                                <li><a href="#">Fresh Meat</a></li>
-                                <li><a href="#">Vegetables</a></li>
-                                <li><a href="#">Fruit & Nut Gifts</a></li>
-                                <li><a href="#">Fresh Berries</a></li>
-                                <li><a href="#">Ocean Foods</a></li>
-                                <li><a href="#">Butter & Eggs</a></li>
-                                <li><a href="#">Fastfood</a></li>
-                                <li><a href="#">Fresh Onion</a></li>
-                                <li><a href="#">Papayaya & Crisps</a></li>
-                                <li><a href="#">Oatmeal</a></li>
+                                <li><a href="#">텐트 & 타프</a></li>
+	                            <li><a href="#">의자 & 테이블</a></li>
+	                            <li><a href="#">침대 & 침낭</a></li>
+	                            <li><a href="#">매트 & 해먹</a></li>
+	                            <li><a href="#">버너 & 코펠</a></li>
+	                            <li><a href="#">랜턴 & 화로 & 연료</a></li>
+	                            <li><a href="#">식기류</a></li>
+	                            <li><a href="#">기타</a></li>
                             </ul>
                         </div>
                         <div class="sidebar__item">
@@ -63,7 +61,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="sidebar__item sidebar__item__color--option">
+                        <!-- <div class="sidebar__item sidebar__item__color--option">
                             <h4>Colors</h4>
                             <div class="sidebar__item__color sidebar__item__color--white">
                                 <label for="white">
@@ -128,7 +126,7 @@
                                     <input type="radio" id="tiny">
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="sidebar__item">
                             <div class="latest-product__text">
                                 <h4>Latest Products</h4>
@@ -199,7 +197,7 @@
                 <div class="col-lg-9 col-md-7">
                     <div class="product__discount">
                         <div class="section-title product__discount__title">
-                            <h2>Sale Off</h2>
+                            <h2>추천 할인 상품</h2>
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
@@ -210,7 +208,6 @@
                                             <div class="product__discount__percent">-20%</div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                             </ul>
                                         </div>
@@ -228,7 +225,6 @@
                                             <div class="product__discount__percent">-20%</div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                             </ul>
                                         </div>
@@ -246,7 +242,6 @@
                                             <div class="product__discount__percent">-20%</div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                             </ul>
                                         </div>
@@ -264,7 +259,6 @@
                                             <div class="product__discount__percent">-20%</div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                             </ul>
                                         </div>
@@ -282,7 +276,6 @@
                                             <div class="product__discount__percent">-20%</div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                             </ul>
                                         </div>
@@ -300,7 +293,6 @@
                                             <div class="product__discount__percent">-20%</div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                             </ul>
                                         </div>
@@ -318,10 +310,12 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
                                 <div class="filter__sort">
-                                    <span>Sort By</span>
+                                    <span>정렬</span>
                                     <select>
-                                        <option value="0">Default</option>
-                                        <option value="0">Default</option>
+                                        <option value="0">인기순</option>
+                                        <option value="0">최신순</option>
+                                        <option value="0">최고 가격순</option>
+                                        <option value="0">최저 가격순</option>
                                     </select>
                                 </div>
                             </div>
@@ -344,7 +338,6 @@
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
@@ -359,7 +352,6 @@
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
@@ -374,7 +366,6 @@
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
@@ -389,7 +380,6 @@
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-4.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
@@ -404,7 +394,6 @@
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-5.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
@@ -419,7 +408,6 @@
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-6.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
@@ -434,7 +422,6 @@
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-7.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
@@ -449,7 +436,6 @@
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-8.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
@@ -464,7 +450,6 @@
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-9.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
@@ -479,7 +464,6 @@
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-10.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
@@ -494,7 +478,6 @@
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-11.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
@@ -509,7 +492,6 @@
                                 <div class="product__item__pic set-bg" data-setbg="img/product/product-12.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                         <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>

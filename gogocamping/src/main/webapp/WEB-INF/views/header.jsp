@@ -59,7 +59,7 @@
         </div>
         <div class="humberger__menu__contact">
             <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                <li><i class="fa fa-envelope"></i> email us</li>
                 <li>Free Shipping for all Order of $99</li>
             </ul>
         </div>
@@ -74,8 +74,8 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                                <li>Free Shipping for all Order of $99</li>
+                                <li><i class="fa fa-envelope"></i> email us</li>
+                                <li>Enjoy your own Camping Life!</li>
                             </ul>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/로고.jpg" alt=""></a>
+                        <a href="./index.html"><img src="img/로고.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -153,20 +153,21 @@
                     <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>All departments</span>
+                            <span>Categories</span>
                         </div>
                         <ul>
-                            <li><a href="#">Fresh Meat</a></li>
-                            <li><a href="#">Vegetables</a></li>
-                            <li><a href="#">Fruit & Nut Gifts</a></li>
-                            <li><a href="#">Fresh Berries</a></li>
-                            <li><a href="#">Ocean Foods</a></li>
-                            <li><a href="#">Butter & Eggs</a></li>
-                            <li><a href="#">Fastfood</a></li>
-                            <li><a href="#">Fresh Onion</a></li>
+                            <li><a href="#">텐트 & 타프</a></li>
+                            <li><a href="#">의자 & 테이블</a></li>
+                            <li><a href="#">침대 & 침낭</a></li>
+                            <li><a href="#">매트 & 해먹</a></li>
+                            <li><a href="#">버너 & 코펠</a></li>
+                            <li><a href="#">랜턴 & 화로 & 연료</a></li>
+                            <li><a href="#">식기류</a></li>
+                            <li><a href="#">기타</a></li>
+                           <!--  <li><a href="#">Fresh Onion</a></li>
                             <li><a href="#">Papayaya & Crisps</a></li>
                             <li><a href="#">Oatmeal</a></li>
-                            <li><a href="#">Fresh Bananas</a></li>
+                            <li><a href="#">Fresh Bananas</a></li> -->
                         </ul>
                     </div>
                 </div>
@@ -174,11 +175,11 @@
                     <div class="hero__search">
                         <div class="hero__search__form">
                             <form action="#">
-                                <div class="hero__search__categories">
+                                <!-- <div class="hero__search__categories">
                                     All Categories
                                     <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="What do yo u need?">
+                                </div> -->
+                                <input type="text" placeholder="찾으시는 상품을 검색해 보세요!">
                                 <button type="submit" class="site-btn">SEARCH</button>
                             </form>
                         </div>
