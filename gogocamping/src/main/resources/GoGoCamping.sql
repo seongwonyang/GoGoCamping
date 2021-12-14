@@ -65,7 +65,7 @@ create sequence product_seq;
 create table cart(
 	cart_no number primary key,
 	customer_id varchar2(100) not null,
-	product_id varchar2(100) not null,
+	product_id number not null,
 	constraint fk_c_product_id foreign key(product_id) references product(product_id) on delete cascade
 );
 create sequence cart_seq;
@@ -74,7 +74,7 @@ create sequence cart_seq;
 create table likes( 
 	likes_no number primary key,
 	customer_id varchar2(100) not null,
-	product_id varchar2(100) not null,
+	product_id number not null,
 	constraint fk_l_product_id foreign key(product_id) references product(product_id) on delete cascade
 );
 create sequence likes_seq;
@@ -86,7 +86,7 @@ create table review(
 	review_content clob not null,
 	review_regdate date not null,
 	customer_id varchar2(100) not null,
-	product_id varchar2(100) not null,
+	product_id number not null,
 	constraint fk_r_product_id foreign key(product_id) references product(product_id)
 );
 create sequence review_seq;
@@ -129,7 +129,7 @@ create table order_detail(
 	delivery_compldate varchar2(100),
 	refund_check varchar2(100) not null, -- 0 or 1
 	order_no number not null,
-	product_id varchar2(100) not null,
+	product_id number not null,
 	constraint fk_order_no foreign key(order_no) references order_info(order_no),
 	constraint fk_o_product_id foreign key(product_id) references product(product_id)
 );
@@ -154,7 +154,7 @@ create table QnA(
 	title varchar2(100) not null,
 	content clob not null,
 	regdate date not null,
-	product_id varchar2(100) not null,
+	product_id number not null,
 	customer_id varchar2(100) not null,
 	constraint fk_qna_product_id foreign key(product_id) references product(product_id),
 	constraint fk_qna_customer_id foreign key(customer_id) references customer(customer_id)
