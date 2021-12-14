@@ -48,7 +48,7 @@ create sequence category_seq;
 
 -- 2-2.상품(product)
 create table product(
-	product_id varchar2(100) primary key,
+	product_id number primary key,
 	product_name varchar2(100) not null,
 	price number not null,
 	product_info clob not null,
