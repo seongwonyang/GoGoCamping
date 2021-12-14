@@ -36,18 +36,11 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.html">Shop Details</a></li>
-                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
-                        <li><a href="./blog-details.html">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="">텐트/타프</a></li>
+                <li><a href="">의자/테이블/침대</a></li>
+                <li><a href="">버너/코펠/주방용품</a></li>
+                <li><a href="">랜턴/화로/연료</a></li>
+                <li><a href="">침낭/매트/해먹</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -82,10 +75,8 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
+		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
                             </div>
                             <div class="header__top__right__language">
                                 <img src="img/language.png" alt="">
@@ -108,34 +99,21 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/로고.png" alt=""></a>
+                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
-                            <li><a href="./shop-grid.html">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__cart">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                        </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form action="#">
+                                <!-- <div class="hero__search__categories">
+                                    All Categories
+                                    <span class="arrow_carrot-down"></span>
+                                </div> -->
+                                <input type="text" placeholder="찾으시는 상품을 검색해 보세요!">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                        </div>    
                     </div>
                 </div>
             </div>
@@ -153,46 +131,32 @@
                     <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
-                            <span>Categories</span>
+                            <span>Brands</span>
                         </div>
-                        <ul>
-                            <li><a href="#">텐트 & 타프</a></li>
-                            <li><a href="#">의자 & 테이블</a></li>
-                            <li><a href="#">침대 & 침낭</a></li>
-                            <li><a href="#">매트 & 해먹</a></li>
-                            <li><a href="#">버너 & 코펠</a></li>
-                            <li><a href="#">랜턴 & 화로 & 연료</a></li>
-                            <li><a href="#">식기류</a></li>
-                            <li><a href="#">기타</a></li>
-                           <!--  <li><a href="#">Fresh Onion</a></li>
-                            <li><a href="#">Papayaya & Crisps</a></li>
-                            <li><a href="#">Oatmeal</a></li>
-                            <li><a href="#">Fresh Bananas</a></li> -->
-                        </ul>
+                            <ul>
+                                <li><a href="#">Durango</a></li>
+                                <li><a href="#">Gregory</a></li>
+                                <li><a href="#">Helinox</a></li>
+                                <li><a href="#">Hilleberg</a></li>
+                                <li><a href="#">Jackal</a></li>
+                                <li><a href="#">Kazmi</a></li>
+                                <li><a href="#">Ogawa</a></li>
+                                <li><a href="#">Snow line</a></li>
+                                <li><a href="#">Snow owl</a></li>
+                                <li><a href="#">Snow peak</a></li>
+                           </ul>
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <!-- <div class="hero__search__categories">
-                                    All Categories
-                                    <span class="arrow_carrot-down"></span>
-                                </div> -->
-                                <input type="text" placeholder="찾으시는 상품을 검색해 보세요!">
-                                <button type="submit" class="site-btn">SEARCH</button>
-                            </form>
-                        </div>
-                        <div class="hero__search__phone">
-                            <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
-                            </div>
-                            <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
-                                <span>support 24/7 time</span>
-                            </div>
-                        </div>
-                    </div>
+                    <nav class="header__menu">
+			            <ul>
+			                <li><a href="">텐트/타프</a></li>
+			                <li><a href="">의자/테이블/침대</a></li>
+			                <li><a href="">버너/코펠/주방용품</a></li>
+			                <li><a href="">랜턴/화로/연료</a></li>
+			                <li><a href="">침낭/매트/해먹</a></li>
+			            </ul>
+                    </nav>
                 </div>
             </div>
         </div>
