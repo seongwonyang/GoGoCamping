@@ -8,7 +8,7 @@ values('seller','판매자','a',1,'seller@naver.com','캠핑브랜드','010-0000
 
 -- 소비자
 insert into customer(customer_id,customer_name,customer_password,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
-values('customer','소비자','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소','1998-11-08',to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'))
+values('customer','소비자','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소','1998-11-08',to_char(sysdate,'YYYY-MM-DD HH24:MI:SS'))
 
 -- 카테고리
 insert into category(category_no,category_name,detail_category_name)
@@ -47,3 +47,195 @@ insert into QnA(qna_no, qna_category, title, content, regdate, product_id, custo
 values(qna_seq.nextval,'질문카테고리','질문제목','질문내용',to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'),1,'customer')
 
 
+
+------------------------------------------------
+
+-- 카테고리 데이터
+
+-- 의자/테이블/침대
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','캠핑테이블')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','롤테이블')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','캠핑테이블(로우)')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','경량테이블')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','화로테이블')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','키친테이블')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','캠핑미니테이블')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','테이블과 의자세트')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','캐비넷/캠핑박스')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','시스템 테이블')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','의자')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','야전침대')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','스탠드/거치대')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','퍼니쳐 주변기기')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'의자/테이블/침대','퍼니쳐 수납가방')
+
+
+
+---------------------------------------
+
+--랜턴/화로/연료
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','캠핑랜턴')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','헤드랜턴')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','후레쉬(손전등)')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','랜턴스탠드 및 액세서리')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','화로대')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','미니화로대')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','바베큐/그릴')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','바베큐용품')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','더치오븐')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','화로대/BBQ_주변기기')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','연료')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','토치')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','헤드랜턴 액세서리')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','기어케이스')
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'랜턴/화로/연료','전기용품/배터리')
+
+--------------------------------------------------------------
+
+--텐트/타프
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'텐트/타프','텐트');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'텐트/타프','쉘터/어닝/리빙쉘');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'텐트/타프','타프');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'텐트/타프','타프스크린/바람막이');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'텐트/타프','TPU창/도어');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'텐트/타프','폴대/지퍼손잡이');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'텐트/타프','텐트펙(단조펙)');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'텐트/타프','스토퍼(비너),로프');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'텐트/타프','공구(망치/도끼/삽/톱/기타)');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'텐트/타프','그라운드시트/방수포');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'텐트/타프','텐트 카페트');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'텐트/타프','데이지체인/탄성끈');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'텐트/타프','폴대/펙/툴 케이스');
+
+---------------------------------------------------------------------------
+
+--버너/코펠/주방용품
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','버너');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','버너+코펠 세트');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','코펠');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','주전자,드리퍼');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','압력밥솥');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','후라이팬/철판/토스트기');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','주방용품');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','컵/숟가락/포크/젓가락');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','아이스박스(쿨러)');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','보온보냉백');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','버너거치대/바람막이/소품');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','방열시트');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','물통/보온병/정수기');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'버너/코펠/주방용품','도시락');
+
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'침낭/매트/해먹','침낭');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'침낭/매트/해먹','매트');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'침낭/매트/해먹','침낭+매트 세트상품');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'침낭/매트/해먹','베개/쿠션');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'침낭/매트/해먹','침낭라이너');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'침낭/매트/해먹','방석');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'침낭/매트/해먹','담요');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'침낭/매트/해먹','해먹(그물침대)');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'침낭/매트/해먹','해먹관련용품');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'침낭/매트/해먹','야외돗자리(카페트)');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'침낭/매트/해먹','목베개');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'침낭/매트/해먹','에어펌프');
+insert into category(category_no,category_name,detail_category_name)
+values(category_seq.nextval,'침낭/매트/해먹','침낭/매트/베개 커버');

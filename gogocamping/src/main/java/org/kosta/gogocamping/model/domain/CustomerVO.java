@@ -11,8 +11,11 @@ public class CustomerVO {
 	private String customerDetailedAddress;
 	private String customerBirth;
 	private String customerRegdate;
+	public CustomerVO() {
+		super();
+	}
 	public CustomerVO(String customerId, String customerName, String customerPassword, String customerEmail,
-			String customerTel, String customerPostNumber, String customerAddress, String customerDetailedAddres,
+			String customerTel, String customerPostNumber, String customerAddress, String customerDetailedAddress,
 			String customerBirth, String customerRegdate) {
 		super();
 		this.customerId = customerId;
@@ -22,13 +25,12 @@ public class CustomerVO {
 		this.customerTel = customerTel;
 		this.customerPostNumber = customerPostNumber;
 		this.customerAddress = customerAddress;
-		this.customerDetailedAddress = customerDetailedAddres;
+		this.customerDetailedAddress = customerDetailedAddress;
 		this.customerBirth = customerBirth;
 		this.customerRegdate = customerRegdate;
 	}
-	
 	public CustomerVO(String customerId, String customerName, String customerEmail, String customerTel,
-			String customerPostNumber, String customerAddress, String customerDetailedAddres, String customerBirth) {
+			String customerPostNumber, String customerAddress, String customerDetailedAddress, String customerBirth) {
 		super();
 		this.customerId = customerId;
 		this.customerName = customerName;
@@ -36,12 +38,22 @@ public class CustomerVO {
 		this.customerTel = customerTel;
 		this.customerPostNumber = customerPostNumber;
 		this.customerAddress = customerAddress;
-		this.customerDetailedAddress = customerDetailedAddres;
+		this.customerDetailedAddress = customerDetailedAddress;
 		this.customerBirth = customerBirth;
 	}
-
-	public CustomerVO() {
+	public CustomerVO(String customerId, String customerName, String customerPassword, String customerEmail,
+			String customerTel, String customerPostNumber, String customerAddress, String customerDetailedAddress,
+			String customerBirth) {
 		super();
+		this.customerId = customerId;
+		this.customerName = customerName;
+		this.customerPassword = customerPassword;
+		this.customerEmail = customerEmail;
+		this.customerTel = customerTel;
+		this.customerPostNumber = customerPostNumber;
+		this.customerAddress = customerAddress;
+		this.customerDetailedAddress = customerDetailedAddress;
+		this.customerBirth = customerBirth;
 	}
 	public String getCustomerId() {
 		return customerId;
@@ -85,11 +97,11 @@ public class CustomerVO {
 	public void setCustomerAddress(String customerAddress) {
 		this.customerAddress = customerAddress;
 	}
-	public String getCustomerDetailedAddres() {
+	public String getCustomerDetailedAddress() {
 		return customerDetailedAddress;
 	}
-	public void setCustomerDetailedAddres(String customerDetailedAddres) {
-		this.customerDetailedAddress = customerDetailedAddres;
+	public void setCustomerDetailedAddress(String customerDetailedAddress) {
+		this.customerDetailedAddress = customerDetailedAddress;
 	}
 	public String getCustomerBirth() {
 		return customerBirth;
@@ -108,7 +120,7 @@ public class CustomerVO {
 		return "CustomerVO [customerId=" + customerId + ", customerName=" + customerName + ", customerPassword="
 				+ customerPassword + ", customerEmail=" + customerEmail + ", customerTel=" + customerTel
 				+ ", customerPostNumber=" + customerPostNumber + ", customerAddress=" + customerAddress
-				+ ", customerDetailedAddres=" + customerDetailedAddress + ", customerBirth=" + customerBirth
+				+ ", customerDetailedAddress=" + customerDetailedAddress + ", customerBirth=" + customerBirth
 				+ ", customerRegdate=" + customerRegdate + "]";
 	}
 }
