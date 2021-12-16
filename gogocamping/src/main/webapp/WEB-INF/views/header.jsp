@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <body>
     <!-- Page Preloder -->
     <div id="preloder">
@@ -96,9 +96,17 @@
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
+                            <c:choose>
+                            <c:when test="${sessionScope.loginVO==null}">
                             <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                                <a href="loginCustomerForm"><i class="fa fa-user"></i> Login</a>
                             </div>
+                            </c:when>
+                            <c:otherwise>
+                            	로그인성공&nbsp;&nbsp;&nbsp;
+                            	<a href="logoutCustomer">logout</a>
+                            </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
