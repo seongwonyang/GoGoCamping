@@ -434,7 +434,7 @@ ol {
 }
 
 .header__menu {
-	padding: 24px 0;
+	padding: 10px 0;
 }
 
 .header__menu ul li {
@@ -653,11 +653,11 @@ ol {
 
 .hero__search {
 	overflow: hidden;
-	margin-bottom: 30px;
+	margin-top: 40px;
 }
 
 .hero__search__form {
-	width: 610px;
+	width: 750px;
 	height: 50px;
 	border: 1px solid #ebebeb;
 	position: relative;
