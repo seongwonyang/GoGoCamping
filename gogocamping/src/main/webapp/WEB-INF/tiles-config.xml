@@ -5,10 +5,17 @@
  <tiles-definitions>  
  	<!-- HomeController 에서 viewName을 home.tiles 로 줄 예정 -->
 	<definition name="home.tiles" template="/WEB-INF/views/layout.jsp">
-		<put-attribute name="title" value="gogocamping"/>
+		<put-attribute name="title" value=""/>
 		<put-attribute name="header" value="/WEB-INF/views/header.jsp"/>
 		<put-attribute name="main" value="/WEB-INF/views/main.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp"/>
+	</definition>
+	
+	<definition name="managerHome.tiles" template="/WEB-INF/views/manager/layout.jsp">
+		<put-attribute name="title" value=""></put-attribute>
+		<put-attribute name="managerHeader" value="/WEB-INF/views/manager/header.jsp"/>
+		<put-attribute name="managerMain" value="/WEB-INF/views/manager/main.jsp"/>
+		<put-attribute name="managerFooter" value="/WEB-INF/views/manager/footer.jsp"/>
 	</definition>
 	<!-- <definition name="main2.tiles" extends="home.tiles">
 		<put-attribute name="main" value="/WEB-INF/views/main2.jsp"/>
@@ -36,8 +43,13 @@
 			}	
 	 -->
 	<definition name="*/*.tiles" extends="home.tiles">
+	      <put-attribute name="title" value="{2}" />
+	      <put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+	 
+	<definition name="*/*.tiles" extends="managerHome.tiles">
 		<put-attribute name="title" value="{2}" />
-		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp"/>
+		<put-attribute name="managerMain" value="/WEB-INF/views/{1}/{2}.jsp"/>
 	</definition>
  </tiles-definitions>   
  

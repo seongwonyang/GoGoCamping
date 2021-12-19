@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.CustomerMapper">
+<select id="loginCustomer" resultType="CustomerVO" parameterType="string">
+	select customer_id, customer_name, customer_email, customer_tel, customer_post_number, customer_address, customer_detailed_address, customer_birth
+	from customer
+	where customer_id=#{customerId}
+	and customer_password=#{customerPassword}
+</select>
+<insert id="registerCustomer" parameterType="customerVO">
+	insert into customer(customer_id,customer_name,customer_password,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
+	values(#{customerId},#{customerName},#{customerPassword},#{customerEmail},#{customerTel},#{customerPostNumber},#{customerAddress},#{customerDetailedAddress},#{customerBirth},to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'))
+</insert>
+<select id="findCustomerId" resultType="CustomerVO" parameterType="string">
+	select * from customer where customer_id=#{value}
+</select>
 </mapper>

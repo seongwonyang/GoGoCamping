@@ -8,7 +8,7 @@
     </div>
 
     <!-- Humberger Begin -->
-    <div class="humberger__menu__overlay"></div>
+<!--     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
             <a href="#"><img src="img/logo.png" alt=""></a>
@@ -56,7 +56,7 @@
                 <li>Free Shipping for all Order of $99</li>
             </ul>
         </div>
-    </div>
+    </div> -->
     <!-- Humberger End -->
 
     <!-- Header Section Begin -->
@@ -74,7 +74,10 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
+                           <c:choose>
+                            <c:when test="${sessionScope.loginVO==null}">
                             <div class="header__top__right__social">
+<!--세희 --!>
 		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
 		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
                             </div>
@@ -86,10 +89,19 @@
                                     <li><a href="#">Spanis</a></li>
                                     <li><a href="#">English</a></li>
                                 </ul>
+<!-- develop
+                                <a href="loginCustomerForm"><i class="fa fa-user"></i> Login</a>
+--!>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                                <a href="registerForm"><i class="fa fa-user"></i> 회원가입</a>
                             </div>
+                            </c:when>
+                            <c:otherwise>
+                            	로그인성공&nbsp;&nbsp;&nbsp;
+                            	<a href="logoutCustomer">logout</a>
+                            </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>

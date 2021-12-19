@@ -134,6 +134,24 @@ ol {
 	margin: 0 auto;
 }
 
+.section-title h3 {
+	color: #1c1c1c;
+	font-weight: 700;
+	position: relative;
+}
+
+.section-title h3:after {
+	position: absolute;
+	left: 0;
+	bottom: -15px;
+	right: 0;
+	height: 4px;
+	width: 1200px;
+	background: #595959;
+	content: "";
+	margin: 0 auto;
+}
+
 .set-bg {
 	background-repeat: no-repeat;
 	background-size: cover;
