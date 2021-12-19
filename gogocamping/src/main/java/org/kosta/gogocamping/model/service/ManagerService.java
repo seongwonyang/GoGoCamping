@@ -1,17 +1,13 @@
-package org.kosta.gogocamping.model.mapper;
+package org.kosta.gogocamping.model.service;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.kosta.gogocamping.model.domain.SellerVO;
 
-@Mapper
-public interface SellerMapper {
+public interface ManagerService {
 
 	ArrayList<SellerVO> getSellerNotAdmin();
 
 	ArrayList<SellerVO> getSellerAdmin();
-
-	void adminSeller(String sellerId);
 
 }
