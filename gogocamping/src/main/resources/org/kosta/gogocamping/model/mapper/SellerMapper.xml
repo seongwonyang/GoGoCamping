@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.SellerMapper">
+
+<select id="getAllBrandList" resultType="SellerVO"> <!-- 브랜드 리스트 조회 -->
+select seller_id, brand from seller
+</select>
+
+<resultMap type="SellerVO" id="sellerMap">
+	<id property="sellerId" column="seller_id"/>
+	<result property="sellerId" column="seller_id"/>
+	<result property="sellerName" column="seller_name"/>
+	<result property="sellerPassword" column="seller_password"/>
+	<result property="businessNumber" column="business_number"/>
+	<result property="sellerEmail" column="seller_email"/>
+	<result property="brand" column="brand"/>
+	<result property="sellerTel" column="seller_tel"/>
+	<result property="sellerPostNumber" column="seller_post_number"/>
+	<result property="sellerAddress" column="seller_address"/>
+	<result property="sellerDetailedAddress" column="seller_detailed_address"/>
+	<result property="registerAdmin" column="register_admin"/>
+</resultMap>
+
+<select id="getSellerNotAdmin" resultMap="sellerMap">
+	SELECT * FROM seller WHERE register_admin=0
+</select>
+
+<select id="getSellerAdmin" resultMap="sellerMap">
+	SELECT * FROM seller WHERE register_admin=1
+</select>
+
+<update id="adminSeller" parameterType="String">
+	UPDATE seller SET register_admin=1 WHERE seller_id=#{value}
+</update>
+
 </mapper>

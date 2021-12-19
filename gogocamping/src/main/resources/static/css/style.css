@@ -134,6 +134,24 @@ ol {
 	margin: 0 auto;
 }
 
+.section-title h3 {
+	color: #1c1c1c;
+	font-weight: 700;
+	position: relative;
+}
+
+.section-title h3:after {
+	position: absolute;
+	left: 0;
+	bottom: -15px;
+	right: 0;
+	height: 4px;
+	width: 1200px;
+	background: #595959;
+	content: "";
+	margin: 0 auto;
+}
+
 .set-bg {
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -635,11 +653,11 @@ ol {
 
 .hero__search {
 	overflow: hidden;
-	margin-bottom: 30px;
+	margin-top: 40px;
 }
 
 .hero__search__form {
-	width: 610px;
+	width: 750px;
 	height: 50px;
 	border: 1px solid #ebebeb;
 	position: relative;

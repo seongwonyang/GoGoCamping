@@ -45,6 +45,7 @@ create table category(
 	detail_category_name varchar2(100) not null
 );
 create sequence category_seq;   
+select * from category
 
 -- 2-2.상품(product)
 create table product(
@@ -60,6 +61,7 @@ create table product(
 	constraint fk_category_no foreign key(category_no) references category(category_no)
 );
 create sequence product_seq;
+select * from product
 
 -- 2-3.장바구니(cart)
 create table cart(
@@ -170,6 +172,8 @@ drop sequence order_info_seq;
 drop sequence order_detail_seq;
 drop sequence refund_seq;
 drop sequence QnA_seq;
+
+delete from product
 
 
 

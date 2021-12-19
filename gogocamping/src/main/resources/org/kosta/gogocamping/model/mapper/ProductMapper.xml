@@ -1,4 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.ProductMapper">
+<sql id="selectProductAll">
+	select rnum, product_id, product_name, price, product_img
+</sql>
+<sql id="selectProductAllWithCategory">
+	select rnum, p.product_id, p.product_name, p.price, p.product_img
+</sql>
+<select id="getAllProductList" parameterType="Map" resultType="ProductVO">
+	<include refid="selectProductAll"/> 
+	from (select p.*, row_number() 
+	<choose>
+		<when test='option.equals("low")'>
+			over(order by price) 
+		</when>
+		<when test='option.equals("high")'>
+			over(order by price desc) 
+		</when>
+		<otherwise>
+			over(order by product_name) 
+		</otherwise>
+	</choose>
+	as rnum from product p) where rnum between #{startRowNumber} and #{endRowNumber}
+</select>
+<select id="getAllProductCount" resultType="int">
+	select count(*) from product
+</select>
+<select id="getSearchProductList" parameterType="Map" resultType="ProductVO">
+	<include refid="selectProductAllWithCategory"/> 
+	from (
+	   select p.*, row_number() 
+		<choose>
+			<when test='option.equals("low")'>
+				over(order by price) 
+			</when>
+			<when test='option.equals("high")'>
+				over(order by price desc) 
+			</when>
+			<otherwise>
+				over(order by product_name) 
+			</otherwise>
+		</choose>
+	   as rnum, c.category_name, c.detail_category_name
+	   from product p, category c where p.category_no=c.category_no and REPLACE(p.product_name, ' ', '') like '%' || #{keyword} || '%'
+	) p
+	<!-- where rnum between #{startRowNumber} and #{endRowNumber} -->
+</select>
+<select id="getSearchProductCount" parameterType="Map" resultType="int">
+	select count(*) from product
+	where REPLACE(product_name, ' ', '') like '%' || #{keyword} || '%'
+</select>
+
+<resultMap id="productMap" type="ProductVO">
+	<result property="sellerVO.sellerId" column="seller_id"/>
+	<result property="sellerVO.sellerEmail" column="seller_email"/>
+	<result property="sellerVO.brand" column="brand"/>
+	<result property="sellerVO.sellerTel" column="seller_tel"/>
+	<result property="categoryVO.categoryNo" column="category_no"/>
+	<result property="categoryVO.categoryName" column="category_name"/>
+	<result property="categoryVO.detailCategoryName" column="detail_category_name"/>
+</resultMap> 
+<select id="getProductListByBrand" resultMap="productMap" parameterType="Map"><!-- 브랜드별 상품리스트 조회 -->
+	select p.*, s.seller_id, s.seller_email, s.brand, s.seller_tel, c.* 
+	from product p, seller s, category c
+	where p.seller_id = s.seller_id and p.category_no = c.category_no
+	and s.brand = #{brand}
+	<choose>
+		<when test='option.equals("low")'>
+			order by price 
+		</when>
+		<when test='option.equals("high")'>
+			order by price desc
+		</when>
+		<otherwise>
+			order by product_name
+		</otherwise>
+	</choose>
+</select>
+<select id="getBrandCategroyList" resultMap="productMap" parameterType="Map">
+	select distinct c.category_name, s.brand
+	from product p, seller s, category c
+	where p.seller_id = s.seller_id and p.category_no = c.category_no
+	and s.brand = #{brand}
+	order by c.category_name desc
+</select>
+<select id="getProductListByBrandAndCategory" resultMap="productMap" parameterType="Map"><!-- 브랜드별 카테고리별 상품리스트 조회 -->
+	select s.brand, p.*, c.*
+	from product p, seller s, category c
+	where p.seller_id = s.seller_id and p.category_no = c.category_no
+	and s.brand = #{brand} and c.category_name = #{category}
+	<choose>
+		<when test='option.equals("low")'>
+			order by price 
+		</when>
+		<when test='option.equals("high")'>
+			order by price desc
+		</when>
+		<otherwise>
+			order by product_name
+		</otherwise>
+	</choose>
+</select>
+
 </mapper>
