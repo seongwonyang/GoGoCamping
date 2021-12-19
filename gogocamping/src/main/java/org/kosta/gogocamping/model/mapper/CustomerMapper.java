@@ -12,4 +12,7 @@ public interface CustomerMapper {
 	
 	public CustomerVO findCustomerId(String customerId);
 	
+	public CustomerVO findPassword(CustomerVO customerVO);
+	
+	void updatePassword(String customerPassword, String customerId);
 }

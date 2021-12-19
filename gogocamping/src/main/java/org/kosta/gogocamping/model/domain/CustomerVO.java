@@ -55,6 +55,11 @@ public class CustomerVO {
 		this.customerDetailedAddress = customerDetailedAddress;
 		this.customerBirth = customerBirth;
 	}
+	public CustomerVO(String customerId, String customerEmail) {
+		super();
+		this.customerId = customerId;
+		this.customerEmail = customerEmail;
+	}
 	public String getCustomerId() {
 		return customerId;
 	}
