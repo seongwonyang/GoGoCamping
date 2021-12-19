@@ -96,4 +96,7 @@ hs_err_pid*
 #sql
 test.sql
 
+#properties
+application.propreties
+
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,java
