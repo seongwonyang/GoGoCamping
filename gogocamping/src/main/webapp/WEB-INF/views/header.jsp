@@ -89,7 +89,23 @@
                             </div>
                             </c:when>
                             <c:otherwise>
-                            	로그인성공&nbsp;&nbsp;&nbsp;
+                             <div class="header__top__right__social">
+		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
+		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
+                            </div>
+                            <div class="header__top__right__social">
+                             <nav class="header__menu">
+                        	<ul>
+                            	<li><a href="#">마이페이지</a>
+                                	<ul class="header__menu__dropdown">
+                                    	<li><a href="#">주문조회</a></li>
+                                    	<li><a href="#">정보수정</a></li>
+                                	</ul>
+                            	</li>
+                            	</ul>
+                            	</nav>
+                            	</div>
+                            	${sessionScope.loginVO.customerName}님&nbsp;&nbsp;&nbsp;
                             	<a href="logoutCustomer">logout</a>
                             </c:otherwise>
                             </c:choose>
