@@ -8,7 +8,7 @@ values('seller','판매자','a',1,'seller@naver.com','캠핑브랜드','010-0000
 
 -- 소비자
 insert into customer(customer_id,customer_name,customer_password,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
-values('customer','소비자','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소','1998-11-08',to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'))
+values('customer','소비자','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소','1998-11-08',to_char(sysdate,'YYYY-MM-DD HH24:MI:SS'))
 
 -- 카테고리
 insert into category(category_no,category_name,detail_category_name)

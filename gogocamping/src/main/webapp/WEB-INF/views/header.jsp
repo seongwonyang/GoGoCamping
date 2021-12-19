@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <body>
     <!-- Page Preloder -->
     <div id="preloder">
@@ -8,7 +8,7 @@
     </div>
 
     <!-- Humberger Begin -->
-    <div class="humberger__menu__overlay"></div>
+<!--     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
             <a href="#"><img src="img/logo.png" alt=""></a>
@@ -63,7 +63,7 @@
                 <li>Free Shipping for all Order of $99</li>
             </ul>
         </div>
-    </div>
+    </div> -->
     <!-- Humberger End -->
 
     <!-- Header Section Begin -->
@@ -81,24 +81,20 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
+                           <c:choose>
+                            <c:when test="${sessionScope.loginVO==null}">
                             <div class="header__top__right__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                            </div>
-                            <div class="header__top__right__language">
-                                <img src="img/language.png" alt="">
-                                <div>English</div>
-                                <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li><a href="#">Spanis</a></li>
-                                    <li><a href="#">English</a></li>
-                                </ul>
+                                <a href="loginCustomerForm"><i class="fa fa-user"></i> Login</a>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                                <a href="registerForm"><i class="fa fa-user"></i> 회원가입</a>
                             </div>
+                            </c:when>
+                            <c:otherwise>
+                            	로그인성공&nbsp;&nbsp;&nbsp;
+                            	<a href="logoutCustomer">logout</a>
+                            </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -108,7 +104,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/로고.png" alt=""></a>
+                        <a href="/"><img src="img/로고.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
