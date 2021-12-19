@@ -27,8 +27,8 @@ public class ProductVO {
 	      this.sellerId = sellerId;
 	      this.categoryNo = categoryNo;
 	   }
-	   
-	   // sequence로 생성되는 productId를 제외한 생성자
+
+	// sequence로 생성되는 productId를 제외한 생성자
 	   public ProductVO(String productName, int price, String productInfo, int stock, String productImg, String sellerId,
 	         int categoryNo) {
 	      super();
@@ -40,6 +40,13 @@ public class ProductVO {
 	      this.sellerId = sellerId;
 	      this.categoryNo = categoryNo;
 	   }
+
+	   public ProductVO(String productName, int price, String productImg) {
+		super();
+		this.productName = productName;
+		this.price = price;
+		this.productImg = productImg;
+	}
 
 	   public int getProductId() {
 	      return productId;

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <body>
     <!-- Page Preloder -->
     <div id="preloder">
@@ -8,7 +8,7 @@
     </div>
 
     <!-- Humberger Begin -->
-    <div class="humberger__menu__overlay"></div>
+<!--     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
             <a href="#"><img src="img/logo.png" alt=""></a>
@@ -56,7 +56,7 @@
                 <li>Free Shipping for all Order of $99</li>
             </ul>
         </div>
-    </div>
+    </div> -->
     <!-- Humberger End -->
 
     <!-- Header Section Begin -->
@@ -74,6 +74,8 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
+                           <c:choose>
+                            <c:when test="${sessionScope.loginVO==null}">
                             <div class="header__top__right__social">
 		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
 		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
@@ -86,10 +88,17 @@
                                     <li><a href="#">Spanis</a></li>
                                     <li><a href="#">English</a></li>
                                 </ul>
+                                <a href="loginCustomerForm"><i class="fa fa-user"></i> Login</a>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                                <a href="registerForm"><i class="fa fa-user"></i> 회원가입</a>
                             </div>
+                            </c:when>
+                            <c:otherwise>
+                            	로그인성공&nbsp;&nbsp;&nbsp;
+                            	<a href="logoutCustomer">logout</a>
+                            </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
@@ -99,7 +108,8 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="/"><img src="img/logo.png" alt=""></a>
+                        <a href="/"><img src="img/로고.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -150,11 +160,14 @@
                 <div class="col-lg-9">
                     <nav class="header__menu">
 			            <ul>
-			                <li><a href="">텐트/타프</a></li>
-			                <li><a href="">의자/테이블/침대</a></li>
-			                <li><a href="">버너/코펠/주방용품</a></li>
-			                <li><a href="">랜턴/화로/연료</a></li>
-			                <li><a href="">침낭/매트/해먹</a></li>
+			            <%-- <c:forEach items="${category}" var="category">
+			            	<li><a href="categoryProduct?categoryName='${category.categoryName}'">${category.categoryName}</a></li>
+			            </c:forEach> --%>
+			                <li><a href="category?categoryName='텐트/타프'">텐트/타프</a></li>
+			                <li><a href="category?categoryName='의자/테이블/침대'">의자/테이블/침대</a></li>
+			                <li><a href="category?categoryName='버너/코펠/주방용품'">버너/코펠/주방용품</a></li>
+			                <li><a href="category?categoryName='랜턴/화로/연료'">랜턴/화로/연료</a></li>
+			                <li><a href="category?categoryName='침낭/매트/해먹'">침낭/매트/해먹</a></li>
 			            </ul>
                     </nav>
                 </div>
