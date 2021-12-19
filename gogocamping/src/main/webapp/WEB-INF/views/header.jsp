@@ -77,21 +77,12 @@
                            <c:choose>
                             <c:when test="${sessionScope.loginVO==null}">
                             <div class="header__top__right__social">
-<!--세희 --!>
+
 		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
 		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
                             </div>
-                            <div class="header__top__right__language">
-                                <img src="img/language.png" alt="">
-                                <div>English</div>
-                                <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li><a href="#">Spanis</a></li>
-                                    <li><a href="#">English</a></li>
-                                </ul>
-<!-- develop
+                            <div class="header__top__right__social">
                                 <a href="loginCustomerForm"><i class="fa fa-user"></i> Login</a>
---!>
                             </div>
                             <div class="header__top__right__auth">
                                 <a href="registerForm"><i class="fa fa-user"></i> 회원가입</a>
