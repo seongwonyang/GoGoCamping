@@ -6,3 +6,5 @@ and customer_password='a'
 select*from customer where customer_id='customer';
 select count(*) from customer
 
+select * from customer where customer_id='test2' and customer_email='ch3655@naver.com'
+
