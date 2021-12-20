@@ -26,4 +26,10 @@
 	where customer_name=#{customerName}
 	and customer_tel=#{customerTel}
 </select>
+<select id="findPassword" resultType="CustomerVO" parameterType="customerVO">
+	select * from customer where customer_id=#{customerId} and customer_email=#{customerEmail}
+</select>
+<update id="updatePassword" parameterType="customerVO">
+	update customer set customer_password = #{customerPassword} where customer_id = #{customerId}
+</update>
 </mapper>
