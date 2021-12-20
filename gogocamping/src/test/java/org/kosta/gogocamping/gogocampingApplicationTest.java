@@ -23,13 +23,5 @@ class SpringBootStudy6RestApplicationTests {
 		System.out.println(customerMapper);
 	}
 	
-	@Test
-	void getCategoryDetail() {
-		String category="텐트/타프";
-		List<CategoryVO> list=categoryMapper.getDetailCategory(category);
-		for(CategoryVO cvo:list) {
-			System.out.println(cvo);
-		}
-	}
 	
 }

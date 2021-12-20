@@ -71,6 +71,7 @@ public class ProductController {
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
 		model.addAttribute("searchProductList", productMapper.getSearchProductList(map));
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 
 		return "product/search-product.tiles";
 	}
@@ -88,6 +89,7 @@ public class ProductController {
 		
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
 		model.addAttribute("brandCategoryList", productMapper.getBrandCategroyList(map));
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 
 		if(category != "") {
 			model.addAttribute("productListByBrand", productMapper.getProductListByBrandAndCategory(map));

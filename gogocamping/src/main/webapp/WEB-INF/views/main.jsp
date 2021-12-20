@@ -228,11 +228,7 @@ a<%@ page language="java" contentType="text/html; charset=UTF-8"
 <script type="text/javascript">
 	function sortProduct(i) {
 		var pageNo = document.getElementById("pageNo").value;
-		if(i == "high") {
-			location.href = "getAllProductList?pageNo="+pageNo+"&option="+i;
-		} else {
-			location.href = "getAllProductList?pageNo="+pageNo+"&option="+i;
-		}
+		location.href = "getAllProductList?pageNo="+pageNo+"&option="+i;
 	}
 </script>
 </body>

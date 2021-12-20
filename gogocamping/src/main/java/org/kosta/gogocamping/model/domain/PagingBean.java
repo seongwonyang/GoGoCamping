@@ -23,7 +23,7 @@ public class PagingBean {
 	/**
 	 * 페이지당 게시물수
 	 */
-	private int postCountPerPage = 5;
+	private int postCountPerPage = 2;
 	/**
 	 * 페이지 그룹당 페이지수
 	 */

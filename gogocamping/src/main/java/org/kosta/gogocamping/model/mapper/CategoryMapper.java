@@ -10,10 +10,14 @@ import org.kosta.gogocamping.model.domain.ProductVO;
 @Mapper
 public interface CategoryMapper {
 
-	List<ProductVO> getCategoryProductList(String categoryName);
+   List<CategoryVO> getCategoryList();
 
-	List<CategoryVO> getDetailCategory(String categoryName);
+   List<ProductVO> getProductListByCategory(Map<String, Object> map);
+   
+   int getCategoryCount(String categoryName);
 
-	List<CategoryVO> getDetailCateroryProductList(Map<String, Object> map);
+   List<CategoryVO> getProductListByDetailCategory(Map<String, Object> map);
+
+   List<CategoryVO> getDetailCategory(Map<String, Object> map);
 
 }

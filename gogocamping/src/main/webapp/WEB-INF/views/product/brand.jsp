@@ -103,11 +103,7 @@
 <script type="text/javascript">
    function sortProduct(i) {
       var category = document.getElementById("category").value;
-      if(i == "high") {
-         location.href = "getProductListByBrand?brand=${brand}&category="+category+"&option="+i;
-      } else {
-         location.href = "getProductListByBrand?brand=${brand}&category="+category+"&option="+i;
-      }
+      location.href = "getProductListByBrand?brand=${brand}&category="+category+"&option="+i;
    }
 </script>
 </body>

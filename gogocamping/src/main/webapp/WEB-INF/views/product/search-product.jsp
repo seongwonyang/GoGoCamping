@@ -107,11 +107,7 @@
 </script> -->
 <script type="text/javascript">
 	function sortProduct(i) {
-		if(i == "high") {
-			location.href = "searchProductList?keyword=${keyword}&option="+i;
-		} else {
-			location.href = "searchProductList?keyword=${keyword}&option="+i;
-		}
+		location.href = "searchProductList?keyword=${keyword}&option="+i;
 	}
 </script>
 </body>

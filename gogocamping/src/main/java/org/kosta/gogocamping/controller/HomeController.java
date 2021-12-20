@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.kosta.gogocamping.model.domain.PagingBean;
+import org.kosta.gogocamping.model.mapper.CategoryMapper;
 import org.kosta.gogocamping.model.mapper.ProductMapper;
 import org.kosta.gogocamping.model.mapper.SellerMapper;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class HomeController {
 	private ProductMapper productMapper;
 	@Resource
 	private SellerMapper sellerMapper;
+	
+	@Resource
+	private CategoryMapper categoryMapper;
 
 	@RequestMapping("/")
 	public String home(Model model) {
@@ -35,6 +39,8 @@ public class HomeController {
 		model.addAttribute("pagingBean", pagingBean);
 		model.addAttribute("allProductList", productMapper.getAllProductList(map)); // 전체 상품 리스트
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
+		
 		return "home.tiles";
 	}
 

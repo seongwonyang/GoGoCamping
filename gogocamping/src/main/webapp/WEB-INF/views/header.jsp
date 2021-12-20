@@ -77,25 +77,10 @@
                            <c:choose>
                             <c:when test="${sessionScope.loginVO==null}">
                             <div class="header__top__right__social">
-<<<<<<< HEAD
-
 		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
 		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
                             </div>
                             <div class="header__top__right__social">
-=======
-		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
-		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
-                            </div>
-                            <div class="header__top__right__language">
-                                <img src="img/language.png" alt="">
-                                <div>English</div>
-                                <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li><a href="#">Spanis</a></li>
-                                    <li><a href="#">English</a></li>
-                                </ul>
->>>>>>> 7cc539e6e9142a80e6dc9f31131700bd5a2575b8
                                 <a href="loginCustomerForm"><i class="fa fa-user"></i> Login</a>
                             </div>
                             <div class="header__top__right__auth">
@@ -132,7 +117,6 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
                         <a href="/"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
@@ -177,11 +161,9 @@
 			            <%-- <c:forEach items="${category}" var="category">
 			            	<li><a href="categoryProduct?categoryName='${category.categoryName}'">${category.categoryName}</a></li>
 			            </c:forEach> --%>
-			                <li><a href="category?categoryName='텐트/타프'">텐트/타프</a></li>
-			                <li><a href="category?categoryName='의자/테이블/침대'">의자/테이블/침대</a></li>
-			                <li><a href="category?categoryName='버너/코펠/주방용품'">버너/코펠/주방용품</a></li>
-			                <li><a href="category?categoryName='랜턴/화로/연료'">랜턴/화로/연료</a></li>
-			                <li><a href="category?categoryName='침낭/매트/해먹'">침낭/매트/해먹</a></li>
+			            <c:forEach items="${categoryList }" var="c">
+			                <li><a href="category?categoryName=${c.categoryName }&pageNo=0&option=">${c.categoryName }</a></li>
+			            </c:forEach>
 			            </ul>
                     </nav>
                 </div>
