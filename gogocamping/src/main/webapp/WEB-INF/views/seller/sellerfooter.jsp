@@ -7,13 +7,12 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="img/footer_로고.png" alt=""></a>
+                            <a href="/"><img src="img/footer_로고.png" alt=""></a>
                         </div>
                         <ul>
-                            <li>경기도 성남시 분당구 성남대로 34</li>
-                            <li>TEL. 031-606-9311</li>
-                            <li><a href="SellerHome" style="color: black">판매자 페이지</a></li>
-                            <li><a href="ManagerHome" style="color: black">관리자 페이지</a></li>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello@colorlib.com</li>
                         </ul>
                     </div>
                 </div>

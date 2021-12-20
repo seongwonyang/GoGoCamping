@@ -129,7 +129,7 @@ ol {
 	right: 0;
 	height: 4px;
 	width: 80px;
-	background: #245207;
+	background: #065E93;
 	content: "";
 	margin: 0 auto;
 }
@@ -177,7 +177,7 @@ ol {
 	font-weight: 800;
 	text-transform: uppercase;
 	display: inline-block;
-	padding: 13px 30px 12px;
+	padding: 10px 20px 10px;
 	background: #245207;
 	border: none;
 }
@@ -457,6 +457,10 @@ ol {
 	color: #ffffff;
 	font-weight: 400;
 	padding: 5px 15px;
+}
+
+.header__menu ul li.active a {
+	color: #245207;
 }
 
 .header__menu ul li.active a {
