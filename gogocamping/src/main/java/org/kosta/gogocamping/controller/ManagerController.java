@@ -31,7 +31,7 @@ public class ManagerController {
 	public String managerHome(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginVO") == null) {
-			return "manager/manager-login-form.tiles";
+			return "manager/views/manager-login-form.tiles";
 		}else {
 			return "managerHome.tiles";
 		}
@@ -40,7 +40,7 @@ public class ManagerController {
 	
 	@RequestMapping("managerLoginForm")
 	public String managerLoginForm() {		
-		return "manager/manager-login-form.tiles";
+		return "manager/views/manager-login-form.tiles";
 	}
 	
 	@RequestMapping("managerLogin")
@@ -53,6 +53,7 @@ public class ManagerController {
 		if(loginVO!=null) {
 			HttpSession session = request.getSession(false);
 			session.setAttribute("loginVO", loginVO);
+			session.setAttribute("loginAuth", "manger custormerseller");
 
 			return "로그인성공";
 		}else {
@@ -66,14 +67,14 @@ public class ManagerController {
 		HttpSession session = request.getSession(false);
 		session.invalidate();
 		
-		return "manager/manager-login-form.tiles";
+		return "manager/views/manager-login-form.tiles";
 	}
 	
 	@RequestMapping("registerAdmin")
 	public String RegisterAdmin(Model model,HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if(session.getAttribute("loginVO") == null) {
-			return "manager/manager-login-form.tiles";
+			return "manager/views/manager-login-form.tiles";
 		}
 		
 		ArrayList<SellerVO> sellerList = managerService.getSellerNotAdmin();
@@ -82,7 +83,7 @@ public class ManagerController {
 		model.addAttribute("sellerList", sellerList);
 		model.addAttribute("adminSellerList", adminSellerList);
 		
-		return "manager/register-admin.tiles";
+		return "manager/views/register-admin.tiles";
 	}
 	
 	@RequestMapping("adminSeller")
@@ -95,6 +96,6 @@ public class ManagerController {
 		model.addAttribute("sellerList", sellerList);
 		model.addAttribute("adminSellerList", adminSellerList);
 		
-		return "manager/register-admin.tiles";
+		return "manager/views/register-admin.tiles";
 	}
 }

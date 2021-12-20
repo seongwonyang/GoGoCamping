@@ -11,11 +11,11 @@
 		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp"/>
 	</definition>
 	
-	<definition name="managerHome.tiles" template="/WEB-INF/views/manager/layout.jsp">
+	<definition name="managerHome.tiles" template="/WEB-INF/views/manager/views/layout.jsp">
 		<put-attribute name="title" value=""></put-attribute>
-		<put-attribute name="managerHeader" value="/WEB-INF/views/manager/header.jsp"/>
-		<put-attribute name="managerMain" value="/WEB-INF/views/manager/main.jsp"/>
-		<put-attribute name="managerFooter" value="/WEB-INF/views/manager/footer.jsp"/>
+		<put-attribute name="managerHeader" value="/WEB-INF/views/manager/views/header.jsp"/>
+		<put-attribute name="managerMain" value="/WEB-INF/views/manager/views/main.jsp"/>
+		<put-attribute name="managerFooter" value="/WEB-INF/views/manager/views/footer.jsp"/>
 	</definition>
 	<!-- <definition name="main2.tiles" extends="home.tiles">
 		<put-attribute name="main" value="/WEB-INF/views/main2.jsp"/>
@@ -46,10 +46,10 @@
 	      <put-attribute name="title" value="{2}" />
 	      <put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp"/>
 	</definition>
-	 
-	<definition name="*/*.tiles" extends="managerHome.tiles">
+	
+	<definition name="*/*/*.tiles" extends="managerHome.tiles">
 		<put-attribute name="title" value="{2}" />
-		<put-attribute name="managerMain" value="/WEB-INF/views/{1}/{2}.jsp"/>
+		<put-attribute name="managerMain" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
 	</definition>
  </tiles-definitions>   
  
