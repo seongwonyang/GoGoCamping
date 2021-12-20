@@ -48,4 +48,3 @@ public class CategoryController {
 		model.addAttribute("categoryProduct", categoryProductList);
 		return "/detail-category-product.tiles";
 	}
-}
