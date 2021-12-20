@@ -352,3 +352,4 @@ insert into product(product_id,product_name,price,product_info,stock,product_img
 values(product_seq.nextval,'발렌시아 650 XL',150450,'발렌시아 650 XL',180,'https://www.gocamp.co.kr/shop/data/goods/1593488169980s0.jpg','minimalworks', 42);
 
 
+

@@ -7,6 +7,7 @@ import org.kosta.gogocamping.model.domain.CustomerVO;
 import org.kosta.gogocamping.model.mapper.CustomerMapper;
 import org.kosta.gogocamping.model.service.MailService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -60,6 +61,30 @@ public class CustomerController {
 	public String registerCustomer(String customerId, String customerPassword, String customerName, String customerEmail, String customerTel, String customerBirth, String customerPostNumber, String customerAddress, String customerDetailedAddress) {
 		customerMapper.registerCustomer(customerId, customerPassword, customerName, customerEmail, customerTel, customerBirth, customerPostNumber, customerAddress, customerDetailedAddress);
 		return "home.tiles";
+	}
+
+	@RequestMapping("customer-find-id-form")
+	public String customerFindIdForm() {
+		return "customer/customer-find-id-form.tiles";
+	}
+	@RequestMapping("customer-find-id-byEmail")
+	public String customerFindIdByEmail() {
+		return "customer/customer-find-id-byEmail.tiles";
+	}
+	@RequestMapping("customer-find-id-byTel")
+	public String customerFindIdByTel() {
+		return "customer/customer-find-id-byTel.tiles";
+	}
+	@RequestMapping("getCustomerIdByEmail")
+	public String getCustomerIdByEmail(String customerName, String customerEmail, Model model) {
+		CustomerVO customerVO = customerMapper.findCustomerIdByEmail(customerName, customerEmail);
+		model.addAttribute("customerVO", customerVO);
+		return "customer/customer-result-byEmail.tiles";
+	}
+	@RequestMapping("getCustomerIdByTel")
+	public String getCustomerIdByTel(String customerName, String customerTel, Model model) {
+		model.addAttribute("customerVO", customerMapper.findCustomerIdByTel(customerName, customerTel));
+		return "customer/customer-result-byTel.tiles";
 	}
 	@RequestMapping("resetCustomerPassword")
 	public String resetCustomerPassword(String customerId, String customerPassword, HttpSession session) {
