@@ -40,7 +40,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script> 
 <script type="text/javascript">
-var customerPw = CryptoJS.SHA256($('#customerPassword').val()).toString(); 
+
 window.onload = function(){
     document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
         //카카오 지도 발생
@@ -75,6 +75,7 @@ $(function() {
 			alert("비밀번호를 확인하세요.");
 			return false;
 		}else{
+			var customerPw = CryptoJS.SHA256($('#customerPassword').val()).toString(); 
 			$('#customerPassword').val(customerPw);
 		}
 	});//click

@@ -12,4 +12,7 @@ public interface CustomerMapper {
 	
 	public CustomerVO findCustomerId(String customerId);
 	
+	public CustomerVO findCustomerIdByEmail(String customerName, String customerEmail);
+	
+	public CustomerVO findCustomerIdByTel(String customerName, String customerTel);
 }

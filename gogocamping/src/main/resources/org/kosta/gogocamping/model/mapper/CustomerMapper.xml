@@ -14,4 +14,16 @@
 <select id="findCustomerId" resultType="CustomerVO" parameterType="string">
 	select * from customer where customer_id=#{value}
 </select>
+<select id="findCustomerIdByEmail" resultType="CustomerVO" parameterType="string">
+	select customer_id 
+	from customer 
+	where customer_name=#{customerName}
+	and customer_email=#{customerEmail}
+</select>
+<select id="findCustomerIdByTel" resultType="CustomerVO" parameterType="string">
+	select customer_id 
+	from customer 
+	where customer_name=#{customerName}
+	and customer_tel=#{customerTel}
+</select>
 </mapper>

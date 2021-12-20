@@ -91,7 +91,7 @@
                             </div>
                             </c:when>
                             <c:otherwise>
-                            	로그인성공&nbsp;&nbsp;&nbsp;
+                            	${sessionScope.loginVO.customerName}님&nbsp;&nbsp;&nbsp;
                             	<a href="logoutCustomer">logout</a>
                             </c:otherwise>
                             </c:choose>
