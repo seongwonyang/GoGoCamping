@@ -10,11 +10,13 @@
 		 			<h2>Detail Category</h2>
 		 		</div>
 		 		<div class="featured__controls">
-		 			<ul>
-		 				<c:forEach items="${detailCategory}" var="detailCategory">
-		 					<li><a href="detailCategoryProduct?categoryName='${detailCategory.categoryName }'&detailCategoryName='${detailCategory.detailCategoryName}'">${detailCategory.detailCategoryName}</a></li>
-		 				</c:forEach>
-		 			</ul>
+			 		<nav class="header__menu">
+			 			<ul>
+			 				<c:forEach items="${detailCategory}" var="detailCategory">
+			 					<li><a href="detailCategoryProduct?categoryName='${detailCategory.categoryName }'&detailCategoryName='${detailCategory.detailCategoryName}'" style="color: black">${detailCategory.detailCategoryName}</a></li>
+			 				</c:forEach>
+			 			</ul>
+			 		</nav>
 		 		</div>
 		 	</div>
 		</div>
