@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <body>
-<a href="customer-find-id-byTel">휴대전화번호로 찾기</a>
-<a href="customer-find-id-byEmail">이메일로 찾기</a>
+<div align="center" style="margin-top: 100px; margin-bottom: 100px;">
+<a href="customer-find-id-byTel"><img src="img/findidbytel.png" style="width: 200px; margin-right: 70px;"></a>
+<a href="customer-find-id-byEmail"><img src="img/findidbymail.png" style="width: 200px"></a>
+</div>
 </body>

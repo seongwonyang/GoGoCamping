@@ -53,6 +53,8 @@ public class ProductController {
 		model.addAttribute("pagingBean", pagingBean);
 		model.addAttribute("allProductList", productMapper.getAllProductList(map));
 		model.addAttribute("option", option);
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 
 		return "home.tiles";
 	}

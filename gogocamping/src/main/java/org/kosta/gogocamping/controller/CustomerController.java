@@ -4,12 +4,16 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.gogocamping.model.domain.CustomerVO;
+import org.kosta.gogocamping.model.mapper.CategoryMapper;
 import org.kosta.gogocamping.model.mapper.CustomerMapper;
+import org.kosta.gogocamping.model.mapper.SellerMapper;
 import org.kosta.gogocamping.model.service.MailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 @Controller
 public class CustomerController {
@@ -17,9 +21,15 @@ public class CustomerController {
 	private CustomerMapper customerMapper;
 	@Resource
 	private MailService service;
+	@Resource
+	private SellerMapper sellerMapper;
+	@Resource
+	private CategoryMapper categoryMapper;
 	
 	@RequestMapping("loginCustomerForm")
-	public String loginCustomerForm() {
+	public String loginCustomerForm(Model model) {
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-login.tiles";
 	}
 	@RequestMapping("loginCustomer")
@@ -40,11 +50,15 @@ public class CustomerController {
 	}
 
 	@RequestMapping("registerCustomerForm")
-	public String registerCustomerForm() {
+	public String registerCustomerForm(Model model) {
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-register-form.tiles";
 	}
 	@RequestMapping("registerForm")
-	public String registerForm() {
+	public String registerForm(Model model) {
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/register-form.tiles";
 	}
 	@RequestMapping("checkId")
@@ -64,25 +78,35 @@ public class CustomerController {
 	}
 
 	@RequestMapping("customer-find-id-form")
-	public String customerFindIdForm() {
+	public String customerFindIdForm(Model model) {
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-find-id-form.tiles";
 	}
 	@RequestMapping("customer-find-id-byEmail")
-	public String customerFindIdByEmail() {
+	public String customerFindIdByEmail(Model model) {
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-find-id-byEmail.tiles";
 	}
 	@RequestMapping("customer-find-id-byTel")
-	public String customerFindIdByTel() {
+	public String customerFindIdByTel(Model model) {
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-find-id-byTel.tiles";
 	}
 	@RequestMapping("getCustomerIdByEmail")
 	public String getCustomerIdByEmail(String customerName, String customerEmail, Model model) {
 		CustomerVO customerVO = customerMapper.findCustomerIdByEmail(customerName, customerEmail);
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		model.addAttribute("customerVO", customerVO);
 		return "customer/customer-result-byEmail.tiles";
 	}
 	@RequestMapping("getCustomerIdByTel")
 	public String getCustomerIdByTel(String customerName, String customerTel, Model model) {
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		model.addAttribute("customerVO", customerMapper.findCustomerIdByTel(customerName, customerTel));
 		return "customer/customer-result-byTel.tiles";
 	}
@@ -94,7 +118,9 @@ public class CustomerController {
 		return "home.tiles";
 	}
 	@RequestMapping("customer-findPassword-form")
-	public String customerFindPasswordForm() {
+	public String customerFindPasswordForm(Model model) {
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-findPassword-form.tiles";
 	}
 	@RequestMapping("findPassword")
@@ -113,11 +139,15 @@ public class CustomerController {
 		}
 	}
 	@RequestMapping("emailCode")
-	public String emailCode() {
+	public String emailCode(Model model) {
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-emailCode-form.tiles";
 	}
 	@RequestMapping("resetPassword")
-	public String resetPassword() {
+	public String resetPassword(Model model) {
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-passwordRest.tiles";
 	}
 	public String getTempPassword(){

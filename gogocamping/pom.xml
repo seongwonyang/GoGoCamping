@@ -49,16 +49,28 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.tiles</groupId>
-			<artifactId>tiles-jsp</artifactId>
-			<version>3.0.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tiles</groupId>
-			<artifactId>tiles-core</artifactId>
-			<version>3.0.3</version>
-		</dependency>
-		<!-- 메일 api -->
+	        <groupId>org.apache.tiles</groupId>
+	        <artifactId>tiles-jsp</artifactId>
+	        <version>3.0.3</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.apache.tiles</groupId>
+	        <artifactId>tiles-core</artifactId>
+	        <version>3.0.3</version>
+	    </dependency>
+	    <!-- File Upload (대용량 파일 처리) --> 
+	    <dependency> 
+	    	<groupId>commons-io</groupId> 
+	    	<artifactId>commons-io</artifactId> 
+	    	<version>2.6</version> 
+	    </dependency> 
+	    <!-- File Upload (file upload 기능 사용) --> 
+	    <dependency> 
+	    	<groupId>commons-fileupload</groupId> 
+	    	<artifactId>commons-fileupload</artifactId> 
+	    	<version>1.3.1</version> 
+	    </dependency>
+	    <!-- 메일 api -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>

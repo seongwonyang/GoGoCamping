@@ -17,6 +17,12 @@
 		<put-attribute name="managerMain" value="/WEB-INF/views/manager/views/main.jsp"/>
 		<put-attribute name="managerFooter" value="/WEB-INF/views/manager/views/footer.jsp"/>
 	</definition>
+	
+	<definition name="sellerHome.tiles" template="/WEB-INF/views/seller/views/views2/sellerlayout.jsp">
+		<put-attribute name="sellerHeader" value="/WEB-INF/views/seller/views/views2/sellerheader.jsp"/>
+		<put-attribute name="sellerMain" value="/WEB-INF/views/seller/views/views2/sellermain.jsp"/>
+		<put-attribute name="sellerFooter" value="/WEB-INF/views/seller/views/views2/sellerfooter.jsp"/>
+	</definition>
 	<!-- <definition name="main2.tiles" extends="home.tiles">
 		<put-attribute name="main" value="/WEB-INF/views/main2.jsp"/>
 	</definition> -->
@@ -48,8 +54,13 @@
 	</definition>
 	
 	<definition name="*/*/*.tiles" extends="managerHome.tiles">
-		<put-attribute name="title" value="{2}" />
+		<put-attribute name="title" value="{3}" />
 		<put-attribute name="managerMain" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
+	</definition>
+	
+	<definition name="*/*/*/*.tiles" extends="sellerHome.tiles">
+		<put-attribute name="title" value="{4}" />
+		<put-attribute name="sellerMain" value="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp"/>
 	</definition>
  </tiles-definitions>   
  

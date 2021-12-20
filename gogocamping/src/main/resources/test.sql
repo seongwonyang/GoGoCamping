@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 -- 전체 상품 리스트 조회 페이징(main)
 select rnum, product_name, price, product_img
 from (select p.*, row_number() over(order by product_name) as rnum from product p)
@@ -114,20 +115,4 @@ and c.category_name = '텐트/타프'
 and c.detail_category_name = '텐트'
 order by price desc
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+delete from category where category_name = '카테고리 이름';

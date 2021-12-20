@@ -33,4 +33,24 @@ select seller_id, brand from seller
 	UPDATE seller SET register_admin=1 WHERE seller_id=#{value}
 </update>
 
+<insert id="registerSeller" parameterType="SellerVO">
+	insert into seller(seller_id, seller_password, seller_name, business_number, seller_email, brand, logo_img, logo_img_stored, seller_tel, seller_post_number, seller_address, seller_detailed_address, register_admin) 
+	values(#{sellerId}, #{sellerPassword}, #{sellerName}, #{businessNumber}, #{sellerEmail}, #{brand}, #{logoImg}, #{logoImgStored}, #{sellerTel}, #{sellerPostNumber}, #{sellerAddress}, #{sellerDetailedAddress}, 0)
+</insert>
+<select id="loginSeller" resultType="SellerVO" parameterType="SellerVO">
+	select seller_id, seller_password, seller_name, business_number, seller_email, brand, logo_img, logo_img_stored, seller_tel, seller_post_number, seller_address, seller_detailed_address, register_admin
+	from seller where seller_id=#{sellerId} and seller_password=#{sellerPassword}
+</select>
+<select id="findSellerById" resultType="SellerVO">
+	select seller_id from seller where seller_id=#{value}
+</select>
+<select id="findSellerIdByBusinessNo" resultType="String" parameterType="sellerVO">
+	select seller_id from seller where seller_name=#{sellerName} and business_number=#{businessNumber}
+</select>
+<select id="findSellerPwByBusinessNo" resultType="SellerVO" parameterType="sellerVO">
+	select * from seller where seller_id=#{sellerId} and seller_name=#{sellerName} and business_number=#{businessNumber}	
+</select>
+<update id="updatePassword" parameterType="customerVO">
+	update seller set seller_password = #{sellerPassword} where seller_id = #{sellerId}
+</update>
 </mapper>

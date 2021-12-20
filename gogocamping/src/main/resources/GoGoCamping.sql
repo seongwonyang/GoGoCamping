@@ -19,6 +19,14 @@ create table seller(
 	seller_detailed_address varchar2(500) not null,
 	register_admin number not null -- 가입 승인 여부 (0 or 1)
 );
+select * from SELLER;
+alter table seller add logo_img varchar2(500) null;
+alter table seller add logo_img_stored varchar2(500) null;
+
+select seller_id, seller_name, seller_email 
+from seller 
+where seller_id='helinox' and seller_name='김근영' and business_number='0123456789';
+
 -- 1-3.소비자(customer)
 create table customer(
 	customer_id varchar2(100) primary key,

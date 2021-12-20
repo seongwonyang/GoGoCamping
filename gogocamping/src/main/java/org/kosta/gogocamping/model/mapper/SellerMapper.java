@@ -9,7 +9,6 @@ import org.kosta.gogocamping.model.domain.SellerVO;
 @Mapper
 public interface SellerMapper {
 
-
 	List<SellerVO> getAllBrandList();
 
 	ArrayList<SellerVO> getSellerNotAdmin();
@@ -18,5 +17,16 @@ public interface SellerMapper {
 
 	void adminSeller(String sellerId);
 
+	void registerSeller(SellerVO sellerVO);
+
+	SellerVO loginSeller(SellerVO sellerVO);
+
+	SellerVO findSellerById(String sellerId);
+
+	String findSellerIdByBusinessNo(SellerVO sellerVO);
+
+	SellerVO findSellerPwByBusinessNo(SellerVO sellerVO);
+
+	void updatePassword(SellerVO sellerVO);
 
 }

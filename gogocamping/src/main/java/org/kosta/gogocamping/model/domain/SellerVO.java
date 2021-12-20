@@ -8,6 +8,8 @@ public class SellerVO {
    private String sellerTel;
    private String businessNumber;
    private String brand;
+   private String logoImg;
+   private String logoImgStored;
    private String sellerPostNumber;
    private String sellerAddress;
    private String sellerDetailedAddress;
@@ -23,8 +25,8 @@ public class SellerVO {
       this.sellerPassword = sellerPassword;
    }
    public SellerVO(String sellerId, String sellerPassword, String sellerName, String sellerEmail, String sellerTel,
-         String businessNumber, String brand, String sellerPostNumber, String sellerAddress,
-         String sellerDetailedAddress, int registerAdmin) {
+         String businessNumber, String brand, String logoImg, String logoImgStored, String sellerPostNumber,
+         String sellerAddress, String sellerDetailedAddress, int registerAdmin) {
       super();
       this.sellerId = sellerId;
       this.sellerPassword = sellerPassword;
@@ -33,6 +35,8 @@ public class SellerVO {
       this.sellerTel = sellerTel;
       this.businessNumber = businessNumber;
       this.brand = brand;
+      this.logoImg = logoImg;
+      this.logoImgStored = logoImgStored;
       this.sellerPostNumber = sellerPostNumber;
       this.sellerAddress = sellerAddress;
       this.sellerDetailedAddress = sellerDetailedAddress;
@@ -80,6 +84,18 @@ public class SellerVO {
    public void setBrand(String brand) {
       this.brand = brand;
    }
+   public String getLogoImg() {
+      return logoImg;
+   }
+   public void setLogoImg(String logoImg) {
+      this.logoImg = logoImg;
+   }
+   public String getLogoImgStored() {
+      return logoImgStored;
+   }
+   public void setLogoImgStored(String logoImgStored) {
+      this.logoImgStored = logoImgStored;
+   }
    public String getSellerPostNumber() {
       return sellerPostNumber;
    }
@@ -108,7 +124,8 @@ public class SellerVO {
    public String toString() {
       return "SellerVO [sellerId=" + sellerId + ", sellerPassword=" + sellerPassword + ", sellerName=" + sellerName
             + ", sellerEmail=" + sellerEmail + ", sellerTel=" + sellerTel + ", businessNumber=" + businessNumber
-            + ", brand=" + brand + ", sellerPostNumber=" + sellerPostNumber + ", sellerAddress=" + sellerAddress
+            + ", brand=" + brand + ", logoImg=" + logoImg + ", logoImgStored=" + logoImgStored
+            + ", sellerPostNumber=" + sellerPostNumber + ", sellerAddress=" + sellerAddress
             + ", sellerDetailedAddress=" + sellerDetailedAddress + ", registerAdmin=" + registerAdmin + "]";
    }
 }

@@ -7,12 +7,13 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="img/footer_로고.png" alt=""></a>
+                            <a href="./index.html"><img src="img/footerLogo.png" alt=""></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello@colorlib.com</li>
+                            <li>경기도 성남시 분당구 성남대로 34</li>
+                            <li>TEL. 031-606-9311</li>
+                            <li><a href="SellerHome" style="color: black">판매자 페이지</a></li>
+                            <li><a href="ManagerHome" style="color: black">관리자 페이지</a></li>
                         </ul>
                     </div>
                 </div>
@@ -43,7 +44,7 @@
                         <p>Get E-mail updates about our latest shop and special offers.</p>
                         <form action="#">
                             <input type="text" placeholder="Enter your mail">
-                            <button type="button" class="site-btn">판매자 Footer</button>
+                            <button type="submit" class="site-btn">Subscribe</button>
                         </form>
                         <div class="footer__widget__social">
                             <a href="#"><i class="fa fa-facebook"></i></a>

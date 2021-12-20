@@ -10,7 +10,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>GoGoCamping</title>
+    <title>Ogani | Template</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -27,17 +27,17 @@
 </head>
 
 <body>
-	<div id="header">
-		<tiles:insertAttribute name="header"/>
+	<div id="sellerHeader">
+		<tiles:insertAttribute name="sellerHeader"/>
     </div>
     
    	<!-- 작업부분 -->
-   	<div id="main">
-   		<tiles:insertAttribute name="main"/>
+   	<div id="sellerMain">
+   		<tiles:insertAttribute name="sellerMain"/>
    	</div>
 	
-   	<div id="footer">
-		<tiles:insertAttribute name="footer"/>
+   	<div id="sellerFooter">
+		<tiles:insertAttribute name="sellerFooter"/>
     </div>
     
     <!-- Js Plugins -->

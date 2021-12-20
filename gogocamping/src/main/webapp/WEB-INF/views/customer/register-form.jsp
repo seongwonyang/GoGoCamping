@@ -3,6 +3,6 @@
 <body>
 <div align="center">
 <a href="registerCustomerForm"><img src="img/구매자회원가입.png" style="width: 300px"></a>
-<a href="#"><img src="img/판매자회원가입.png" style="width: 300px"></a><br><br><br><br><br>
+<a href="SellerRegisterForm"><img src="img/판매자회원가입.png" style="width: 300px"></a><br><br><br><br><br>
 </div>
 </body>
