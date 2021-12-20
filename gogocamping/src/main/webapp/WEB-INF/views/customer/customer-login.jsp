@@ -14,7 +14,7 @@
                         <input type="password" id="customerPassword" name="customerPassword" placeholder="  비밀번호"  style="width: 444px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br>
                         <span id="checkLogin"></span><br>
                         <button type="button" class="site-btn" id="loginCustomer" style="width: 444px; height: 50px; background-color: #245207; border-radius: 10px;">로그인</button><br><br>
-                        <button type="button" class="site-btn" style="width: 134px; height: 50px; background-color: #245207; border-radius: 10px;">아이디 찾기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="button" class="site-btn" style="width: 134px; height: 50px; background-color: #245207; border-radius: 10px;" onclick="location.href='customer-find-id-form'">아이디 찾기</button>&nbsp;&nbsp;&nbsp;&nbsp;
                         <button type="button" class="site-btn" style="width: 148px; height: 50px; background-color: #245207; border-radius: 10px;" onclick="location.href='customer-findPassword-form'">비밀번호 찾기</button>&nbsp;&nbsp;&nbsp;&nbsp;
                         <button type="button" class="site-btn" style="width: 128px; height: 50px; background-color: #245207; border-radius: 10px;" onclick="location.href='registerCustomerForm'">회원가입</button>
                            </form>
