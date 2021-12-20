@@ -180,7 +180,7 @@ a<%@ page language="java" contentType="text/html; charset=UTF-8"
             	<div class="row featured__filter">
             	<c:forEach items="${allProductList}" var="product">
 	                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-	                    <div class="featured__item">
+	                    <div class="featured__item" onclick="location.href='getProductDetailInfo?productId=${product.productId}'">
 	                        <div class="featured__item__pic set-bg" data-setbg="${product.productImg}">
 	                            <ul class="featured__item__pic__hover">
 	                                <li><a href="#"><i class="fa fa-heart"></i></a></li>

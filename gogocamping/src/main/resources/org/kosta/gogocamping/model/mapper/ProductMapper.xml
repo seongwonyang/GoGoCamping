@@ -101,5 +101,7 @@
 		</otherwise>
 	</choose>
 </select>
-
+<select id="getProductDetailInfo" resultType="ProductVO" parameterType="int">
+	select * from product where product_id = #{value}
+</select>
 </mapper>
