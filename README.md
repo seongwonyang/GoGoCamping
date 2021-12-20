@@ -1,5 +1,5 @@
 # GoGoCamping(고고캠핑)
-<p align="center"><img width="700" alt="GoGoCamping-Logo" src="https://user-images.githubusercontent.com/65536352/146703960-e96409f7-602a-4245-a5a6-4ff927906b5c.png"></p>
+<p align="center"><img width="700" alt="GoGoCamping-Logo2" src="https://user-images.githubusercontent.com/65536352/146725480-92f55d63-dc04-420f-9b9e-34721fb00ff5.png"></p>
 
 ## 🚀 프로젝트 개요
 ### 프로젝트명 : GoGoCamping
@@ -127,12 +127,18 @@
 
 ## 🚀 개발 프로세스 및 설계
 ### UseCase Diagram
+<p><img width="530" alt="UseCase1차수정" src="https://user-images.githubusercontent.com/65536352/146725573-9a81be7d-4144-4c01-baac-dcae7a6cf8e2.png"></p>
 
 ### Class Diagram
+Class-VO
+<p><img width="656" alt="class-VO" src="https://user-images.githubusercontent.com/65536352/146725755-ea1cf052-31f0-45b0-b4ed-11cd704d4e7e.png"></p>
+Class-Mapper
+<p><img width="758" alt="class-Mapper" src="https://user-images.githubusercontent.com/65536352/146725771-f2b6154f-bdc2-45ab-909f-d0a77717e32c.png"></p>
 
 ### [UI 설계](https://www.figma.com/file/XHo3oxMEyHXXmhclGGYBgI/GoGoCAMP?node-id=0%3A1)
 
 ### ERD
+<p><img src="https://user-images.githubusercontent.com/65536352/146726108-7b4ff4ab-8565-44a1-98c7-7b4913a08a35.png"></p>
 
 
 ## 🚀 트러블슈팅
