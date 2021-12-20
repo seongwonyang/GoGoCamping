@@ -1,5 +1,6 @@
 package org.kosta.gogocamping.model.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,5 +28,7 @@ public interface ProductMapper {
 	List<ProductVO> getBrandCategroyList(Map<String, String> map);
 
 	List<ProductVO> getProductListByBrandAndCategory(Map<String, String> map);
+
+	ProductVO getProductDetailInfo(int productId);
 
 }
