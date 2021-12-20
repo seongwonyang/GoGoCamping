@@ -93,10 +93,10 @@
 		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
 		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
                             </div>
-                            <div class="header__top__right__social">
+                            <div class="header__top__right__auth">
                              <nav class="header__menu">
                         	<ul>
-                            	<li><a href="#">마이페이지</a>
+                            	<li style="text-align:center"><a href="#">마이페이지&nbsp;&nbsp;&nbsp;</a>
                                 	<ul class="header__menu__dropdown">
                                     	<li><a href="#">주문조회</a></li>
                                     	<li><a href="#">정보수정</a></li>
