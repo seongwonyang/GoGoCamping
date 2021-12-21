@@ -7,6 +7,7 @@ public class ProductVO {
 	private String productInfo;
 	private int stock;
 	private String productImg;
+	private String productImgStored;
 	private SellerVO sellerVO;
 	private CategoryVO categoryVO;
 	
@@ -15,7 +16,7 @@ public class ProductVO {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ProductVO(String productName, int price, String productInfo, int stock, String productImg, SellerVO sellerVO,
+	public ProductVO(String productName, int price, String productInfo, int stock, String productImg, String productImgStored, SellerVO sellerVO,
 			CategoryVO categoryVO) {
 		super();
 		this.productName = productName;
@@ -23,12 +24,13 @@ public class ProductVO {
 		this.productInfo = productInfo;
 		this.stock = stock;
 		this.productImg = productImg;
+		this.productImgStored = productImgStored;
 		this.sellerVO = sellerVO;
 		this.categoryVO = categoryVO;
 	}
 	
 	
-	public ProductVO(int productId, String productName, int price, String productInfo, int stock, String productImg,
+	public ProductVO(int productId, String productName, int price, String productInfo, int stock, String productImg, String productImgStored,
 			SellerVO sellerVO, CategoryVO categoryVO) {
 		super();
 		this.productId = productId;
@@ -37,6 +39,7 @@ public class ProductVO {
 		this.productInfo = productInfo;
 		this.stock = stock;
 		this.productImg = productImg;
+		this.productImgStored = productImgStored;
 		this.sellerVO = sellerVO;
 		this.categoryVO = categoryVO;
 	}
@@ -89,6 +92,14 @@ public class ProductVO {
 		this.productImg = productImg;
 	}
 
+	public String getProductImgStored() {
+		return productImgStored;
+	}
+
+	public void setProductImgStored(String productImgStored) {
+		this.productImgStored = productImgStored;
+	}
+
 	public SellerVO getSellerVO() {
 		return sellerVO;
 	}
@@ -108,9 +119,10 @@ public class ProductVO {
 	@Override
 	public String toString() {
 		return "ProductVO [productId=" + productId + ", productName=" + productName + ", price=" + price
-				+ ", productInfo=" + productInfo + ", stock=" + stock + ", productImg=" + productImg + ", sellerVO="
-				+ sellerVO + ", categoryVO=" + categoryVO + "]";
+				+ ", productInfo=" + productInfo + ", stock=" + stock + ", productImg=" + productImg
+				+ ", productImgStored=" + productImgStored + ", sellerVO=" + sellerVO + ", categoryVO=" + categoryVO
+				+ "]";
 	}
-	   
+	
 }
 

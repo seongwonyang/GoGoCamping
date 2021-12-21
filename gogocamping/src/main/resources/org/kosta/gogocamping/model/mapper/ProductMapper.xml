@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.ProductMapper">
 <sql id="selectProductAll">
-	select rnum, product_id, product_name, price, product_img
+	select rnum, product_id, product_name, price, product_img, product_img_stored
 </sql>
 <sql id="selectProductAllWithCategory">
-	select rnum, p.product_id, p.product_name, p.price, p.product_img
+	select rnum, p.product_id, p.product_name, p.price, p.product_img, product_img_stored
 </sql>
 <select id="getAllProductList" parameterType="Map" resultType="ProductVO">
 	<include refid="selectProductAll"/> 
@@ -60,6 +60,12 @@
 	<result property="categoryVO.categoryName" column="category_name"/>
 	<result property="categoryVO.detailCategoryName" column="detail_category_name"/>
 </resultMap> 
+
+<parameterMap id="registerProductMap" type="ProductVO">
+	<parameter property="sellerVO.sellerId"/>
+	<parameter property="categoryVO.categoryNo"/>
+</parameterMap> 
+
 <select id="getProductListByBrand" resultMap="productMap" parameterType="Map"><!-- 브랜드별 상품리스트 조회 -->
 	select p.*, s.seller_id, s.seller_email, s.brand, s.seller_tel, c.* 
 	from product p, seller s, category c
@@ -101,5 +107,8 @@
 		</otherwise>
 	</choose>
 </select>
-
+<insert id="registerProduct" parameterMap="registerProductMap">
+	insert into product(product_id, product_name, price, product_info, stock, product_img, product_img_stored, seller_id, category_no)
+	values(product_seq.nextval, #{productName}, #{price}, #{productInfo}, #{stock}, #{productImg}, #{productImgStored}, #{sellerVO.sellerId}, #{categoryVO.categoryNo})
+</insert>
 </mapper>

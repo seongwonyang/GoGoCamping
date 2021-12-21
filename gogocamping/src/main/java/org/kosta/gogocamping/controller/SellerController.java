@@ -6,11 +6,16 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.kosta.gogocamping.model.domain.CategoryVO;
+import org.kosta.gogocamping.model.domain.ProductVO;
 import org.kosta.gogocamping.model.domain.SellerVO;
+import org.kosta.gogocamping.model.mapper.CategoryMapper;
+import org.kosta.gogocamping.model.mapper.ProductMapper;
 import org.kosta.gogocamping.model.mapper.SellerMapper;
 import org.kosta.gogocamping.model.service.SellerMailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class SellerController {
 	@Resource
 	private SellerMapper sellerMapper;
+	@Resource
+	private ProductMapper productMapper;
+	@Resource
+	private CategoryMapper categoryMapper;
 	@Resource
 	private SellerMailService sellerMailService;
 	
@@ -221,19 +230,52 @@ public class SellerController {
 	}
 	
 	@RequestMapping("RegisterProductForm") // 상품 등록 폼
-	public String registerProductForm(HttpServletRequest request) {
+	public String registerProductForm(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginVO")==null) {
 			return "seller/views/views2/seller-login-form.tiles";
 		}else {
-			
+			model.addAttribute("categoryList", categoryMapper.getCategoryList());
 			return "seller/views/views2/register-product-form.tiles";
 		}
 	}
 	
 	@RequestMapping("RegisterProduct") // 상품 등록
-	public String registerProduct() {
-		return null;
+	public String registerProduct(String productName, int price, String productInfo, int stock, String categorySelectDetail,
+			@RequestParam("productImg") MultipartFile productImgFile, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+		int categoryNo = categoryMapper.getCategoryNoByDetailCategoryName(categorySelectDetail);
+		CategoryVO categoryVO = new CategoryVO(categoryNo, null, null);
+		try {
+			if(!productImgFile.isEmpty()) {
+				String productResource = request.getServletContext().getRealPath("/static/image/product_img/");
+				// 파일명
+				String originalImgFile = productImgFile.getOriginalFilename();
+				// 확장자 추출
+				String originalImgFileExt = originalImgFile.substring(originalImgFile.lastIndexOf("."));
+				// 저장될 파일명
+				String storedImgFileName = sellerVO.getBrand() + "_product_img_" + categoryVO.getCategoryNo() + originalImgFileExt;
+				// 파일을 저장하기 위한 파일 객체 생성
+				File imgFile = new File(productResource + storedImgFileName);
+				// 파일 저장
+				productImgFile.transferTo(imgFile);
+				
+				ProductVO productVO = new ProductVO(
+						productName,
+						price,
+						productInfo,
+						stock,
+						productImgFile.getOriginalFilename(),
+						storedImgFileName,
+						sellerVO,
+						categoryVO);
+				productMapper.registerProduct(productVO);
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "sellerHome.tiles";
 	}
 	
 	@RequestMapping("QnAList") // 고객 문의 목록

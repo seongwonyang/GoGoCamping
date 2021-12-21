@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.gogocamping.model.domain.ProductVO;
-import org.kosta.gogocamping.model.domain.SellerVO;
 
 @Mapper
 public interface ProductMapper {
@@ -27,5 +26,7 @@ public interface ProductMapper {
 	List<ProductVO> getBrandCategroyList(Map<String, String> map);
 
 	List<ProductVO> getProductListByBrandAndCategory(Map<String, String> map);
+
+	void registerProduct(ProductVO productVO);
 
 }
