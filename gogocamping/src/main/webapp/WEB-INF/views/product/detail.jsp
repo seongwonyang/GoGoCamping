@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<body>
 <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
         <div class="container">
@@ -31,6 +31,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
                         <h3>${productVO.productName }</h3>
+                        <input type="hidden" id="detailProductId" value="${productVO.productId}">
                         <div class="product__details__rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -44,11 +45,12 @@
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="text" id="detailProductCount" value="1">
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="primary-btn">ADD TO CARD</a>
+                        <!-- <a href="getProductListInCart" onclick="return insertToCart();" class="primary-btn">ADD TO CART</a> --> <%-- 장바구니 담기 --%>
+                        <a href="#none" id="insertToCart" class="primary-btn">ADD TO CART</a>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             <li><b>Availability</b> <span>In Stock</span></li>
@@ -225,3 +227,25 @@
         </div>
     </section>
     <!-- Related Product Section End -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#insertToCart").click(function() { // 장바구니 담기
+			let detailProductId = document.getElementById("detailProductId").value;
+			let detailProductCount = document.getElementById("detailProductCount").value;
+			$.ajax({
+				type:"post",
+				url:"insertProductInCart",
+				data:"productId="+detailProductId+"&productCount="+detailProductCount,
+				success:function(){
+					let goToCartPage = confirm("상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?");
+					if(goToCartPage) {
+						location.href="getProductListInCart";
+					} 
+				}
+			});//ajax
+		});//insertToCart
+	});//ready
+</script>
+</body>
+  
