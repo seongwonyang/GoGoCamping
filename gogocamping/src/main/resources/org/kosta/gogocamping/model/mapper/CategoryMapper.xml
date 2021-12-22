@@ -57,4 +57,15 @@
       </otherwise>
    </choose>  
 </select>
+<!-- 대분류 카테고리 조회 -->
+<select id="getCategoryNameByProductId" parameterType="int" resultType="String">
+	select c.category_name
+	from product p, category c
+	where p.category_no = c.category_no and product_id = #{value}
+</select>
+
+<!-- 선택된 대분류에 따른 소분류 카테고리 조회 -->
+<select id="getDetailCategoryList" parameterType="String" resultType="CategoryVO">
+	select detail_category_name from category where category_name = #{value}
+</select>
 </mapper>

@@ -115,4 +115,23 @@ and c.category_name = '텐트/타프'
 and c.detail_category_name = '텐트'
 order by price desc
 
-delete from category where category_name = '카테고리 이름';
+-- 카테고리별 (대분류) 상품 리스트 조회 -> 상품 상세 페이지 관련 제품
+select p.*
+from product p, (select category_no, category_name from category where category_name='텐트/타프') c
+where p.category_no = c.category_no;
+
+-- 상세 페이지 상품의 카테고리 (대분류) 조회
+select c.category_name
+from product p, category c
+where p.category_no = c.category_no and product_id=1
+
+insert into review(review_no, grade, review_content, review_regdate, customer_id, product_id)
+values(review_seq.nextval, 5, '이거 사면 후회합니다ㅜㅜ', to_date(sysdate, 'YYYY-MM-DD HH24:MI:SS'), 'customer', 1);
+
+insert into review(review_no, grade, review_content, review_regdate, customer_id, product_id)
+values(review_seq.nextval, 4, '절대 사지마세요!', to_date(sysdate, 'YYYY-MM-DD HH24:MI:SS'), 'a', 1);
+
+insert into review(review_no, grade, review_content, review_regdate, customer_id, product_id)
+values(review_seq.nextval, 3, '사기입니당', to_date(sysdate, 'YYYY-MM-DD HH24:MI:SS'), 'yang1762', 1);
+
+SELECT * FROM review WHERE product_id = 1

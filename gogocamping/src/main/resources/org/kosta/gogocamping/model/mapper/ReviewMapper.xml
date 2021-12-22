@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.ReviewMapper">
+<resultMap id="reviewMap" type="ReviewVO">
+	<result property="customerVO.customerId" column="customer_id"/>
+	<result property="productVO.productId" column="product_id" />
+</resultMap>
+
+<!-- 상품에 달린 리뷰 리스트 -->
+<select id="getReviewListByProductId" parameterType="int" resultMap="reviewMap">
+	SELECT * FROM review WHERE product_id = ${value}
+</select>
+
+<select id="getReviewCountByProductId" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM review WHERE product_id = ${value}
+</select>
 </mapper>
