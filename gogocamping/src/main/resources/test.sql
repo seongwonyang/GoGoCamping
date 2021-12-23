@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 -- 전체 상품 리스트 조회 페이징(main)
 select rnum, product_name, price, product_img
 from (select p.*, row_number() over(order by product_name) as rnum from product p)
@@ -115,4 +114,68 @@ and c.category_name = '텐트/타프'
 and c.detail_category_name = '텐트'
 order by price desc
 
-delete from category where category_name = '카테고리 이름';
+-- 2차구현
+-- 장바구니 추가
+insert into cart(cart_no,product_count,customer_id,product_id)
+values(cart_seq.nextval,1,'customer',1);
+
+-- 장바구니에 같은 상품이 있을 경우
+update cart set product_count = product_count+1 where customer_id = 'customer' and product_id = 1
+
+-- 장바구니 확인 (최신순)
+select c.*, p.* from cart c, product p 
+where c.product_id = p.product_id
+and c.customer_id = 'customer' and p.product_id = 1
+order by c.cart_no desc
+
+-- 장바구니 상품 수량 변경
+update cart set product_count = 5 where customer_id = 'customer' and product_id = 1
+
+-- 장바구니에서 상품 삭제
+delete from cart where customer_id = 'customer' and product_id = 1
+
+
+-- 좋아요 하기
+insert into likes(likes_no,customer_id,product_id)
+values(likes_seq.nextval,'java',1);
+
+select * from likes
+
+-- 좋아요 취소
+delete from likes where customer_id = 'customer' and product_id = 1
+
+-- 좋아요 확인 (최신순)
+select l.likes_no, l.customer_id, p.product_id,p.product_name,p.price,p.product_img
+from likes l, product p 
+where l.product_id=p.product_id 
+and l.customer_id = 'customer'
+order by l.likes_no desc
+
+select l.likes_no, l.customer_id, p.product_id,p.product_name,p.price,p.product_img
+	from likes l, product p 
+	where l.product_id=p.product_id 
+	and l.customer_id = 'customer'
+	order by l.likes_no desc
+-- 주문 
+
+-- 주문내역 확인
+
+-- 주문 취소
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
