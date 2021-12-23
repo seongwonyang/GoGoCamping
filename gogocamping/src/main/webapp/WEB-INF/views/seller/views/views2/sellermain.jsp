@@ -41,31 +41,41 @@
                                     <th>상품명</th>
                                     <th>가격</th>
                                     <th>재고량</th>
+                                    <th></th>
                                 </tr>
                             </thead>
-                            <c:forEach items="" var="product">
 	                            <tbody>
+	                            <c:forEach items="${getSellerProductList}" var="product">
 	                                <tr>
 	                                    <td>
-	                                        ${productVO.productId }
+	                                        ${product.productId}
+	                                        <form id="UpdateProductForm2" action="UpdateProductForm">
+                        						<input type="hidden" id="productId" name="productId" value="">
+                       						</form>
 	                                    </td>
 	                                    <td>
-	                                        ${productVO.categoryVO.categoryName }<br>
-	                                        ${productVO.categoryVO.detailcategoryName }                                        
+	                                        ${product.categoryVO.categoryName}<br>
+	                                        ${product.categoryVO.detailCategoryName}                                        
 	                                    </td>
 	                                    <td>
-	                                        ${productVO.productName }
+	                                        ${product.productName}
 	                                    </td>
 	                                    <td>
-	                                        ${productVO.price }
+	                                        ${product.price}
 	                                    </td>
 	                                    <td>
-	                                        ${productVO.stock }
+	                                        ${product.stock}
 	                                    </td>
-	                                    <td><button type="button" class="site-btn" style="background-color: #065E93; border-radius: 10px;">상품 정보 수정</button></td>
+	                                    <td>
+	                                    	<a class="updateProductBtn" data-productid="${product.productId}">
+		                                    	<button type="button" class="site-btn" style="background-color: #065E93; border-radius: 10px;">
+		                                    		상품 정보 수정
+		                                    	</button>
+	                                    	</a>
+	                                	</td>
 	                                </tr>
+	                                </c:forEach>
 	                            </tbody>
-                            </c:forEach>
                         </table>
                     </div>
                 </div>
@@ -82,5 +92,16 @@
         </div>
     </section>
     <!-- Product Section End -->
-
 </body>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+		
+		$(function(){		
+			$('.updateProductBtn').on('click', function() {
+			    var tabType = $(this).data('productid');
+			    $("#productId").val($(this).data('productid'));
+			    
+			    $("#UpdateProductForm2").submit();
+			});
+		});
+	</script>

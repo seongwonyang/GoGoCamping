@@ -29,4 +29,10 @@ public interface ProductMapper {
 
 	void registerProduct(ProductVO productVO);
 
+	List<ProductVO> getSellerProductList(String sellerId);
+	
+	ProductVO getProductInfo(int productId);
+
+	void updateProduct(ProductVO productVO);
+
 }

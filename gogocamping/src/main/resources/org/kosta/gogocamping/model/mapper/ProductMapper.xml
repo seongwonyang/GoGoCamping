@@ -61,8 +61,19 @@
 	<result property="categoryVO.detailCategoryName" column="detail_category_name"/>
 </resultMap> 
 
+<resultMap id="sellerProductMap" type="ProductVO">
+	<result property="sellerVO.sellerId" column="seller_id"/>
+	<result property="categoryVO.categoryNo" column="category_no"/>
+	<result property="categoryVO.categoryName" column="category_name"/>
+	<result property="categoryVO.detailCategoryName" column="detail_category_name"/>
+</resultMap> 
+
 <parameterMap id="registerProductMap" type="ProductVO">
 	<parameter property="sellerVO.sellerId"/>
+	<parameter property="categoryVO.categoryNo"/>
+</parameterMap> 
+
+<parameterMap id="updateProductMap" type="ProductVO">
 	<parameter property="categoryVO.categoryNo"/>
 </parameterMap> 
 
@@ -111,4 +122,38 @@
 	insert into product(product_id, product_name, price, product_info, stock, product_img, product_img_stored, seller_id, category_no)
 	values(product_seq.nextval, #{productName}, #{price}, #{productInfo}, #{stock}, #{productImg}, #{productImgStored}, #{sellerVO.sellerId}, #{categoryVO.categoryNo})
 </insert>
+<select id="getSellerProductList" resultMap="sellerProductMap" parameterType="String">
+	select p.product_id, p.product_name, p.price, p.product_info, p.stock, c.category_no, c.category_name, c.detail_category_name
+	from product p, category c
+	where p.seller_id = #{sellerVO.sellerId} and p.category_no = c.category_no
+	order by p.product_id desc
+</select>
+<select id="getProductInfo" resultMap="sellerProductMap" parameterType="int">
+	select *
+	from product
+	where product_id = #{productId}
+</select>
+<update id="updateProduct" parameterMap="updateProductMap">
+	update product 
+	set product_name = #{productName}, price = #{price}, product_info = #{productInfo}, stock = #{stock}, 
+	product_img = #{productImg}, product_img_stored = #{productImgStored}, category_no = #{categoryVO.categoryNo}
+	where product_id = #{productId}
+</update>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

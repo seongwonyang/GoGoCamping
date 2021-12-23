@@ -43,6 +43,20 @@ public class ProductVO {
 		this.sellerVO = sellerVO;
 		this.categoryVO = categoryVO;
 	}
+	
+
+	public ProductVO(int productId, String productName, int price, String productInfo, int stock, String productImg,
+			String productImgStored, CategoryVO categoryVO) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.price = price;
+		this.productInfo = productInfo;
+		this.stock = stock;
+		this.productImg = productImg;
+		this.productImgStored = productImgStored;
+		this.categoryVO = categoryVO;
+	}
 
 	public int getProductId() {
 		return productId;
