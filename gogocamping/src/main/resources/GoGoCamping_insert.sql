@@ -8,7 +8,7 @@ values('seller','판매자','a',1,'seller@naver.com','캠핑브랜드', '로고�
 
 -- 소비자
 insert into customer(customer_id,customer_name,customer_password,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
-values('customer','소비자','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소','1998-11-08',to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'));
+values('customer2','소비자','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소',to_date('1998/11/08','YYYY-MM-DD'),sysdate);
 
 -- 카테고리
 insert into category(category_no,category_name,detail_category_name)
@@ -31,8 +31,9 @@ insert into review(review_no,grade,review_content,review_regdate,customer_id,pro
 values(review_seq.nextval,5,'리뷰내용',sysdate,'customer',1);
 
 -- 주문 정보
-insert into order_info(order_no,order_date,order_post_number,order_address,order_detailed_address,receiver_name,receiver_tel,payment,customer_id)
-values(order_info_seq.nextval,to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'),'00000','주문자 주소','주문자 상세주소','받는사람 이름','받는사람 번호','지불방법','customer');
+
+insert into order_info(order_no,order_date,order_comment,order_post_number,order_address,order_detailed_address,receiver_name,receiver_tel,payment,customer_id)
+values('주문번호난수생성',sysdate,'배송메시지','00000','주문자 주소','주문자 상세주소','받는사람 이름','받는사람 번호','지불방법','customer');
 
 -- 주문 상세 정보(상품)
 insert into order_detail(order_detail_no, order_count, order_price, delivery_status, delivery_compldate, refund_check, order_no, product_id)
@@ -44,7 +45,7 @@ values(refund_seq.nextval,'환불카테고리','환불이유','환불사진','�
 
 -- QnA
 insert into QnA(qna_no, qna_category, title, content, regdate, product_id, customer_id)
-values(qna_seq.nextval,'질문카테고리','질문제목','질문내용',to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'),1,'customer');
+values(qna_seq.nextval,'질문카테고리','질문제목','질문내용',sysdate,1,'customer');
 
 
 
@@ -352,7 +353,5 @@ values(product_seq.nextval,'발렌시아 650 XL',150450,'발렌시아 650 XL',18
 
 commit
 
--- cart
-insert into cart(cart_no,product_count,customer_id,product_id)
-values(cart_seq.nextval,3,'customer',1);
+
 

@@ -123,6 +123,12 @@
 <select id="getProductDetailInfo" resultMap="productMap" parameterType="int">
 	select * from product where product_id = #{value}
 </select>
+<select id="getProductStockCount" parameterType="int" resultType="int">
+	select stock from product where product_id = #{value}
+</select>
+<update id="updateProductStockCount" parameterType="map">
+	update product set stock = stock - #{productCount} where product_id = #{productId}
+</update>
 
 <!-- 상품 상세 페이지에서 관련(동일 카테고리) 상품 조회 -->
 <select id="getRelatedProductList" parameterType="String" resultType="ProductVO">

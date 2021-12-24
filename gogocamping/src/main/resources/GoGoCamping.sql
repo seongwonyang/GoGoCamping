@@ -13,20 +13,14 @@ create table seller(
 	business_number varchar2(100) not null, -- 사업자 번호
 	seller_email varchar2(100) not null,
 	brand varchar2(100) not null,
+	logo_img varchar2(500) not null,
+	logo_img_stored varchar2(500) not null,
 	seller_tel varchar2(100) not null,
 	seller_post_number varchar2(100) not null,
 	seller_address varchar2(500) not null,
 	seller_detailed_address varchar2(500) not null,
 	register_admin number not null -- 가입 승인 여부 (0 or 1)
 );
-select * from SELLER;
-alter table seller add logo_img varchar2(500) null;
-alter table seller add logo_img_stored varchar2(500) null;
-
-select seller_id, seller_name, seller_email 
-from seller 
-where seller_id='helinox' and seller_name='김근영' and business_number='0123456789';
-
 -- 1-3.소비자(customer)
 create table customer(
 	customer_id varchar2(100) primary key,
@@ -53,7 +47,6 @@ create table category(
 	detail_category_name varchar2(100) not null
 );
 create sequence category_seq;   
-select * from category
 
 -- 2-2.상품(product)
 create table product(
@@ -69,11 +62,11 @@ create table product(
 	constraint fk_category_no foreign key(category_no) references category(category_no)
 );
 create sequence product_seq;
-select * from product
 
 -- 2-3.장바구니(cart)
 create table cart(
 	cart_no number primary key,
+	product_count number not null,
 	customer_id varchar2(100) not null,
 	product_id number not null,
 	constraint fk_c_product_id foreign key(product_id) references product(product_id) on delete cascade
@@ -117,8 +110,9 @@ drop sequence cart_seq;
 -- 3.주문, 환불 관련 테이블 생성
 -- 3-1.주문정보(order_info)
 create table order_info(
-	order_no number primary key,
+	order_no varchar2(100) primary key,
 	order_date date not null,
+	order_comment varchar2(500),
 	order_post_number varchar2(100) not null,
 	order_address varchar2(500) not null,
 	order_detailed_address varchar2(500) not null,
@@ -136,9 +130,9 @@ create table order_detail(
 	order_count number not null,
 	order_price number not null,
 	delivery_status varchar2(100) not null,
-	delivery_compldate varchar2(100),
-	refund_check varchar2(100) not null, -- 0 or 1
-	order_no number not null,
+	delivery_compldate date,
+	refund_check number not null, -- 0 or 1
+	order_no varchar2(100) not null,
 	product_id number not null,
 	constraint fk_order_no foreign key(order_no) references order_info(order_no),
 	constraint fk_o_product_id foreign key(product_id) references product(product_id)
@@ -163,7 +157,7 @@ create table QnA(
 	qna_category varchar2(100) not null,
 	title varchar2(100) not null,
 	content clob not null,
-	answer clob not null,
+	answer clob,
 	regdate date not null,
 	product_id number not null,
 	customer_id varchar2(100) not null,
@@ -182,7 +176,6 @@ drop sequence order_detail_seq;
 drop sequence refund_seq;
 drop sequence QnA_seq;
 
-delete from product
 
 
 

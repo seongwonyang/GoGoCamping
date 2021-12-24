@@ -31,6 +31,7 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
                         <h3>${productVO.productName }</h3>
+                        <input type="hidden" id="detailProductId" value="${productVO.productId}">
                         <div class="product__details__rating">
                         <c:choose>
                         	<c:when test="${avgReview < 1}">
@@ -69,11 +70,11 @@
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="text" id="detailProductCount" value="1">
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="primary-btn">ADD TO CARD</a>
+                        <a href="#none" id="insertToCart" class="primary-btn">ADD TO CART</a>
                         <c:choose>
                         	<c:when test="${checkSameProductInLikes==0}">
                         		<a href="#none"><img id="heartIcon" src="img/likes/dislikes.png" style="width:30px;"></a>
@@ -207,28 +208,44 @@
     </section>
     <!-- Related Product Section End -->
 
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript">
-    // 찜하기 버튼 클릭 메서드
-		$(function() {
-			$("#heartIcon").click(function() {
-				if(${sessionScope.loginVO==null}) {
-					alert("로그인 후 이용 가능합니다.");
-				} else {
-					$.ajax({
-						type:"post",
-						url:"likesAndEmptyLikes",
-						data:"customerId="+'${sessionScope.loginVO.customerId}'+"&productId="+'${productVO.productId}',
-						success: function(checkLikes) {
-							if(checkLikes==1) { // 찜목록에 추가되면
-								$("#heartIcon").attr("src","img/likes/likes.png");
-							} else { // 찜목록에서 삭제되면
-								$("#heartIcon").attr("src","img/likes/dislikes.png");
-							}
-						}
-					});
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#insertToCart").click(function() { // 장바구니 담기
+			let detailProductId = document.getElementById("detailProductId").value;
+			let detailProductCount = document.getElementById("detailProductCount").value;
+			$.ajax({
+				type:"post",
+				url:"insertProductInCart",
+				data:"productId="+detailProductId+"&productCount="+detailProductCount,
+				success:function(){
+					let goToCartPage = confirm("상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?");
+					if(goToCartPage) {
+						location.href="getProductListInCart";
+					} 
 				}
-			});
-		});
+			});//ajax
+		});//insertToCart
+
+  $("#heartIcon").click(function() { // 찜하기 버튼 클릭
+    if(${sessionScope.loginVO==null}) {
+      alert("로그인 후 이용 가능합니다.");
+    } else {
+      $.ajax({
+        type:"post",
+        url:"likesAndEmptyLikes",
+        data:"customerId="+'${sessionScope.loginVO.customerId}'+"&productId="+'${productVO.productId}',
+        success: function(checkLikes) {
+          if(checkLikes==1) { // 찜목록에 추가되면
+            $("#heartIcon").attr("src","img/likes/likes.png");
+          } else { // 찜목록에서 삭제되면
+            $("#heartIcon").attr("src","img/likes/dislikes.png");
+          }
+        }
+      });
+    }
+  });
+
 	</script>
 </body>
+
