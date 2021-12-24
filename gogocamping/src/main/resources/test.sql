@@ -167,17 +167,55 @@ where l.product_id=p.product_id
 and l.customer_id = 'customer' and p.product_id = 1
 order by l.likes_no desc
 
--- 주문 
-
--- 주문내역 확인
-
--- 주문 취소
-
-select * from customer where customer_id = 'customer'
+-- 주문
+select * from order_info
 
 
+-- 주문 정보
+insert into order_info(order_no,order_date,order_post_number,order_address,order_detailed_address,receiver_name,receiver_tel,payment,customer_id)
+values(order_info_seq.nextval,sysdate,'00000','주문자 주소','주문자 상세주소','받는사람 이름','받는사람 번호','지불방법','customer');
 
+-- 주문 상세 정보(상품)
+insert into order_detail(order_detail_no, order_count, order_price, delivery_status, delivery_compldate, refund_check, order_no, product_id)
+values(order_detail_seq.nextval,2,1500,'배송상태','배송완료날짜','0',1,1);
 
+-- 상품 주문 시 재고량 변경 (주문한 상품 개수가 4개일 때)
+update product set stock = stock - 4 where product_id = 2 and stock > 4
 
+select * from product
 
+select * from customer where customer_id = 'a'
+
+delete from customer where customer_id = 'sehee167'
+
+delete from order_info
+delete from order_detail
+delete from refund
+
+-- 주문
+-- 1. 재고량 비교 (select)
+-- 2. order_info 에 주문 정보 삽입 (insert)
+-- 3. order_detail 에 주문 상품 상세 정보 삽입 (insert)
+-- 4. 재고량 감소 (update)
+-- 5. 장바구니에서 주문한 상품 삭제 (delete)
+
+select * from product where product_id = 1;
+select * from cart where customer_id = 'customer'
+
+-- 1. 재고량 비교 (select)
+select stock from product where product_id = 1
+-- 2. order_info 에 주문 정보 삽입 (insert)
+insert into order_info(order_no,order_date,order_comment,order_post_number,order_address,order_detailed_address,receiver_name,receiver_tel,payment,customer_id)
+values(order_info_seq.nextval,sysdate,'배송메시지','00000','주문자 주소','주문자 상세주소','받는사람 이름','받는사람 번호','지불방법','customer');
+-- 3. order_detail 에 주문 상품 상세 정보 삽입 (insert)
+insert into order_detail(order_detail_no, order_count, order_price, delivery_status, delivery_compldate, refund_check, order_no, product_id)
+values(order_detail_seq.nextval,2,1500,'배송상태','배송완료날짜',0,1,1);
+-- 4. 재고량 감소 (update)
+update product set stock = stock - 1 where product_id = 1
+-- 5. 장바구니에서 주문한 상품 삭제 (delete)
+delete from cart where cart_no = 1 and cart_no = 2
+
+alter table order_detail modify(delivery_compldate date)
+
+delete from order_detail
 
