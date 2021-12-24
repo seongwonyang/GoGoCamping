@@ -353,7 +353,5 @@ values(product_seq.nextval,'발렌시아 650 XL',150450,'발렌시아 650 XL',18
 
 commit
 
--- cart
-insert into cart(cart_no,product_count,customer_id,product_id)
-values(cart_seq.nextval,'customer',1);
+
 

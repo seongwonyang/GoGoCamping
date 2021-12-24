@@ -2,12 +2,14 @@ package org.kosta.gogocamping.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.gogocamping.model.domain.CustomerVO;
 import org.kosta.gogocamping.model.domain.PagingBean;
+import org.kosta.gogocamping.model.domain.OrderDetailVO;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
 import org.kosta.gogocamping.model.mapper.CustomerMapper;
 import org.kosta.gogocamping.model.mapper.ProductMapper;
@@ -183,4 +185,16 @@ public class CustomerController {
         }
         return str;
     }
+	@RequestMapping("orderCheck")
+	public String orderCheck(String customerId, Model model) {
+		List<OrderDetailVO> list = customerMapper.orderCheck(customerId);
+		model.addAttribute("orderList", list);
+		return "customer/customer-orderCheck.tiles";
+	}
+	@RequestMapping("buyConfirm")
+	@ResponseBody
+	public String buyConfirm(int orderDetailNo) {
+		customerMapper.buyConfirm(orderDetailNo);
+		return "구매확정";
+	}
 }

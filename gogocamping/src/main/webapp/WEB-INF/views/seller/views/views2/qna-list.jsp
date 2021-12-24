@@ -8,12 +8,12 @@
     </div> -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/캠핑장.png">
+    <section class="breadcrumb-section set-bg" data-setbg="img/camp.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Go Go Camping</h2>
+                        <h2>Go Go Camping for ${sessionScope.loginVO.brand}</h2>
                     </div>
                 </div>
             </div>

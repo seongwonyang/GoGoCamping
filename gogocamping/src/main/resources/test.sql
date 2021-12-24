@@ -218,4 +218,3 @@ delete from cart where cart_no = 1 and cart_no = 2
 alter table order_detail modify(delivery_compldate date)
 
 delete from order_detail
-
