@@ -89,8 +89,8 @@
                             </c:when>
                             <c:otherwise>
                              <div class="header__top__right__social">
-		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
-		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
+                              <a href="getLikesList?customerId=${sessionScope.loginVO.customerId}"><i class="fa fa-heart"></i> <span></span></a>
+                              <a href="getProductListInCart"><i class="fa fa-shopping-bag"></i> <span></span></a>
                             </div>
                             <div class="header__top__right__auth">
                              <nav class="header__menu">
@@ -100,6 +100,7 @@
                                     	<li><a href="#">주문조회</a></li>
                                     	<li><a href="#" id="updateInfo">정보수정</a></li>
                                     	<li><a href="#" id="updatePassword">비밀번호수정</a></li>
+                                    	<li><a href="#" id="orderCheck">주문조회</a></li>
                                 	</ul>
                             	</li>
                             	</ul>
@@ -109,6 +110,8 @@
                             	</form>
                             	<form id="updatePasswordForm" action="updateCustomerPassword" method="post">
                             	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId }">
+                            	<form id="orderCheckForm" action="orderCheck" method="get">
+                            	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId}">
                             	</form>
                             	</div>
                             	${sessionScope.loginVO.customerName}님&nbsp;&nbsp;&nbsp;
@@ -178,7 +181,7 @@
         </div>
     </section>
     <!-- Hero Section End -->
-<script src="http://code.jquery.com/jquery-latest.js"></script> 
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 	function checkKeyword(){
 		var keyword = document.getElementById("keyword").value;
@@ -197,6 +200,9 @@
 		$("#updatePassword").click(function(){
 			$("#updatePasswordForm").submit();
 		});
+		$("#orderCheck").click(function(){
+			$("#orderCheckForm").submit();
+		})
 	});
 </script>
 </body>

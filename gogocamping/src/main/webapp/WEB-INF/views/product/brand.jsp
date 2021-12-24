@@ -79,7 +79,7 @@
                     </div>
                     <div class="row">
                        <c:forEach items="${productListByBrand}" var="product">
-                           <div class="col-lg-4 col-md-6 col-sm-6">
+                           <div class="col-lg-4 col-md-6 col-sm-6" onclick="location.href='getProductDetailInfo?productId=${product.productId}'">
                                <div class="product__item">
                                    <div class="product__item__pic set-bg" data-setbg="${product.productImg}">
                                        <ul class="product__item__pic__hover">

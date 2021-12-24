@@ -1,7 +1,10 @@
 package org.kosta.gogocamping.model.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.gogocamping.model.domain.CustomerVO;
+import org.kosta.gogocamping.model.domain.OrderDetailVO;
 
 @Mapper
 public interface CustomerMapper {
@@ -21,5 +24,9 @@ public interface CustomerMapper {
 	void updatePassword(String customerPassword, String customerId);
 	
 	void updateInfo(CustomerVO customerVO);
+  
+	public List<OrderDetailVO> orderCheck(String customerId);
+	
+	void buyConfirm(int orderDetailNo);
 
 }
