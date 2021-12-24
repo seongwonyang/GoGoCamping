@@ -27,6 +27,14 @@ public interface ProductMapper {
 
 	List<ProductVO> getProductListByBrandAndCategory(Map<String, String> map);
 
+	void registerProduct(ProductVO productVO);
+
+	List<ProductVO> getSellerProductList(String sellerId);
+	
+	ProductVO getProductInfo(int productId);
+
+	void updateProduct(ProductVO productVO);
+
 	ProductVO getProductDetailInfo(int productId);
 
 }
