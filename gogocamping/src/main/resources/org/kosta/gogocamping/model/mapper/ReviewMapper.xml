@@ -14,4 +14,8 @@
 <select id="getReviewCountByProductId" parameterType="int" resultType="int">
 	SELECT COUNT(*) FROM review WHERE product_id = ${value}
 </select>
+
+<select id="getAvgReview" parameterType="int" resultType="int">
+	SELECT AVG(grade) FROM review WHERE product_id = ${value}
+</select>
 </mapper>

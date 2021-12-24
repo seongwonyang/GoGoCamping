@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<body>
 <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
         <div class="container">
@@ -32,14 +32,39 @@
                     <div class="product__details__text">
                         <h3>${productVO.productName }</h3>
                         <div class="product__details__rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
+                        <c:choose>
+                        	<c:when test="${avgReview < 1}">
+                       			<i class="fa fa-star">리뷰 없음</i>
+                       		</c:when>
+                       		<c:when test="${avgReview < 2}">
+                       			<i class="fa fa-star"></i>
+                       		</c:when>
+                       		<c:when test="${avgReview < 3}">
+                       			<i class="fa fa-star"></i>
+                       			<i class="fa fa-star"></i>
+                       		</c:when>
+                       		<c:when test="${avgReview < 4}">
+                       			<i class="fa fa-star"></i>
+                       			<i class="fa fa-star"></i>
+                       			<i class="fa fa-star"></i>
+                       		</c:when>
+                       		<c:when test="${avgReview < 5}">
+                       			<i class="fa fa-star"></i>
+                       			<i class="fa fa-star"></i>
+                       			<i class="fa fa-star"></i>
+                       			<i class="fa fa-star"></i>
+                       		</c:when>
+                       		<c:otherwise>
+                       			<i class="fa fa-star"></i>
+                       			<i class="fa fa-star"></i>
+                       			<i class="fa fa-star"></i>
+                       			<i class="fa fa-star"></i>
+                       			<i class="fa fa-star"></i>
+                       		</c:otherwise>
+                        </c:choose>
                             <span>(${reviewCount } reviews)</span>
                         </div>
-                        <div class="product__details__price">${productVO.price }</div>
+                        <div class="product__details__price">${productVO.price } </div>
                         <p>[ ${sellerVO.brand} ] ${productVO.productName }</p>
                         <div class="product__details__quantity">
                             <div class="quantity">
@@ -78,7 +103,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                    aria-selected="false">QnA <span>(1)</span></a>
+                                    aria-selected="false">QnA</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -92,7 +117,7 @@
                                 <div class="product__details__tab__desc">
                                     <h6>리뷰</h6>
                                     <c:forEach items="${reviewList }" var="review">
-                                    <p>${review.customerVO.customerId }&nbsp;&nbsp;&nbsp;${review.reviewRegdate }</p>
+                                    <p><b>${review.customerVO.customerId }</b>&nbsp;&nbsp;&nbsp;${review.reviewRegdate }</p>
                                     <div class="product__details__text">
 	                                    <div class="product__details__rating">
 	                                    	<c:choose>
@@ -132,7 +157,14 @@
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                     <h6>상품 문의</h6>
-                                    <p>상품 문의 폼 및 리스트?</p>
+                                    <c:forEach items="${qnaList }" var="qna">
+                                    	<p><b>${qna.customerVO.customerId }</b>&nbsp;&nbsp;&nbsp;${qna.regdate }</p>
+                                    <div class="product__details__text">
+	                                    <b>[ ${qna.qnaCategory} ] ${qna.title }</b>
+	                                </div><br>
+                                    	<p>${qna.content }</p>
+                                    <hr>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -167,3 +199,6 @@
         </div>
     </section>
     <!-- Related Product Section End -->
+    
+    
+</body>

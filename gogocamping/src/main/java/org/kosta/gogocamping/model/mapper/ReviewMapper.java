@@ -13,4 +13,6 @@ public interface ReviewMapper {
 
 	int getReviewCountByProductId(int productId);
 
+	int getAvgReview(int productId);
+
 }
