@@ -89,7 +89,7 @@
                             </c:when>
                             <c:otherwise>
                              <div class="header__top__right__social">
-		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
+		                        <a href="getLikesList?customerId=${sessionScope.loginVO.customerId}"><i class="fa fa-heart"></i> <span></span></a>
 		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
                             </div>
                             <div class="header__top__right__auth">
