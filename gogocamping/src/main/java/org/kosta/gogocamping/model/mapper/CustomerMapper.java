@@ -19,5 +19,7 @@ public interface CustomerMapper {
 	public CustomerVO findPassword(CustomerVO customerVO);
 	
 	void updatePassword(String customerPassword, String customerId);
+	
+	void updateInfo(CustomerVO customerVO);
 
 }

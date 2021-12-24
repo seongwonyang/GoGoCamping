@@ -98,11 +98,18 @@
                             	<li style="text-align:center"><a href="#">마이페이지&nbsp;&nbsp;&nbsp;</a>
                                 	<ul class="header__menu__dropdown">
                                     	<li><a href="#">주문조회</a></li>
-                                    	<li><a href="#">정보수정</a></li>
+                                    	<li><a href="#" id="updateInfo">정보수정</a></li>
+                                    	<li><a href="#" id="updatePassword">비밀번호수정</a></li>
                                 	</ul>
                             	</li>
                             	</ul>
                             	</nav>
+                            	<form id="customerInfoForm" action="updateCustomerInfo" method="post"> 
+                            	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId }">
+                            	</form>
+                            	<form id="updatePasswordForm" action="updateCustomerPassword" method="post">
+                            	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId }">
+                            	</form>
                             	</div>
                             	${sessionScope.loginVO.customerName}님&nbsp;&nbsp;&nbsp;
                             	<a href="logoutCustomer">logout</a>
@@ -128,7 +135,7 @@
                                 <input type="text" id="keyword" name="keyword" placeholder="찾으시는 상품을 검색해 보세요!">
                                 <button type="submit" class="site-btn">SEARCH</button>
                             </form>
-                        </div>    
+                        </div>
                     </div>
                 </div>
             </div>
@@ -171,6 +178,7 @@
         </div>
     </section>
     <!-- Hero Section End -->
+<script src="http://code.jquery.com/jquery-latest.js"></script> 
 <script type="text/javascript">
 	function checkKeyword(){
 		var keyword = document.getElementById("keyword").value;
@@ -182,5 +190,13 @@
 			return true;
 		}
 	}
+	$(function(){
+		$("#updateInfo").click(function(){
+			$("#customerInfoForm").submit();
+		});
+		$("#updatePassword").click(function(){
+			$("#updatePasswordForm").submit();
+		});
+	});
 </script>
 </body>

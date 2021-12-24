@@ -13,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-
 @Controller
 public class CustomerController {
 	@Resource
@@ -163,4 +161,27 @@ public class CustomerController {
         }
         return str;
     }
+	@RequestMapping("updateCustomerInfo") //정보수정폼으로 이동
+	public String updateCustomerInfo(Model model, String customerId) {
+		model.addAttribute("customerInfo", customerMapper.findCustomerId(customerId));
+		return "customer/customer-update-info.tiles";
+	}
+	@RequestMapping("updateInfo") //정보수정
+	public String updateInfo(String customerId, String customerEmail, String customerTel, String customerPostNumber, String customerAddress, String customerDetailedAddress,Model model) {
+		CustomerVO cvo=new CustomerVO(customerId,null, null, customerEmail, customerTel, customerPostNumber, customerAddress, customerDetailedAddress,null, null);
+		customerMapper.updateInfo(cvo);
+		model.addAttribute("customerInfo", customerMapper.findCustomerId(customerId));
+		return "customer/customer-update-info.tiles";
+	}
+	@RequestMapping("updateCustomerPassword") //비밀번호수정폼으로 이동
+	public String updateCustomerPassword(Model model, String customerId) {
+		model.addAttribute("passwordUpdate", customerMapper.equals(customerId));
+		return "customer/customer-update-password.tiles";
+	}
+	@RequestMapping("updateNewPassword") //비밀번호 수정
+	public String updateNewPassword(String customerId, String customerPassword, HttpSession session) {
+		customerMapper.updatePassword(customerPassword, customerId);
+		session.removeAttribute("loginVO");
+		return "home.tiles";
+	}
 }
