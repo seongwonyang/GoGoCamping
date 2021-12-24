@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
 <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
@@ -65,7 +66,7 @@
                         </c:choose>
                             <span>(${reviewCount } reviews)</span>
                         </div>
-                        <div class="product__details__price">${productVO.price } </div>
+                        <div class="product__details__price"><fmt:formatNumber value="${productVO.price }" pattern="#,###" />원</div>
                         <p>[ ${sellerVO.brand} ] ${productVO.productName }</p>
                         <div class="product__details__quantity">
                             <div class="quantity">
@@ -245,6 +246,7 @@
       });
     }
   });
+});
 
 	</script>
 </body>

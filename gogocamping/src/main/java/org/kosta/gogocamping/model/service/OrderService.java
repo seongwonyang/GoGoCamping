@@ -1,5 +1,7 @@
 package org.kosta.gogocamping.model.service;
 
+import java.util.List;
+
 import org.kosta.gogocamping.model.domain.CartVO;
 import org.kosta.gogocamping.model.domain.OrderDetailVO;
 import org.kosta.gogocamping.model.domain.OrderInfoVO;
@@ -18,5 +20,7 @@ public interface OrderService {
 	void order(OrderDetailVO orderDetailVO, int productId, int productCount, int cartNo);
 
 	void getTotalInfo(String customerId, Model model);
+
+	List<OrderDetailVO> orderCheck(String customerId);
 
 }

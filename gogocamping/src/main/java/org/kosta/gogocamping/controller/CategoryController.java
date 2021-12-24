@@ -63,6 +63,7 @@ public class CategoryController {
 	      model.addAttribute("detailCategoryList", detailCategoryList);
 		  model.addAttribute("categoryList", categoryMapper.getCategoryList());
 		  model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		  model.addAttribute("option", option);
 		
 	      return "product/category.tiles";
 	}

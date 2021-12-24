@@ -1,6 +1,7 @@
 package org.kosta.gogocamping.model.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -10,6 +11,7 @@ import org.kosta.gogocamping.model.domain.OrderDetailVO;
 import org.kosta.gogocamping.model.domain.OrderInfoVO;
 import org.kosta.gogocamping.model.mapper.CartMapper;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
+import org.kosta.gogocamping.model.mapper.CustomerMapper;
 import org.kosta.gogocamping.model.mapper.OrderMapper;
 import org.kosta.gogocamping.model.mapper.ProductMapper;
 import org.kosta.gogocamping.model.mapper.SellerMapper;
@@ -29,6 +31,8 @@ public class OrderServiceImpl implements OrderService {
 	private SellerMapper sellerMapper;
 	@Resource
 	private CategoryMapper categoryMapper;
+	@Resource
+	private CustomerMapper customerMapper;
 	
 	@Override
 	public CartVO getCheckedProductListInCart(int cartNo) {
@@ -72,5 +76,10 @@ public class OrderServiceImpl implements OrderService {
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 	} 
+	
+	@Override
+	public List<OrderDetailVO> orderCheck(String customerId){
+		return customerMapper.orderCheck(customerId);
+	}
 	
 }

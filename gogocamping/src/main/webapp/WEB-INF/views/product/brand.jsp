@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
     <!-- Page Preloder -->
    <!--  <div id="preloder">
@@ -90,7 +91,7 @@
                                    </div>
                                    <div class="product__item__text">
                                        <h6><a href="#">${product.productName}</a></h6>
-                                       <h5>${product.price}</h5>
+                                       <h5><fmt:formatNumber value="${product.price}" pattern="#,###" />원</h5>
                                    </div>
                                </div>
                            </div>

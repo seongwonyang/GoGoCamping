@@ -7,7 +7,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="img/footerLogo.png" alt=""></a>
+                            <a href="/"><img src="img/footerLogo.png" alt=""></a>
                         </div>
                         <ul>
                             <li>경기도 성남시 분당구 성남대로 34</li>

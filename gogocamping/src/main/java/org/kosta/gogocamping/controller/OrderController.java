@@ -94,8 +94,11 @@ public class OrderController {
 			orderDetailVO.setProductVO(productVO);
 			
 			orderService.order(orderDetailVO, productId, orderCount, checkList.get(i));
+			orderService.getTotalInfo(customerVO.getCustomerId(), model);
+
+			model.addAttribute("orderList", orderService.orderCheck(customerVO.getCustomerId()));
 		}
-		return "home.tiles"; // 주문 성공 시 마이페이지 주문내역으로 이동
+		return "customer/customer-orderCheck.tiles"; // 주문 성공 시 마이페이지 주문내역으로 이동
 	}
 	
 }

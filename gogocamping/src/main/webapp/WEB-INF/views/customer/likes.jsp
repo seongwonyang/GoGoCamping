@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
     <!-- Page Preloder -->
    <!--  <div id="preloder">
@@ -74,14 +75,14 @@
 	                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
 	                    <div class="featured__item">
 	                        <div class="featured__item__pic set-bg" data-setbg="${likes.productVO.productImg}" onclick="location.href='getProductDetailInfo?productId=${likes.productVO.productId}'">
-	                        	<input type="hidden" id="productId" value="${likes.productVO.productId}">
+	                        	<%-- <input type="hidden" id="productId" value="${likes.productVO.productId}"> --%>
 	                        </div>
 	                        <div class="text-center">
-	                        	<a href="#none"><img id="heartIcon" src="img/likes/likes.png" class="text-center" style="align:center; width:30px;"></a>
+	                        	<a href="#none" class="heartIcon" data-productid="${likes.productVO.productId}"><img id="heart${likes.productVO.productId}" src="img/likes/likes.png" class="text-center" style="align:center; width:30px;"></a>
 	                        	</div>
 	                        <div class="featured__item__text">
 		                        <h6><a class="move" href="#">${likes.productVO.productName}</a></h6>
-		                        <h5>${likes.productVO.price}</h5>
+		                        <h5><fmt:formatNumber value="${likes.productVO.price}" pattern="#,###" />원</h5>
 	                      	</div>
 	                    </div>
 	                </div>
@@ -124,20 +125,20 @@
 		location.href = "getAllProductList?pageNo="+pageNo+"&option="+i;
 	};
 	$(function() {
-		$("#heartIcon").click(function() {
+		$(".heartIcon").on('click',function() {
 			// productId값 가져오기
-			let productId = $("#productId:hidden").val();
+			let productId = $(this).data('productid');
 			//alert(productId);
 			//alert("${sessionScope.loginVO.customerId}");
 			$.ajax({
 				type:"post",
 				url:"likesAndEmptyLikes",
-				data:"customerId="+'${sessionScope.loginVO.customerId}'+"&productId="+productId,
+				data:"customerId="+'${sessionScope.loginVO.customerId}'+"&productId="+$(this).data('productid'),
 				success: function(checkLikes) {
 					if(checkLikes==0) { // 찜목록에서 삭제되면
-						$("#heartIcon").attr("src","img/likes/dislikes.png");
+						$("#heart"+productId).attr("src","img/likes/dislikes.png");
 					} else { // 찜목록에 추가되면
-						$("#heartIcon").attr("src","img/likes/likes.png");
+						$("#heart"+productId).attr("src","img/likes/likes.png");
 					}
 				}
 			});
