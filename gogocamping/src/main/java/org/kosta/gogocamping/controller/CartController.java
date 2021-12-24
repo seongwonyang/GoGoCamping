@@ -96,7 +96,6 @@ public class CartController {
 			result = 1;
 			for(int i=0; i<checkedDeleteList.size(); i++) {
 				cartMapper.deleteProductInCart(checkedDeleteList.get(i));
-				System.out.println(checkedDeleteList.get(i));
 			}
 		}
 		return result;
