@@ -35,4 +35,6 @@ public interface ProductMapper {
 
 	void updateProduct(ProductVO productVO);
 
+	ProductVO getProductDetailInfo(int productId);
+
 }
