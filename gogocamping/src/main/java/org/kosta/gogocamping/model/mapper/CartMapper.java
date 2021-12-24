@@ -31,4 +31,6 @@ public interface CartMapper {
 
 	void minusProductCountInCart(int cartNo);
 
+	CartVO getCheckedProductListInCart(int cartNo);
+
 }

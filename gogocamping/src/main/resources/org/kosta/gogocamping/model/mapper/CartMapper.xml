@@ -46,4 +46,9 @@
 <update id="minusProductCountInCart" parameterType="int">
 	update cart set product_count = product_count-1 where cart_no = #{value}
 </update>
+<select id="getCheckedProductListInCart" parameterType="int" resultMap="cartMap">
+	select c.*, p.* from cart c, product p 
+	where c.product_id = p.product_id and c.cart_no = #{value}
+	order by c.cart_no desc
+</select>
 </mapper>
