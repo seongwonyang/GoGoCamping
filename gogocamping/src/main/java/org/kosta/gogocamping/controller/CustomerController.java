@@ -1,9 +1,12 @@
 package org.kosta.gogocamping.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.gogocamping.model.domain.CustomerVO;
+import org.kosta.gogocamping.model.domain.OrderDetailVO;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
 import org.kosta.gogocamping.model.mapper.CustomerMapper;
 import org.kosta.gogocamping.model.mapper.SellerMapper;
@@ -12,8 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 @Controller
 public class CustomerController {
@@ -163,4 +164,16 @@ public class CustomerController {
         }
         return str;
     }
+	@RequestMapping("orderCheck")
+	public String orderCheck(String customerId, Model model) {
+		List<OrderDetailVO> list = customerMapper.orderCheck(customerId);
+		model.addAttribute("orderList", list);
+		return "customer/customer-orderCheck.tiles";
+	}
+	@RequestMapping("buyConfirm")
+	@ResponseBody
+	public String buyConfirm(int orderDetailNo) {
+		customerMapper.buyConfirm(orderDetailNo);
+		return "구매확정";
+	}
 }
