@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" />
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
 	<!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="img/camp.png">
@@ -90,7 +90,7 @@
                             <li>선택 상품 개수 <span id="checkedProductCount"></span></li>
                             <li>결제 금액 <span id="totalPrice"></span></li>
                         </ul>
-                        <a href="#" class="primary-btn">결제하기</a>
+                        <a href="#none" id="orderProduct" class="primary-btn">주문하기</a>
                     </div>
                 </div>
             </div>
@@ -101,6 +101,11 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 $(function(){
+	if('${soldout}' == 'soldout'){
+		alert("재고가 부족하여 주문할 수 없습니다.");
+		location.replace("getProductListInCart");
+	}
+	
  	$(document).ready(function() { 
 		$("input[name=checkAll]").prop("checked", true);
 		$.ajax({
@@ -259,6 +264,17 @@ $(function(){
 		});//ajax
 	});//inc
 
+	$("#orderProduct").on('click', function() {
+		var checkList = new Array();
+		$('input[type="checkbox"]:checked').each(function (index) {
+			checkList.push($(this).val());
+        });
+		
+		if(checkList[0]=="on"){
+			checkList.shift();
+		}
+		location.href = "orderProduct?checkList="+checkList;
+	});
 });//ready
 
 function numberWithCommas(x) { // 가격 천단위 콤마 표시
