@@ -29,4 +29,6 @@ public interface SellerMapper {
 
 	void updatePassword(SellerVO sellerVO);
 
+	SellerVO getSellerInfoByProduct(String sellerId);
+
 }

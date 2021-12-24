@@ -163,6 +163,7 @@ create table QnA(
 	qna_category varchar2(100) not null,
 	title varchar2(100) not null,
 	content clob not null,
+	answer clob not null,
 	regdate date not null,
 	product_id number not null,
 	customer_id varchar2(100) not null,

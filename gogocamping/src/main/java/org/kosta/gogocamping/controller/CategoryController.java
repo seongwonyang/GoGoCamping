@@ -86,6 +86,7 @@ public class CategoryController {
 		
 		return "product/detail-category.tiles";
 	}
+
 	@RequestMapping("getDetailCategoryList")
 	@ResponseBody
 	public ArrayList<String> getDetailCategoryList(String category){
@@ -96,9 +97,6 @@ public class CategoryController {
 		detailList.add(getDetailList.get(i).getDetailCategoryName());
 	}
 	      
-		System.out.println(category);
-		System.out.println(detailList);
-		      
 		return detailList;
 	}
 	

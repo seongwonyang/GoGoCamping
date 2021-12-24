@@ -10,9 +10,14 @@ import javax.servlet.http.HttpSession;
 import org.kosta.gogocamping.model.domain.CustomerVO;
 import org.kosta.gogocamping.model.domain.PagingBean;
 import org.kosta.gogocamping.model.domain.ProductVO;
+import org.kosta.gogocamping.model.domain.QnAVO;
+import org.kosta.gogocamping.model.domain.ReviewVO;
+import org.kosta.gogocamping.model.domain.SellerVO;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
 import org.kosta.gogocamping.model.mapper.LikesMapper;
 import org.kosta.gogocamping.model.mapper.ProductMapper;
+import org.kosta.gogocamping.model.mapper.QnAMapper;
+import org.kosta.gogocamping.model.mapper.ReviewMapper;
 import org.kosta.gogocamping.model.mapper.SellerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +33,12 @@ public class ProductController {
 	@Resource
 	private SellerMapper sellerMapper;
 	@Resource
+	private ReviewMapper reviewMapper;
+	@Resource
+	private QnAMapper qnaMapper;
+  @Resource
 	private LikesMapper likesMapper;
+
 	@Autowired
 	public ProductController(ProductMapper productMapper, CategoryMapper categoryMapper, SellerMapper sellerMapper) {
 		super();
@@ -111,7 +121,20 @@ public class ProductController {
 	@RequestMapping("getProductDetailInfo")
 	public String getProductDetailInfo(int productId, Model model, HttpServletRequest request) {
 		ProductVO productVO = productMapper.getProductDetailInfo(productId);
+		SellerVO sellerVO = sellerMapper.getSellerInfoByProduct(productVO.getSellerVO().getSellerId());
+		String categoryName = categoryMapper.getCategoryNameByProductId(productId);
 		
+		ArrayList<ProductVO> relatedProductList = productMapper.getRelatedProductList(categoryName); //관련 상품 리스트
+		ArrayList<ReviewVO> reviewList = reviewMapper.getReviewListByProductId(productId); // 상품에 달린 리뷰 리스트
+		ArrayList<QnAVO> qnaList = qnaMapper.getQnaListByProductId(productId); // 상품에 달린 QnA 리스트
+		
+		int reviewCount = reviewMapper.getReviewCountByProductId(productId);;
+		int avgReview = 0;
+		
+		if(reviewCount!=0) {
+			avgReview = reviewMapper.getAvgReview(productId);
+		}
+			
 		HttpSession session = request.getSession(false);
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
 		
@@ -124,10 +147,15 @@ public class ProductController {
 			model.addAttribute("checkSameProductInLikes", 0);
 		}
 		
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
+    model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		model.addAttribute("productVO", productVO);
-//		System.out.println(productMapper.getProductDetailInfo(productId));
+		model.addAttribute("sellerVO", sellerVO);
+		model.addAttribute("relatedProductList", relatedProductList);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("reviewCount", reviewCount);
+		model.addAttribute("avgReview", avgReview);
+		model.addAttribute("qnaList", qnaList);
 		
 		return "product/detail.tiles";
 	}

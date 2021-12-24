@@ -118,6 +118,19 @@
 		</otherwise>
 	</choose>
 </select>
+
+<!-- 상품 상세페이지 로딩 시 정보 조회 -->
+<select id="getProductDetailInfo" resultMap="productMap" parameterType="int">
+	select * from product where product_id = #{value}
+</select>
+
+<!-- 상품 상세 페이지에서 관련(동일 카테고리) 상품 조회 -->
+<select id="getRelatedProductList" parameterType="String" resultType="ProductVO">
+	select p.*
+	from product p, (select category_no, category_name from category where category_name=#{value}) c
+	where p.category_no = c.category_no
+</select>
+
 <insert id="registerProduct" parameterMap="registerProductMap">
 	insert into product(product_id, product_name, price, product_info, stock, product_img, product_img_stored, seller_id, category_no)
 	values(product_seq.nextval, #{productName}, #{price}, #{productInfo}, #{stock}, #{productImg}, #{productImgStored}, #{sellerVO.sellerId}, #{categoryVO.categoryNo})

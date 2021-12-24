@@ -224,10 +224,17 @@
         	</div>
     	</div>
     </section>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 	function sortProduct(i) {
 		var pageNo = document.getElementById("pageNo").value;
 		location.href = "getAllProductList?pageNo="+pageNo+"&option="+i;
+	}
+	
+	
+	function getDetailCategory(i){
+		var category = document.getElementById("categorySelect").value;
+		alert(category);
 	}
 </script>
 </body>

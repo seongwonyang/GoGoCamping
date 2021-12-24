@@ -37,4 +37,6 @@ public interface ProductMapper {
 
 	ProductVO getProductDetailInfo(int productId);
 
+	ArrayList<ProductVO> getRelatedProductList(String categoryName);
+
 }
