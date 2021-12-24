@@ -104,4 +104,10 @@
 <select id="getProductDetailInfo" resultType="ProductVO" parameterType="int">
 	select * from product where product_id = #{value}
 </select>
+<select id="getProductStockCount" parameterType="int" resultType="int">
+	select stock from product where product_id = #{value}
+</select>
+<update id="updateProductStockCount" parameterType="map">
+	update product set stock = stock - #{productCount} where product_id = #{productId}
+</update>
 </mapper>

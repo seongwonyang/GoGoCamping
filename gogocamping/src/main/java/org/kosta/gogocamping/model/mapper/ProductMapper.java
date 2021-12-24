@@ -31,4 +31,8 @@ public interface ProductMapper {
 
 	ProductVO getProductDetailInfo(int productId);
 
+	int getProductStockCount(int productId);
+
+	void updateProductStockCount(Map<String, Object> map);
+
 }
