@@ -114,107 +114,35 @@ and c.category_name = '텐트/타프'
 and c.detail_category_name = '텐트'
 order by price desc
 
--- 2차구현
--- 장바구니 담기
-insert into cart(cart_no,product_count,customer_id,product_id)
-values(cart_seq.nextval,2,'sehee167',1);
-
-commit
-
-select * from cart where customer_id = 'sehee167'
-
-delete from cart where customer_id = 'customer' and product_id = 1
-
--- 장바구니에 같은 상품이 있는지 확인
-select count(*) from cart where customer_id = 'customer' and product_id = 2
-
--- 장바구니에 같은 상품이 있을 경우
-update cart set product_count = product_count+1 where customer_id = 'sehee167' and product_id = 1
-
-select * from product
-
--- 장바구니 확인 (최신순)
-select c.*, p.* from cart c, product p 
-where c.product_id = p.product_id
-and c.customer_id = 'sehee167'
-order by c.cart_no desc
-
--- 장바구니에 담긴 상품 하나 가격
-select p.price from cart c, product p 
-where c.product_id = p.product_id
-and cart_no = 23
-
--- 장바구니에 담긴 한 상품의 개수 
-select product_count from cart
-where cart_no = 23
-
--- 장바구니 상품 수량 변경
-update cart set product_count = 5 where customer_id = 'customer' and product_id = 2
-
--- 장바구니에서 상품 삭제
-delete from cart where customer_id = 'sehee167' and product_id = 1
-
--- 좋아요 하기
-insert into likes(likes_no,customer_id,product_id)
-values(likes_seq.nextval,'customer',1);
-
--- 좋아요 취소
-delete from likes where customer_id = 'customer' and product_id = 1
-
--- 좋아요 확인 (최신순)
-select l.*, p.* from likes l, product p 
-where l.product_id=p.product_id 
-and l.customer_id = 'customer' and p.product_id = 1
-order by l.likes_no desc
-
--- 주문
-select * from order_info
+delete from category where category_name = '카테고리 이름';
 
 
--- 주문 정보
-insert into order_info(order_no,order_date,order_post_number,order_address,order_detailed_address,receiver_name,receiver_tel,payment,customer_id)
-values(order_info_seq.nextval,sysdate,'00000','주문자 주소','주문자 상세주소','받는사람 이름','받는사람 번호','지불방법','customer');
 
--- 주문 상세 정보(상품)
-insert into order_detail(order_detail_no, order_count, order_price, delivery_status, delivery_compldate, refund_check, order_no, product_id)
-values(order_detail_seq.nextval,2,1500,'배송상태','배송완료날짜','0',1,1);
+select i.order_date, d.order_count, d.order_price, d.delivery_status, d.refund_check
+from order_info i , order_detail d
+where i.order_no = d.order_no
 
--- 상품 주문 시 재고량 변경 (주문한 상품 개수가 4개일 때)
-update product set stock = stock - 4 where product_id = 2 and stock > 4
+--주문개수 조회
+select count(*) 
+from (select TO_CHAR(o.order_date, 'yyyy/mm/dd'), o.order_count, o.order_price, o.delivery_status, o.refund_check, p.product_name, p.product_img
+from (select i.order_date, i.customer_id, d.order_count, d.order_price, d.delivery_status, d.refund_check, d.product_id
+from order_info i , order_detail d
+where i.order_no = d.order_no) o, product p
+where o.product_id = p.product_id
+and o.customer_id='test2')
 
-select * from product
+--주문조회
+select TO_CHAR(o.order_date, 'yyyy/mm/dd'), o.order_count, o.order_price, o.delivery_status, o.refund_check, p.product_name, p.product_img
+from (select i.order_date, i.customer_id, d.order_count, d.order_price, d.delivery_status, d.refund_check, d.product_id
+from order_info i , order_detail d
+where i.order_no = d.order_no) o, product p
+where o.product_id = p.product_id
+and o.customer_id='test2'
 
-select * from customer where customer_id = 'a'
+--test
+select i.order_date, i.customer_id, d.order_count, d.order_price, d.delivery_status, d.refund_check, d.product_id
+from order_info i , order_detail d
+where i.order_no = d.order_no
 
-delete from customer where customer_id = 'sehee167'
-
-delete from order_info
-delete from order_detail
-delete from refund
-
--- 주문
--- 1. 재고량 비교 (select)
--- 2. order_info 에 주문 정보 삽입 (insert)
--- 3. order_detail 에 주문 상품 상세 정보 삽입 (insert)
--- 4. 재고량 감소 (update)
--- 5. 장바구니에서 주문한 상품 삭제 (delete)
-
-select * from product where product_id = 1;
-select * from cart where customer_id = 'customer'
-
--- 1. 재고량 비교 (select)
-select stock from product where product_id = 1
--- 2. order_info 에 주문 정보 삽입 (insert)
-insert into order_info(order_no,order_date,order_comment,order_post_number,order_address,order_detailed_address,receiver_name,receiver_tel,payment,customer_id)
-values(order_info_seq.nextval,sysdate,'배송메시지','00000','주문자 주소','주문자 상세주소','받는사람 이름','받는사람 번호','지불방법','customer');
--- 3. order_detail 에 주문 상품 상세 정보 삽입 (insert)
-insert into order_detail(order_detail_no, order_count, order_price, delivery_status, delivery_compldate, refund_check, order_no, product_id)
-values(order_detail_seq.nextval,2,1500,'배송상태','배송완료날짜',0,1,1);
--- 4. 재고량 감소 (update)
-update product set stock = stock - 1 where product_id = 1
--- 5. 장바구니에서 주문한 상품 삭제 (delete)
-delete from cart where cart_no = 1 and cart_no = 2
-
-alter table order_detail modify(delivery_compldate date)
-
-delete from order_detail
+--
+update order_detail set refund_check = 1 where order_detail_no = 1
