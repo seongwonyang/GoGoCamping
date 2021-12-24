@@ -1,17 +1,20 @@
 package org.kosta.gogocamping.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.kosta.gogocamping.model.domain.CustomerVO;
 import org.kosta.gogocamping.model.domain.PagingBean;
 import org.kosta.gogocamping.model.domain.ProductVO;
 import org.kosta.gogocamping.model.domain.QnAVO;
 import org.kosta.gogocamping.model.domain.ReviewVO;
 import org.kosta.gogocamping.model.domain.SellerVO;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
+import org.kosta.gogocamping.model.mapper.LikesMapper;
 import org.kosta.gogocamping.model.mapper.ProductMapper;
 import org.kosta.gogocamping.model.mapper.QnAMapper;
 import org.kosta.gogocamping.model.mapper.ReviewMapper;
@@ -33,7 +36,9 @@ public class ProductController {
 	private ReviewMapper reviewMapper;
 	@Resource
 	private QnAMapper qnaMapper;
-	
+  @Resource
+	private LikesMapper likesMapper;
+
 	@Autowired
 	public ProductController(ProductMapper productMapper, CategoryMapper categoryMapper, SellerMapper sellerMapper) {
 		super();
@@ -114,7 +119,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("getProductDetailInfo")
-	public String getProductDetailInfo(int productId, Model model) {
+	public String getProductDetailInfo(int productId, Model model, HttpServletRequest request) {
 		ProductVO productVO = productMapper.getProductDetailInfo(productId);
 		SellerVO sellerVO = sellerMapper.getSellerInfoByProduct(productVO.getSellerVO().getSellerId());
 		String categoryName = categoryMapper.getCategoryNameByProductId(productId);
@@ -130,7 +135,19 @@ public class ProductController {
 			avgReview = reviewMapper.getAvgReview(productId);
 		}
 			
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
+		HttpSession session = request.getSession(false);
+		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(customerVO!=null) {
+			map.put("productId", productId);
+			map.put("customerId", customerVO.getCustomerId());
+			model.addAttribute("checkSameProductInLikes", likesMapper.checkSameProductInLikes(map));
+		} else {
+			model.addAttribute("checkSameProductInLikes", 0);
+		}
+		
+    model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		model.addAttribute("productVO", productVO);
 		model.addAttribute("sellerVO", sellerVO);

@@ -21,8 +21,12 @@ public interface CategoryMapper {
 
    List<CategoryVO> getDetailCategory(Map<String, Object> map);
 
+
    String getCategoryNameByProductId(int productId);
 
    ArrayList<CategoryVO> getDetailCategoryList(String category);
+
+   int getCategoryNoByDetailCategoryName(String detailCategoryName);
+
 
 }

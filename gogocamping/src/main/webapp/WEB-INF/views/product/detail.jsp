@@ -74,7 +74,14 @@
                             </div>
                         </div>
                         <a href="#" class="primary-btn">ADD TO CARD</a>
-                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <c:choose>
+                        	<c:when test="${checkSameProductInLikes==0}">
+                        		<a href="#none"><img id="heartIcon" src="img/likes/dislikes.png" style="width:30px;"></a>
+                        	</c:when>
+                        	<c:otherwise>
+                        		<a href="#none"><img id="heartIcon" src="img/likes/likes.png" style="width:30px;"></a>
+                        	</c:otherwise>
+                        </c:choose>
                         <ul>
                             <li><b>재고량 :</b> <span>${productVO.stock} 개</span></li>
                             <li><b>판매자 :</b> <span>${sellerVO.brand}</span></li>
@@ -199,6 +206,29 @@
         </div>
     </section>
     <!-- Related Product Section End -->
-    
-    
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+    // 찜하기 버튼 클릭 메서드
+		$(function() {
+			$("#heartIcon").click(function() {
+				if(${sessionScope.loginVO==null}) {
+					alert("로그인 후 이용 가능합니다.");
+				} else {
+					$.ajax({
+						type:"post",
+						url:"likesAndEmptyLikes",
+						data:"customerId="+'${sessionScope.loginVO.customerId}'+"&productId="+'${productVO.productId}',
+						success: function(checkLikes) {
+							if(checkLikes==1) { // 찜목록에 추가되면
+								$("#heartIcon").attr("src","img/likes/likes.png");
+							} else { // 찜목록에서 삭제되면
+								$("#heartIcon").attr("src","img/likes/dislikes.png");
+							}
+						}
+					});
+				}
+			});
+		});
+	</script>
 </body>
