@@ -2,6 +2,7 @@ package org.kosta.gogocamping.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -37,7 +38,7 @@ public class ProductController {
 	private ReviewMapper reviewMapper;
 	@Resource
 	private QnAMapper qnaMapper;
-  @Resource
+	@Resource
 	private LikesMapper likesMapper;
 
 	@Autowired
@@ -70,7 +71,7 @@ public class ProductController {
 		model.addAttribute("pagingBean", pagingBean);
 		model.addAttribute("allProductList", productMapper.getAllProductList(map));
 		model.addAttribute("option", option);
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 
 		return "home.tiles";
@@ -89,7 +90,7 @@ public class ProductController {
 		model.addAttribute("searchTotalProductCount", totalCount);
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
 		model.addAttribute("searchProductList", productMapper.getSearchProductList(map));
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 
 		return "product/search-product.tiles";
@@ -107,7 +108,7 @@ public class ProductController {
 		model.addAttribute("option", option);
 		
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
-		model.addAttribute("brandCategoryList", productMapper.getBrandCategroyList(map));
+		model.addAttribute("brandCategoryList", productMapper.getBrandCategroyList(map)); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 
 		if(category != "") {
@@ -118,16 +119,21 @@ public class ProductController {
 		
 		return "product/brand.tiles"; 
 	}
-	
+
 	@RequestMapping("getProductDetailInfo")
-	public String getProductDetailInfo(int productId, Model model, HttpServletRequest request) {
+	public String getProductDetailInfo(int productId, String qnaOption, Model model, HttpServletRequest request) {
 		ProductVO productVO = productMapper.getProductDetailInfo(productId);
 		SellerVO sellerVO = sellerMapper.getSellerInfoByProduct(productVO.getSellerVO().getSellerId());
 		String categoryName = categoryMapper.getCategoryNameByProductId(productId);
 		
 		ArrayList<ProductVO> relatedProductList = productMapper.getRelatedProductList(categoryName); //관련 상품 리스트
 		ArrayList<ReviewVO> reviewList = reviewMapper.getReviewListByProductId(productId); // 상품에 달린 리뷰 리스트
-		ArrayList<QnAVO> qnaList = qnaMapper.getQnaListByProductId(productId); // 상품에 달린 QnA 리스트
+		
+		Map<String, Object> qnaMap = new HashMap<>();
+		qnaMap.put("productId", productId);
+		qnaMap.put("option", qnaOption);
+		List<QnAVO> qnaList = qnaMapper.getQnAListByProductId(qnaMap); // 상품에 달린 QnA 리스트
+		int qnaCount = qnaMapper.getQnACountByProductId(productId); // QnA 개수
 		
 		int reviewCount = reviewMapper.getReviewCountByProductId(productId);;
 		int avgReview = 0;
@@ -148,7 +154,7 @@ public class ProductController {
 			model.addAttribute("checkSameProductInLikes", 0);
 		}
 		
-    model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		model.addAttribute("productVO", productVO);
 		model.addAttribute("sellerVO", sellerVO);
@@ -157,6 +163,8 @@ public class ProductController {
 		model.addAttribute("reviewCount", reviewCount);
 		model.addAttribute("avgReview", avgReview);
 		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qnaCount", qnaCount);
+		model.addAttribute("option", qnaOption);
 		
 		return "product/detail.tiles";
 	}
