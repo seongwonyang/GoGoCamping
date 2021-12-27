@@ -40,8 +40,8 @@ insert into order_detail(order_detail_no, order_count, order_price, delivery_sta
 values(order_detail_seq.nextval,2,1500,'배송상태','배송완료날짜','0',1,1);
 
 -- 환불
-insert into refund(refund_no, refund_category, refund_reason, refund_reject_reason, refund_reason_img, order_detail_no)
-values(refund_seq.nextval,'환불카테고리','환불이유','환불사진','환불거절사유',1);
+insert into refund(refund_no, refund_category, refund_reason, refund_reject_reason, order_detail_no)
+values(refund_seq.nextval,'환불카테고리','환불이유','환불거절사유',1);
 
 -- QnA
 insert into QnA(qna_no, qna_category, title, content, regdate, product_id, customer_id)

@@ -162,3 +162,16 @@ where q.customer_id = c.customer_id and qna_category = '상품문의';
 
 select count(*) from qna where product_id = 1;
 
+-- review 
+select * from review order by grade desc -- 별점 높은순
+select * from review order by grade -- 별점 낮은순
+select * from review order by review_regdate desc -- 최신순
+
+
+
+insert into review(review_no,grade,review_content,review_regdate,customer_id,product_id)
+values(review_seq.nextval,5,'리뷰내용1',sysdate,'sehee167',1);
+
+insert into review(review_no,grade,review_content,review_regdate,customer_id,product_id)
+values(review_seq.nextval,3,'리뷰내용2',sysdate,'sehee167',1);
+
