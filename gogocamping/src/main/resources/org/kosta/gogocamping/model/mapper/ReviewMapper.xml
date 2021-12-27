@@ -7,8 +7,19 @@
 </resultMap>
 
 <!-- 상품에 달린 리뷰 리스트 -->
-<select id="getReviewListByProductId" parameterType="int" resultMap="reviewMap">
-	SELECT * FROM review WHERE product_id = ${value}
+<select id="getReviewListByProductId" parameterType="map" resultMap="reviewMap">
+	SELECT * FROM review WHERE product_id = ${productId}
+	<choose>
+		<when test='option.equals("highStar")'>
+			order by grade desc
+		</when>
+		<when test='option.equals("lowStar")'>
+			order by grade
+		</when>
+		<otherwise>
+			order by review_regdate desc
+		</otherwise>
+	</choose>
 </select>
 
 <select id="getReviewCountByProductId" parameterType="int" resultType="int">
@@ -18,4 +29,9 @@
 <select id="getAvgReview" parameterType="int" resultType="int">
 	SELECT AVG(grade) FROM review WHERE product_id = ${value}
 </select>
+
+<insert id="writeReview" parameterType="ReviewVO">
+	insert into review(review_no,grade,review_content,review_regdate,customer_id,product_id)
+	values(review_seq.nextval,#{grade},#{reviewContent},sysdate,#{customerVO.customerId},#{productVO.productId})
+</insert>
 </mapper>

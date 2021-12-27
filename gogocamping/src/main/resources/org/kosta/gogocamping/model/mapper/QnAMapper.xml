@@ -10,7 +10,7 @@
 <select id="getQnAListByProductId" parameterType="map" resultMap="qnaMap">
 	select row_number() over(order by regdate) as rnum, q.*, c.* from qna q, customer c 
 	where q.customer_id = c.customer_id and product_id = #{productId} 
-		<choose>
+	<choose>
 		<when test='option.equals("product")'>
 			and qna_category = '상품문의'
 		</when>

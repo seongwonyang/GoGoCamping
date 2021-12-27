@@ -104,7 +104,7 @@
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
                         	<c:choose>
-                        		<c:when test="${option != ''}">
+                        		<c:when test="${option == 'product' || option == 'delivery'}">
                         			<li class="nav-item">
 		                                <a class="nav-link" data-toggle="tab" href="#tabs-1" role="tab"
 		                                    aria-selected="true" onclick="removeOption()">상품 정보</a>
@@ -118,6 +118,20 @@
 		                                    aria-selected="false">QnA( ${qnaCount} )</a>
 		                            </li>
                         		</c:when>
+                        		<c:when test="${option == 'highStar' || option == 'lowStar' || option == 'recent'}">
+                        			<li class="nav-item">
+		                                <a class="nav-link" data-toggle="tab" href="#tabs-1" role="tab"
+		                                    aria-selected="true" onclick="removeOption()">상품 정보</a>
+		                            </li>
+		                            <li class="nav-item">
+		                                <a class="nav-link active" data-toggle="tab" href="#tabs-2" role="tab"
+		                                    aria-selected="false">리뷰( ${reviewCount} )</a>
+		                            </li>
+		                            <li class="nav-item">
+		                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
+		                                    aria-selected="false">QnA( ${qnaCount} )</a>
+		                            </li>
+                        		</c:when>
                         		<c:otherwise>
                         			<li class="nav-item">
 		                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
@@ -125,7 +139,7 @@
 		                            </li>
 		                            <li class="nav-item">
 		                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-		                                    aria-selected="false">리뷰( ${reviewCount } )</a>
+		                                    aria-selected="false">리뷰( ${reviewCount} )</a>
 		                            </li>
 		                            <li class="nav-item">
 		                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
@@ -149,13 +163,31 @@
                                     <p>${productVO.productInfo}</p>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                            <c:choose>
+                        		<c:when test="${option == 'highStar' || option == 'lowStar' || option == 'recent'}">
+                            		<div class="tab-pane active" id="tabs-2" role="tabpanel">
+                            	</c:when>
+                            	<c:otherwise>
+                            		<div class="tab-pane" id="tabs-2" role="tabpanel">
+                            	</c:otherwise>
+                            </c:choose>
                                 <div class="product__details__tab__desc">
-                                    <h6>리뷰</h6>
+                                    <h3><b>Review</b></h3><hr>
+		                             <form action="writeReviewPage" id="writeReviewPage" name="writeReviewPage" method="get">
+		                              <input type="hidden" name="productId" value="${productVO.productId}">
+									    <div class="form-group">
+									      <select class="form-control" id="reviewOption" name="sortOption" onchange="changeReviewOption()">
+									      	<option value="recent" ${option == 'recent' ? 'selected="selected"' : ''}>최신순</option>
+									        <option value="highStar" ${option == 'highStar' ? 'selected="selected"' : ''}>별점높은순</option>
+									        <option value="lowStar" ${option == 'lowStar' ? 'selected="selected"' : ''}>별점낮은순</option>
+									      </select>
+									      <button type="submit" class="btn btn-light" style="float: right;">글쓰기</button>							      
+									      <br><br>
+									    </div>
+									  </form> 
                                     <c:forEach items="${reviewList}" var="review">
-                                    <p><b>${review.customerVO.customerId}</b>&nbsp;&nbsp;&nbsp;${review.reviewRegdate }</p>
-                                    <div class="product__details__text">
-	                                    <div class="product__details__rating">
+                                      <div class="product__details__text">
+	                                  <div class="product__details__rating">
 	                                    	<c:choose>
 	                                    		<c:when test="${review.grade < 2}">
 	                                    			<i class="fa fa-star"></i>
@@ -185,13 +217,14 @@
 					                        </c:choose>
 	                                    </div>
 	                                </div>
+                                    <p><b>${fn:substring(review.customerVO.customerId, 0, 3)}****</b>&nbsp;&nbsp;&nbsp;${review.reviewRegdate}</p>
                                     <p>${review.reviewContent}</p>
                                     <hr>
                                     </c:forEach>
                                 </div>
                             </div>
                             <c:choose>
-                        		<c:when test="${option != ''}">
+                        		<c:when test="${option == 'product' || option == 'delivery'}">
                             		<div class="tab-pane active" id="tabs-3" role="tabpanel">
                             	</c:when>
                             	<c:otherwise>
@@ -201,7 +234,7 @@
                               <form action="writeQuestionPage" id="writeQuestionPage" name="writeQuestionPage" method="get">
                               <input type="hidden" name="productId" value="${productVO.productId}">
 							    <div class="form-group">
-							      <select class="form-control" id="qnaOption" name="qnaOption" onchange="changeOption()">
+							      <select class="form-control" id="qnaOption" name="sortOption" onchange="changeQnAOption()">
 							      	<option value="default" ${option == '' ? 'selected="selected"' : ''}>문의유형</option>
 							        <option value="product" ${option == 'product' ? 'selected="selected"' : ''}>상품문의</option>
 							        <option value="delivery" ${option == 'delivery' ? 'selected="selected"' : ''}>배송문의</option>
@@ -237,7 +270,7 @@
 									      <tr style="display:None;">
 									      	<td bgcolor="#FAFAFA"></td>
 									      	<td colspan="3" bgcolor="#FAFAFA">
-									      		&nbsp;답변
+									      		&nbsp;${qna.answer}
 									      	</td>
 									      </tr>
 									      </c:forEach>
@@ -318,11 +351,18 @@
 
 });
 	
-function changeOption() {
+function changeQnAOption() {
 	let o = document.getElementById("qnaOption");
-	let option = o.options[o.selectedIndex].value; // cat
+	let option = o.options[o.selectedIndex].value; 
 	alert(option);
-	location.href = "getProductDetailInfo?productId="+'${productVO.productId}'+"&qnaOption="+option;
+	location.href = "getProductDetailInfo?productId="+'${productVO.productId}'+"&sortOption="+option;
+}
+
+function changeReviewOption(){
+	let o = document.getElementById("reviewOption");
+	let option = o.options[o.selectedIndex].value;
+	alert(option);
+	location.href = "getProductDetailInfo?productId="+'${productVO.productId}'+"&sortOption="+option;
 }
 
 function openContent(elm){
@@ -336,7 +376,7 @@ function openContent(elm){
 }
 
 function removeOption() {
-	location.href = "getProductDetailInfo?productId="+'${productVO.productId}'+"&qnaOption=";
+	location.href = "getProductDetailInfo?productId="+'${productVO.productId}'+"&sortOption=";
 }
 
 function qnaLoginCheck() {
