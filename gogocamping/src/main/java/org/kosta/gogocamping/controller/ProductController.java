@@ -121,21 +121,21 @@ public class ProductController {
 	}
 
 	@RequestMapping("getProductDetailInfo")
-	public String getProductDetailInfo(int productId, String qnaOption, Model model, HttpServletRequest request) {
+	public String getProductDetailInfo(int productId, String sortOption, Model model, HttpServletRequest request) {
 		ProductVO productVO = productMapper.getProductDetailInfo(productId);
 		SellerVO sellerVO = sellerMapper.getSellerInfoByProduct(productVO.getSellerVO().getSellerId());
 		String categoryName = categoryMapper.getCategoryNameByProductId(productId);
 		
 		ArrayList<ProductVO> relatedProductList = productMapper.getRelatedProductList(categoryName); //관련 상품 리스트
-		ArrayList<ReviewVO> reviewList = reviewMapper.getReviewListByProductId(productId); // 상품에 달린 리뷰 리스트
 		
-		Map<String, Object> qnaMap = new HashMap<>();
-		qnaMap.put("productId", productId);
-		qnaMap.put("option", qnaOption);
-		List<QnAVO> qnaList = qnaMapper.getQnAListByProductId(qnaMap); // 상품에 달린 QnA 리스트
+		Map<String, Object> sortMap = new HashMap<>();
+		sortMap.put("productId", productId);
+		sortMap.put("option", sortOption);
+		List<QnAVO> qnaList = qnaMapper.getQnAListByProductId(sortMap); // 상품에 달린 QnA 리스트
 		int qnaCount = qnaMapper.getQnACountByProductId(productId); // QnA 개수
 		
-		int reviewCount = reviewMapper.getReviewCountByProductId(productId);;
+		ArrayList<ReviewVO> reviewList = reviewMapper.getReviewListByProductId(sortMap); // 상품에 달린 리뷰 리스트	
+		int reviewCount = reviewMapper.getReviewCountByProductId(productId);
 		int avgReview = 0;
 		
 		if(reviewCount!=0) {
@@ -164,7 +164,7 @@ public class ProductController {
 		model.addAttribute("avgReview", avgReview);
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("qnaCount", qnaCount);
-		model.addAttribute("option", qnaOption);
+		model.addAttribute("option", sortOption);
 		
 		return "product/detail.tiles";
 	}
