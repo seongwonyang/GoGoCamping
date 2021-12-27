@@ -356,3 +356,7 @@ commit
 insert into cart(cart_no,product_count,customer_id,product_id)
 values(cart_seq.nextval,3,'customer',1);
 
+-- 구매후기
+insert into review(review_no, grade, review_content, review_regdate, customer_id, product_id)
+values(review_seq.nextval, 3, '쏘쏘', sysdate, 'customer',  7);
+select * from review

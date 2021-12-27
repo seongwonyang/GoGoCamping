@@ -7,13 +7,16 @@ import javax.annotation.Resource;
 
 import org.junit.jupiter.api.Test;
 import org.kosta.gogocamping.model.mapper.LikesMapper;
+import org.kosta.gogocamping.model.mapper.ReviewMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class test {
 	@Resource
 	LikesMapper likesMapper;
-
+	@Resource
+	ReviewMapper reviewMapper;
+	
 	// 좋아요 추가, 삭제 메서드
 	@Test
 	void likesAndEmptyLikes() {
@@ -45,4 +48,11 @@ public class test {
 	 * List<ProductVO> list=likesMapper.getLikesList(map); for(ProductVO pvo:list) {
 	 * System.out.println(pvo); } }
 	 */
+	
+	// 브랜드별 구매 후기 리스트 출력 메서드
+	@Test
+	void getReviewListByBrand() {
+		String sellerId="campis";
+		System.out.println(reviewMapper.getReviewListByBrand(sellerId));
+	}
 }

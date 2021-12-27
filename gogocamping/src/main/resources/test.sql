@@ -163,12 +163,23 @@ select l.likes_no, l.customer_id, p.product_id,p.product_name,p.price,p.product_
 -- 주문 취소
 
 
+-- 브랜드별 구매 후기 리스트 출력
+select r.review_no, r.grade, r.review_content, to_char(r.review_regdate, 'YYYY-MM-DD HH24:MI:SS') as review_regdate, r.customer_id, r.product_id, s.seller_id
+from review r, product p, seller s
+where r.product_id=p.product_id
+and s.seller_id=p.seller_id
+and s.seller_id='campis'
 
 
+select * from review where review_no=21
+select * from seller
 
+-- 리뷰 상세 출력
+select r.review_no, r.grade, r.review_content, to_char(r.review_regdate, 'YYYY-MM-DD HH24:MI:SS') as review_regdate, r.customer_id, r.product_id, p.product_name
+from review r, product p
+where r.product_id=p.product_id and r.review_no=21
 
-
-
+delete from review where review_no=22
 
 
 
