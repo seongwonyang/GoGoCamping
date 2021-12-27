@@ -35,13 +35,14 @@ public class QnAController {
 	public String writeQuestion(HttpServletRequest request, QnAVO qnaVO, int productId, String qnaCategory, Model model) {
 		HttpSession session = request.getSession(false);
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
+		qnaVO.setCustomerVO(customerVO);
+		
 		ProductVO productVO = new ProductVO();
 		productVO.setProductId(productId);
 		qnaVO.setProductVO(productVO);
-		qnaVO.setCustomerVO(customerVO);
 		
 		qnaMapper.writeQuestion(qnaVO);
 		
-		return "redirect:getProductDetailInfo?productId="+productId+"&qnaOption="+qnaCategory;
+		return "redirect:getProductDetailInfo?productId="+productId+"&sortOption=";
 	}
 }
