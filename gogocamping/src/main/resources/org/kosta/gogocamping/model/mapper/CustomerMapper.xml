@@ -45,7 +45,7 @@
 	 	<result column="product_id" property="productVO.productId"/>
 </resultMap>
 <select id="orderCheck" resultMap="orderDetailMap">
-	select to_char(o.order_date, 'yy-mm-dd') as order_date, o.order_detail_no, o.order_date, o.order_count, o.order_price, o.delivery_status, o.refund_check, p.product_name, p.product_img
+	select to_char(o.order_date, 'yy-mm-dd') as order_date, o.order_detail_no, o.order_date, o.order_count, o.order_price, o.delivery_status, o.refund_check,p.product_id, p.product_name, p.product_img
 	from (select i.order_date, i.customer_id, d.order_count, d.order_price, d.delivery_status, d.refund_check, d.product_id, d.order_detail_no
 	from order_info i , order_detail d
 	where i.order_no = d.order_no) o, product p
@@ -55,5 +55,11 @@
 </select>
 <update id="buyConfirm" parameterType="int">
 	update order_detail set refund_check = 1 where order_detail_no = #{value}
+</update>
+<update id="sumStockCount" parameterType="int">
+	update product set stock = stock+#{orderCount} where product_id = #{productId}
+</update>
+<update id="orderConfirm" parameterType="int">
+	update order_detail set delivery_status = '주문취소', refund_check = 2 where order_detail_no = #{value}
 </update>
 </mapper>

@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.KakaoLoginMapper">
+<insert id="registerKakao" parameterType="string">
+	insert into kakao_login(customer_id,customer_name,kakao_email)
+	values(#{customerId},#{customerName},#{kakaoEmail})
+</insert>
+<select id="findKakaoId" resultType="KakaoLoginVO">
+	select * from kakao_login where kakao_email = #{value}
+</select>
+<insert id="kakaoRegisterCustomer" parameterType="customerVO">
+	insert into customer(customer_id,customer_name,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
+	values(#{customerId},#{customerName},#{customerEmail},#{customerTel},#{customerPostNumber},#{customerAddress},#{customerDetailedAddress},#{customerBirth},to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'))
+</insert>
 </mapper>
