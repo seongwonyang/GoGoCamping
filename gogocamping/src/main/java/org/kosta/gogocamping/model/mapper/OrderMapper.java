@@ -11,4 +11,8 @@ public interface OrderMapper {
 
 	void insertOrderDetail(OrderDetailVO orderDetailVO);
 
+	OrderDetailVO getProductInfoByOrderDetailNo(int orderDetailNo);
+
+	void updateStatusOrderDetail(int orderDetailNo);
+
 }

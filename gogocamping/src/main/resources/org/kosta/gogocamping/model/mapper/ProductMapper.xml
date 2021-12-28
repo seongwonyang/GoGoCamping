@@ -158,4 +158,5 @@
 	product_img = #{productImg}, product_img_stored = #{productImgStored}, category_no = #{categoryVO.categoryNo}
 	where product_id = #{productId}
 </update>
+
 </mapper>
