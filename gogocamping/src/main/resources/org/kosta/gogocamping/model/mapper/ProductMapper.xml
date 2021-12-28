@@ -68,6 +68,18 @@
 	<result property="categoryVO.detailCategoryName" column="detail_category_name"/>
 </resultMap> 
 
+<!-- <resultMap type="OrderInfoVO" id="orderCustomerMap">
+	<result property="customerVO.customerId" column="customer_id"/>
+</resultMap> -->
+
+<resultMap id="productDetailMap" type="OrderDetailVO">
+	<result property="sellerVO.sellerId" column="seller_id"/>
+	<result property="productVO.productId" column="product_id"/>
+	<result property="productVO.productName" column="product_name"/>
+	<result property="orderInfoVO.orderNo" column="order_no"/>
+	<result property="orderInfoVO.orderDate" column="order_date"/>	
+</resultMap> 
+
 <parameterMap id="registerProductMap" type="ProductVO">
 	<parameter property="sellerVO.sellerId"/>
 	<parameter property="categoryVO.categoryNo"/>
@@ -75,6 +87,10 @@
 
 <parameterMap id="updateProductMap" type="ProductVO">
 	<parameter property="categoryVO.categoryNo"/>
+</parameterMap> 
+
+<parameterMap id="updateDeliveryMap" type="OrderDetailVO">
+	<parameter property="productVO.productId"/>
 </parameterMap> 
 
 <select id="getProductListByBrand" resultMap="productMap" parameterType="Map"><!-- 브랜드별 상품리스트 조회 -->
@@ -138,6 +154,16 @@
 	set product_name = #{productName}, price = #{price}, product_info = #{productInfo}, stock = #{stock}, 
 	product_img = #{productImg}, product_img_stored = #{productImgStored}, category_no = #{categoryVO.categoryNo}
 	where product_id = #{productId}
+</update>
+<select id="getOrderList" resultMap="productDetailMap" parameterType="String">
+	select i.order_no, p.product_name, p.product_id, d.order_count, i.order_date, d.order_price, d.delivery_status
+	from order_info i, order_detail d, product p
+	where d.product_id = p.product_id 
+	and i.order_no = d.order_no
+	and seller_id = #{sellerId}
+</select>
+<update id="updateDeliveryStatus" parameterMap="updateDeliveryMap">
+	update order_detail set delivery_status = #{deliveryStatus} where product_id = #{productId}
 </update>
 </mapper>
 
