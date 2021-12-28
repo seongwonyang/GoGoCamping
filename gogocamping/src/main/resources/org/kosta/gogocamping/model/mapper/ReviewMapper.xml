@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.ReviewMapper">
-<resultMap id="reviewMap" type="ReviewVO">
+<resultMap type="ReviewVO" id="reviewMap">
+	<result property="productVO.productName" column="product_name"/>
+	<result property="productVO.productImg" column="product_img"/>
+	<result property="sellerVO.sellerId" column="seller_id"/>
+</resultMap>
+<sql id="selectReview">
+	select r.review_no, r.grade, r.review_content, to_char(r.review_regdate, 'YYYY-MM-DD HH24:MI:SS') as review_regdate, r.customer_id, r.product_id, p.product_name, p.product_img, s.seller_id
+		from review r, product p, seller s
+		where r.product_id=p.product_id
+		and s.seller_id=p.seller_id
+</sql>
+	<select id="getAllReviewList" resultMap="reviewMap">
+	<include refid="selectReview"></include>
+		order by r.grade desc
+	</select>
+	<select id="getReviewListByBrand" parameterType="String" resultMap="reviewMap">
+		<include refid="selectReview"></include>
+		and s.seller_id=${value}
+	</select>
+	<select id="getDetailReview" parameterType="String" resultMap="reviewMap">
+		select r.review_no, r.grade, r.review_content, to_char(r.review_regdate, 'YYYY-MM-DD HH24:MI:SS') as review_regdate, r.customer_id, r.product_id, p.product_name
+		from review r, product p
+		where r.product_id=p.product_id and r.review_no=${value}
+	</select>
+	<delete id="deleteReview" parameterType="int">
+		delete from review where review_no=${value}
+	</delete>
+
+<resultMap id="productReviewMap" type="ReviewVO">
 	<result property="customerVO.customerId" column="customer_id"/>
 	<result property="productVO.productId" column="product_id" />
 </resultMap>
 
 <!-- 상품에 달린 리뷰 리스트 -->
-<select id="getReviewListByProductId" parameterType="map" resultMap="reviewMap">
+<select id="getReviewListByProductId" parameterType="map" resultMap="productReviewMap">
 	SELECT * FROM review WHERE product_id = ${productId}
 	<choose>
 		<when test='option.equals("highStar")'>

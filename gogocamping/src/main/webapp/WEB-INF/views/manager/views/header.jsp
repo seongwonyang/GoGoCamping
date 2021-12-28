@@ -59,7 +59,7 @@
                         <ul>
                             <li><a href="registerAdmin">가입 승인</a></li>
                             <li><a href="#">상품 등록 승인</a></li>
-                            <li><a href="#">고객 후기 관리</a></li>
+                            <li><a href="reviewManagement">고객 후기 관리</a></li>
                         </ul>
                     </nav>
                 </div>

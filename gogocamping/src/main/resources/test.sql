@@ -114,13 +114,94 @@ and c.category_name = '텐트/타프'
 and c.detail_category_name = '텐트'
 order by price desc
 
-delete from category where category_name = '카테고리 이름';
+-- 2차구현
+-- 장바구니 추가
+insert into cart(cart_no,product_count,customer_id,product_id)
+values(cart_seq.nextval,1,'customer',1);
+
+-- 장바구니에 같은 상품이 있을 경우
+update cart set product_count = product_count+1 where customer_id = 'customer' and product_id = 1
+
+-- 장바구니 확인 (최신순)
+select c.*, p.* from cart c, product p 
+where c.product_id = p.product_id
+and c.customer_id = 'customer' and p.product_id = 1
+order by c.cart_no desc
+
+-- 장바구니 상품 수량 변경
+update cart set product_count = 5 where customer_id = 'customer' and product_id = 1
+
+-- 장바구니에서 상품 삭제
+delete from cart where customer_id = 'customer' and product_id = 1
 
 
+-- 좋아요 하기
+insert into likes(likes_no,customer_id,product_id)
+values(likes_seq.nextval,'java',1);
 
-select i.order_date, d.order_count, d.order_price, d.delivery_status, d.refund_check
-from order_info i , order_detail d
-where i.order_no = d.order_no
+select * from likes
+
+-- 좋아요 취소
+delete from likes where customer_id = 'customer' and product_id = 1
+
+-- 좋아요 확인 (최신순)
+select l.likes_no, l.customer_id, p.product_id,p.product_name,p.price,p.product_img
+from likes l, product p 
+where l.product_id=p.product_id 
+and l.customer_id = 'customer'
+order by l.likes_no desc
+
+select l.likes_no, l.customer_id, p.product_id,p.product_name,p.price,p.product_img
+	from likes l, product p 
+	where l.product_id=p.product_id 
+	and l.customer_id = 'customer'
+	order by l.likes_no desc
+-- 주문 
+
+-- 주문내역 확인
+
+-- 주문 취소
+
+
+-- 브랜드별 구매 후기 리스트 출력
+select r.review_no, r.grade, r.review_content, to_char(r.review_regdate, 'YYYY-MM-DD HH24:MI:SS') as review_regdate, r.customer_id, r.product_id, s.seller_id
+from review r, product p, seller s
+where r.product_id=p.product_id
+and s.seller_id=p.seller_id
+and s.seller_id='campis'
+
+
+select * from review where review_no=21
+select * from seller
+
+-- 리뷰 상세 출력
+select r.review_no, r.grade, r.review_content, to_char(r.review_regdate, 'YYYY-MM-DD HH24:MI:SS') as review_regdate, r.customer_id, r.product_id, p.product_name
+from review r, product p
+where r.product_id=p.product_id and r.review_no=21
+
+delete from review where review_no=22
+
+-- 전체 판매 내역
+select oi.order_no, od.order_detail_no, p.product_name, od.order_count, to_char(oi.order_date, 'YYYY-MM-DD') as order_date, od.order_price, od.delivery_status, p.seller_id
+from order_info oi, order_detail od, product p
+where oi.order_no = od.order_no
+and od.product_id=p.product_id
+and od.delivery_status = '배송완료'
+and p.seller_id='snowpeak'
+order by order_date desc;
+
+select seller_id, seller_name from seller where seller_id='snowpeak'
+
+-- 날짜별 판매 내역
+select oi.order_no, od.order_detail_no, p.product_name, od.order_count, to_char(oi.order_date, 'YYYY-MM-DD') as order_date, od.order_price, od.delivery_status, p.seller_id
+from order_info oi, order_detail od, product p
+where oi.order_no = od.order_no
+and od.product_id=p.product_id
+and od.delivery_status = '배송완료'
+and p.seller_id='snowpeak'
+and oi.order_date between to_date('2021-12-01', 'YYYY-MM-DD') 
+and to_date('2021-12-22', 'YYYY-MM-DD')+1
+order by order_date desc
 
 --주문개수 조회
 select count(*) 
@@ -138,13 +219,5 @@ from order_info i , order_detail d
 where i.order_no = d.order_no) o, product p
 where o.product_id = p.product_id
 and o.customer_id='test2'
-
---test
-select i.order_date, i.customer_id, d.order_count, d.order_price, d.delivery_status, d.refund_check, d.product_id
-from order_info i , order_detail d
-where i.order_no = d.order_no
-
--- 구매확정
-update order_detail set refund_check = 1 where order_detail_no = 1
 
 

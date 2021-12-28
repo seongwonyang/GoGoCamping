@@ -1,14 +1,17 @@
 package org.kosta.gogocamping.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.gogocamping.model.domain.ManagerVO;
+import org.kosta.gogocamping.model.domain.ReviewVO;
 import org.kosta.gogocamping.model.domain.SellerVO;
 import org.kosta.gogocamping.model.mapper.ManagerMapper;
+import org.kosta.gogocamping.model.mapper.ReviewMapper;
 import org.kosta.gogocamping.model.mapper.SellerMapper;
 import org.kosta.gogocamping.model.service.ManagerService;
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,9 @@ public class ManagerController {
 	
 	@Resource
 	private SellerMapper sellerMapper;
+	
+	@Resource
+	private ReviewMapper reviewMapper;
 	
 	@RequestMapping("ManagerHome")
 	public String managerHome(HttpServletRequest request) {
@@ -98,4 +104,40 @@ public class ManagerController {
 		
 		return "manager/views/register-admin.tiles";
 	}
+	
+	// 브랜드별 후기 리스트 출력
+	@RequestMapping("reviewManagement")
+	public String reviewManagement(Model model, HttpServletRequest request, String sellerId) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginVO") == null) {
+			return "manager/views/manager-login-form.tiles";
+		}else {
+			// 브랜드 리스트
+			model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
+			if (sellerId!=null) { // 브랜드를 선택하면 브랜드별 후기 출력
+				List<ReviewVO> list= reviewMapper.getReviewListByBrand(sellerId);
+				model.addAttribute("reviewList", list);
+			} else if (sellerId==null) { // 브랜드를 선택하지 않으면 최신순으로 모든 리뷰 출력
+				List<ReviewVO> list = reviewMapper.getAllReviewList();
+				model.addAttribute("reviewList", list);
+			}
+			return "manager/views/review-list.tiles";
+		}
+	}
+	
+	// 후기 상세 보기
+	@RequestMapping("getDetailReview")
+	public String getDetailReview(Model model, String reviewNo) {
+		ReviewVO detailReview = reviewMapper.getDetailReview(reviewNo);
+		model.addAttribute("detailReview", detailReview);
+		return "manager/views/detail-review.tiles";
+	}
+	
+	@RequestMapping("deleteReview")
+	@ResponseBody
+	public String deleteReview(Model model, int reviewNo) {
+		reviewMapper.deleteReview(reviewNo);
+		return "삭제완료";
+	}
+	
 }

@@ -354,3 +354,46 @@ values(product_seq.nextval,'발렌시아 650 XL',150450,'발렌시아 650 XL',18
 commit
 
 
+-- 구매후기
+insert into review(review_no, grade, review_content, review_regdate, customer_id, product_id)
+values(review_seq.nextval, 3, '쏘쏘', sysdate, 'customer',  7);
+select * from review
+
+
+-- 주문 정보
+insert into order_info(order_no, order_date, order_post_number, order_address, order_detailed_address, receiver_name, receiver_tel, payment, customer_id)
+values(order_info_seq.nextval, sysdate, '12345', '수원시 팔달구', '탐탐', '구매자', '0101234', '카드', 'customer');
+
+insert into order_info(order_no, order_date, order_post_number, order_address, order_detailed_address, receiver_name, receiver_tel, payment, customer_id)
+values(order_info_seq.nextval, sysdate, '67891', '서울시 성동구', '서울숲', '서울숲구매자', '0105678', '카드', 'customer');
+
+insert into order_info(order_no, order_date, order_post_number, order_address, order_detailed_address, receiver_name, receiver_tel, payment, customer_id)
+values(order_info_seq.nextval, '2021-12-21', '67891', '서울시 성동구', '서울숲', '서울숲구매자', '0105678', '카드', 'customer');
+
+select * from order_info
+
+-- 주문 상세 정보
+insert into order_detail(order_detail_no, order_count, order_price, delivery_status, delivery_compldate, refund_check, order_no, product_id)
+values(order_detail_seq.nextval, 1, 144000, '배송완료', '2021-12-27', '0', 21, 11);
+
+insert into order_detail(order_detail_no, order_count, order_price, delivery_status, delivery_compldate, refund_check, order_no, product_id)
+values(order_detail_seq.nextval, 1, 372000, '배송완료', '2021-12-27', '0', 22, 13);
+
+insert into order_detail(order_detail_no, order_count, order_price, delivery_status, delivery_compldate, refund_check, order_no, product_id)
+values(order_detail_seq.nextval, 1, 48000, '배송완료', '2021-12-27', '0', 41, 14);
+
+insert into order_detail(order_detail_no, order_count, order_price, delivery_status, delivery_compldate, refund_check, order_no, product_id)
+values(order_detail_seq.nextval, 1, 372000, '배송완료', '2021-12-22', '0', 42, 13);
+
+insert into order_detail(order_detail_no, order_count, order_price, delivery_status, delivery_compldate, refund_check, order_no, product_id)
+values(order_detail_seq.nextval, 1, 48000, '배송완료', '2021-12-23', '0', 43, 14);
+
+select * from product
+
+select * from order_detail
+
+
+
+
+
+
