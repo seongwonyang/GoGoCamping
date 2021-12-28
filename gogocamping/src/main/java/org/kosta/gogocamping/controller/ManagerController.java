@@ -109,6 +109,7 @@ public class ManagerController {
 	@RequestMapping("reviewManagement")
 	public String reviewManagement(Model model, HttpServletRequest request, String sellerId) {
 		HttpSession session = request.getSession();
+		System.out.println(sellerId);
 		if(session.getAttribute("loginVO") == null) {
 			return "manager/views/manager-login-form.tiles";
 		}else {

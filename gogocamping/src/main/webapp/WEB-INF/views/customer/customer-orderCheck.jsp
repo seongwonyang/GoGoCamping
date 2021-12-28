@@ -63,7 +63,10 @@
                                     </c:when>
                                     <c:otherwise>
                                     <td class="shoping__cart__price">
-                                    	<button type="button" class="site-btn" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">후기작성</button>
+                                    	<form action="writeReviewPage" id="writeReviewPage" name="writeReviewPage" method="get">
+		                              <input type="hidden" name="productId" value="${order.productVO.productId}">
+									      <button type="submit" class="site-btn" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">리뷰작성</button>						      
+									  </form> 
                                     </td>
                                     <td class="shoping__cart__price">
                                     	<button type="button" onclick="location.href='refund?orderDetailNo=${order.orderDetailNo}'" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">교환/환불</button>

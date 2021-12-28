@@ -173,18 +173,14 @@
                             </c:choose>
                                 <div class="product__details__tab__desc">
                                     <h3><b>Review</b></h3><hr>
-		                             <form action="writeReviewPage" id="writeReviewPage" name="writeReviewPage" method="get">
-		                              <input type="hidden" name="productId" value="${productVO.productId}">
 									    <div class="form-group">
 									      <select class="form-control" id="reviewOption" name="sortOption" onchange="changeReviewOption()">
 									      	<option value="recent" ${option == 'recent' ? 'selected="selected"' : ''}>최신순</option>
 									        <option value="highStar" ${option == 'highStar' ? 'selected="selected"' : ''}>별점높은순</option>
 									        <option value="lowStar" ${option == 'lowStar' ? 'selected="selected"' : ''}>별점낮은순</option>
-									      </select>
-									      <button type="submit" class="btn btn-light" style="float: right;">글쓰기</button>							      
+									      </select>						      
 									      <br><br>
 									    </div>
-									  </form> 
                                     <c:forEach items="${reviewList}" var="review">
                                       <div class="product__details__text">
 	                                  <div class="product__details__rating">

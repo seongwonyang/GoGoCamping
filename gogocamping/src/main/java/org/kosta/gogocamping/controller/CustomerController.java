@@ -33,8 +33,6 @@ public class CustomerController {
 	private SellerMapper sellerMapper;
 	@Resource
 	private CategoryMapper categoryMapper;
-	@Resource
-	private ProductMapper productMapper;
 	
 	
 	@RequestMapping("loginCustomerForm")

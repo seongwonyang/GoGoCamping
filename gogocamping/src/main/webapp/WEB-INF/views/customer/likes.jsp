@@ -74,8 +74,7 @@
             	<c:forEach items="${likesList}" var="likes">
 	                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
 	                    <div class="featured__item">
-	                        <div class="featured__item__pic set-bg" data-setbg="${likes.productVO.productImg}" onclick="location.href='getProductDetailInfo?productId=${likes.productVO.productId}'">
-	                        	<%-- <input type="hidden" id="productId" value="${likes.productVO.productId}"> --%>
+	                        <div class="featured__item__pic set-bg" data-setbg="${likes.productVO.productImg}" onclick="location.href='getProductDetailInfo?productId=${likes.productVO.productId}&sortOption='">
 	                        </div>
 	                        <div class="text-center">
 	                        	<a href="#none" class="heartIcon" data-productid="${likes.productVO.productId}"><img id="heart${likes.productVO.productId}" src="img/likes/likes.png" class="text-center" style="align:center; width:30px;"></a>

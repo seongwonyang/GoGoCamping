@@ -3,15 +3,10 @@ package org.kosta.gogocamping.model.domain;
 public class ReviewVO {
 	private int reviewNo;
 	private int grade;
-	private String reviewImg;
 	private String reviewContent;
 	private String reviewRegdate;
-	private String customerId;
-	private int productId;
 	private ProductVO productVO;
-	private SellerVO sellerVO;
 	private CustomerVO customerVO;
-	private ProductVO productVO;
 	
 	public ReviewVO() {
 		super();

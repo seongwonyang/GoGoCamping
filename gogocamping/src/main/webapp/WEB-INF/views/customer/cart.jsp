@@ -53,8 +53,8 @@
                                 		<input type="checkbox" value="${cart.cartNo}" name="chk" checked="checked">
                                 	</td>
                                     <td class="shoping__cart__item">
-                                        <img src="${cart.productVO.productImg}" alt="">
-                                        <h5>${cart.productVO.productName}</h5>
+                                        <img src="${cart.productVO.productImg}" alt="" onclick="location.href='getProductDetailInfo?productId=${cart.productVO.productId}&sortOption='">
+                                        <h5 onclick="location.href='getProductDetailInfo?productId=${cart.productVO.productId}&sortOption='">${cart.productVO.productName}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
                                     	<fmt:formatNumber value="${cart.productVO.price}" pattern="#,###" />원
@@ -265,6 +265,11 @@ $(function(){
 	});//inc
 
 	$("#orderProduct").on('click', function() {
+		if($("input[name=chk]:checked").length == 0){
+			alert("선택된 상품이 없습니다.");
+			return false;
+		}
+		
 		var checkList = new Array();
 		$('input[type="checkbox"]:checked').each(function (index) {
 			checkList.push($(this).val());

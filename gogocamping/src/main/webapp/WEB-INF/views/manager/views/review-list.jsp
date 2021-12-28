@@ -67,9 +67,9 @@ th, td {
 						<td>
 							<a href="getDetailReview?reviewNo=${reviewList.reviewNo}">${reviewList.reviewContent}</a>
 						</td>
-						<td>${reviewList.sellerVO.sellerId}</td>
+						<td>${reviewList.productVO.sellerVO.sellerId} </td>
 						<td style="width: 70px;" class="shoping__cart__price">${reviewList.reviewRegdate}</td>
-						<td class="shoping__cart__total">${reviewList.customerId}</td>
+						<td class="shoping__cart__total">${reviewList.customerVO.customerId}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

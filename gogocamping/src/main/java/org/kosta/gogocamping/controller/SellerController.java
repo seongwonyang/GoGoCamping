@@ -289,7 +289,7 @@ public class SellerController {
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
-		return "sellerHome.tiles";
+		return "redirect:SellerHome";
 	}
 	
 	@RequestMapping("UpdateProduct") // 상품 수정
@@ -406,16 +406,6 @@ public class SellerController {
 				//System.out.println(e.getMessage());
 				return "배송상태 변경 실패";
 			}
-		}
-	}
-	 
-	@RequestMapping("TotalSoldList") // 전체 판매 내역 리스트
-	public String totalSoldOrderList(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		if(session.getAttribute("loginVO")==null) {
-			return "seller/views/views2/seller-login-form.tiles";
-		}else {
-			return "seller/views/views2/total-sold-list.tiles";
 		}
 	}
 

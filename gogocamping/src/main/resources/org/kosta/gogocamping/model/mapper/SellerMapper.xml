@@ -82,6 +82,7 @@ select seller_id, brand from seller
 	and oi.order_date between to_date(#{startDate}, 'YYYY-MM-DD') 
 	and to_date(#{lastDate}, 'YYYY-MM-DD')+1
 	order by order_date desc
+</select>
 <select id="getSellerInfoByProduct" parameterType="String" resultType="SellerVO">
 	select seller_id, seller_name, business_number, seller_email, brand, seller_tel, seller_post_number, seller_detailed_address, logo_img_stored
 	from seller where seller_id = #{value}

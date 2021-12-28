@@ -55,7 +55,7 @@ th, td {
 				</tr>
 				<tr>
 					<td>작성자</td>
-					<td>${detailReview.customerId}</td>
+					<td>${detailReview.customerVO.customerId}</td>
 				</tr>
 				<tr>
 					<td>작성일자</td>
