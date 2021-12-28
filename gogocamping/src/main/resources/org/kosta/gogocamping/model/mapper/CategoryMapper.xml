@@ -57,6 +57,8 @@
       </otherwise>
    </choose>  
 </select>
+
+<!-- 대분류 카테고리 조회 -->
 <select id="getCategoryNameByProductId" parameterType="int" resultType="String">
    select c.category_name
    from product p, category c

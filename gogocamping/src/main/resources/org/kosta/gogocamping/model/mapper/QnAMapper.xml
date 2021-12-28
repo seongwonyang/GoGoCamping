@@ -31,4 +31,33 @@
 <update id="answerQnA" parameterType="QnAVO">
 	update qna set answer = #{answer} where qna_no = #{qnaNo}
 </update>
+<resultMap id="qnaMap" type="QnAVO">
+	<result property="productVO.productId" column="product_id"/>
+	<result property="customerVO.customerId" column="customer_id" />
+	<result property="customerVO.customerName" column="customer_name" />
+</resultMap>
+<!-- 문의 유형별 QnA 게시물 리스트 조회 -->
+<select id="getQnAListByProductId" parameterType="map" resultMap="qnaMap">
+	select row_number() over(order by regdate) as rnum, q.*, c.* from qna q, customer c 
+	where q.customer_id = c.customer_id and product_id = #{productId} 
+	<choose>
+		<when test='option.equals("product")'>
+			and qna_category = '상품문의'
+		</when>
+		<when test='option.equals("delivery")'>
+			and qna_category = '배송문의'
+		</when>
+		<otherwise></otherwise>
+	</choose>
+	order by regdate desc
+</select>
+<!-- QnA 개수 -->
+<select id="getQnACountByProductId" parameterType="int" resultType="int">
+	select count(*) from qna where product_id = #{value}
+</select>
+<!-- QnA 작성 -->
+<insert id="writeQuestion" parameterType="QnAVO">
+	insert into QnA(qna_no, qna_category, title, content, regdate, product_id, customer_id)
+	values(qna_seq.nextval,#{qnaCategory},#{title},#{content},sysdate,#{productVO.productId},#{customerVO.customerId})
+</insert>
 </mapper>

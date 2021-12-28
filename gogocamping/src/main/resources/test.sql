@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 -- 전체 상품 리스트 조회 페이징(main)
 select rnum, product_name, price, product_img
 from (select p.*, row_number() over(order by product_name) as rnum from product p)
@@ -116,3 +115,36 @@ and c.detail_category_name = '텐트'
 order by price desc
 
 delete from category where category_name = '카테고리 이름';
+
+
+
+select i.order_date, d.order_count, d.order_price, d.delivery_status, d.refund_check
+from order_info i , order_detail d
+where i.order_no = d.order_no
+
+--주문개수 조회
+select count(*) 
+from (select TO_CHAR(o.order_date, 'yyyy/mm/dd'), o.order_count, o.order_price, o.delivery_status, o.refund_check, p.product_name, p.product_img
+from (select i.order_date, i.customer_id, d.order_count, d.order_price, d.delivery_status, d.refund_check, d.product_id
+from order_info i , order_detail d
+where i.order_no = d.order_no) o, product p
+where o.product_id = p.product_id
+and o.customer_id='test2')
+
+--주문조회
+select TO_CHAR(o.order_date, 'yyyy/mm/dd'), o.order_count, o.order_price, o.delivery_status, o.refund_check, p.product_name, p.product_img
+from (select i.order_date, i.customer_id, d.order_count, d.order_price, d.delivery_status, d.refund_check, d.product_id
+from order_info i , order_detail d
+where i.order_no = d.order_no) o, product p
+where o.product_id = p.product_id
+and o.customer_id='test2'
+
+--test
+select i.order_date, i.customer_id, d.order_count, d.order_price, d.delivery_status, d.refund_check, d.product_id
+from order_info i , order_detail d
+where i.order_no = d.order_no
+
+-- 구매확정
+update order_detail set refund_check = 1 where order_detail_no = 1
+
+

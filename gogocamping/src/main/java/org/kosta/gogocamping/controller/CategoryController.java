@@ -63,6 +63,7 @@ public class CategoryController {
 	      model.addAttribute("detailCategoryList", detailCategoryList);
 		  model.addAttribute("categoryList", categoryMapper.getCategoryList());
 		  model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		  model.addAttribute("option", option);
 		
 	      return "product/category.tiles";
 	}
@@ -86,6 +87,7 @@ public class CategoryController {
 		
 		return "product/detail-category.tiles";
 	}
+
 	@RequestMapping("getDetailCategoryList")
 	@ResponseBody
 	public ArrayList<String> getDetailCategoryList(String category){
@@ -96,9 +98,6 @@ public class CategoryController {
 		detailList.add(getDetailList.get(i).getDetailCategoryName());
 	}
 	      
-		System.out.println(category);
-		System.out.println(detailList);
-		      
 		return detailList;
 	}
 	

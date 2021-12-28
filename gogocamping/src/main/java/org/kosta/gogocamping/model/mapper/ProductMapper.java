@@ -1,5 +1,6 @@
 package org.kosta.gogocamping.model.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,5 +39,13 @@ public interface ProductMapper {
 	List<ProductVO> getOrderList(String sellerId);
 
 	void updateDeliveryStatus(Map<String, String> orderMap);
+  
+	ProductVO getProductDetailInfo(int productId);
+
+	int getProductStockCount(int productId);
+
+	void updateProductStockCount(Map<String, Object> map);
+
+	ArrayList<ProductVO> getRelatedProductList(String categoryName);
 
 }
