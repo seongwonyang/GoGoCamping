@@ -55,7 +55,7 @@
                                     	<button type="button" class="site-btn" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">후기작성</button>
                                     </td>
                                     <td class="shoping__cart__price">
-                                    	<button type="button" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">교환/환불</button>
+                                    	<button type="button" onclick="location.href='refund?orderDetailNo=${order.orderDetailNo}'" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">교환/환불</button>
                                     </td>		
                                     </c:otherwise>
                                     </c:choose>
