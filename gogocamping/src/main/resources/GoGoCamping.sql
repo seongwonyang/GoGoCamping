@@ -136,7 +136,7 @@ create table order_detail(
 	order_count number not null,
 	order_price number not null,
 	delivery_status varchar2(100) not null,
-	delivery_compldate varchar2(100),
+	delivery_compldate date,
 	refund_check varchar2(100) not null, -- 0 or 1
 	order_no number not null,
 	product_id number not null,

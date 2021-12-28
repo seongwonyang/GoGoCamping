@@ -181,8 +181,27 @@ where r.product_id=p.product_id and r.review_no=21
 
 delete from review where review_no=22
 
+-- 전체 판매 내역
+select oi.order_no, od.order_detail_no, p.product_name, od.order_count, to_char(oi.order_date, 'YYYY-MM-DD') as order_date, od.order_price, od.delivery_status, p.seller_id
+from order_info oi, order_detail od, product p
+where oi.order_no = od.order_no
+and od.product_id=p.product_id
+and od.delivery_status = '배송완료'
+and p.seller_id='snowpeak'
+order by order_date desc;
 
+select seller_id, seller_name from seller where seller_id='snowpeak'
 
+-- 날짜별 판매 내역
+select oi.order_no, od.order_detail_no, p.product_name, od.order_count, to_char(oi.order_date, 'YYYY-MM-DD') as order_date, od.order_price, od.delivery_status, p.seller_id
+from order_info oi, order_detail od, product p
+where oi.order_no = od.order_no
+and od.product_id=p.product_id
+and od.delivery_status = '배송완료'
+and p.seller_id='snowpeak'
+and oi.order_date between to_date('2021-12-01', 'YYYY-MM-DD') 
+and to_date('2021-12-22', 'YYYY-MM-DD')+1
+order by order_date desc
 
 
 
