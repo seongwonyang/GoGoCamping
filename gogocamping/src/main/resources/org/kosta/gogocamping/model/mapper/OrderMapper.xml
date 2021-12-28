@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.gogocamping.model.mapper.OrderMapper">
+<insert id="insertOrderInfo" parameterType="orderInfoVO">
+	insert into order_info(order_no,order_date,order_comment,order_post_number,order_address,order_detailed_address,receiver_name,receiver_tel,payment,customer_id)
+	values(#{orderNo},sysdate,#{orderComment},#{orderPostNumber},#{orderAddress},#{orderDetailedAddress},#{receiverName},#{receiverTel},#{payment},#{customerVO.customerId})
+</insert>
+<insert id="insertOrderDetail" parameterType="orderDetailVO">
+	insert into order_detail(order_detail_no, order_count, order_price, delivery_status, refund_check, order_no, product_id)
+	values(order_detail_seq.nextval,#{orderCount},#{orderPrice},#{deliveryStatus},#{refundCheck},#{orderInfoVO.orderNo},#{productVO.productId})
+</insert>
+
+<resultMap id="orderDetailMap" type="OrderDetailVO">
+	<result property="productVO.productName" column="product_name"/>
+	<result property="productVO.price" column="price"/>
+</resultMap> 
+
+<select id="getProductInfoByOrderDetailNo" parameterType="int" resultMap="orderDetailMap">
+	select o.*, p.product_name, p.price
+	from order_detail o, product p
+	where o.product_id = p.product_id and o.order_detail_no = #{value}
+</select>
+
+<update id="updateStatusOrderDetail" parameterType="int">
+ 	update order_detail set delivery_status = '환불요청' where order_detail_no = #{value}
+</update>
+
+</mapper>

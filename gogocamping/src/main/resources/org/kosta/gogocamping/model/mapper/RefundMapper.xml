@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.RefundMapper">
+
+<!-- 환불 테이블 삽입 -->
+<insert id="insertRefund" parameterType="RefundVO">
+	insert into refund(refund_no, refund_category, refund_reason, refund_reject_reason, order_detail_no) 
+	values(refund_seq.nextval, #{refundCategory}, #{refundReason}, null, #{orderDetailVO.orderDetailNo})
+</insert>
+
 </mapper>

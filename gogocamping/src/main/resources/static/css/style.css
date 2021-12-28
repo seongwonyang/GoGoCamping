@@ -134,6 +134,12 @@ ol {
 	margin: 0 auto;
 }
 
+.section-title h5 {
+	color: #1c1c1c;
+	font-weight: 700;
+	position: relative;
+}
+
 .section-title h3 {
 	color: #1c1c1c;
 	font-weight: 700;
@@ -3487,4 +3493,15 @@ ol {
 	.blog__details__hero__text h2 {
 		font-size: 24px;
 	}
+}
+
+#qnaTitle {
+	outline:none;
+	border-color:#D8D8D8;
+    box-shadow:none;
+}
+#qnaContent {
+	outline:none;
+	border-color:#D8D8D8;
+    box-shadow:none;
 }

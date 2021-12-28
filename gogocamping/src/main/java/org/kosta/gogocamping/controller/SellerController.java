@@ -10,7 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.gogocamping.model.domain.OrderDetailVO;
+import org.kosta.gogocamping.model.domain.CategoryVO;
+import org.kosta.gogocamping.model.domain.CustomerVO;
+import org.kosta.gogocamping.model.domain.ProductVO;
+import org.kosta.gogocamping.model.domain.QnAVO;
 import org.kosta.gogocamping.model.domain.SellerVO;
+import org.kosta.gogocamping.model.mapper.CategoryMapper;
+import org.kosta.gogocamping.model.mapper.ProductMapper;
+import org.kosta.gogocamping.model.mapper.QnAMapper;
 import org.kosta.gogocamping.model.mapper.SellerMapper;
 import org.kosta.gogocamping.model.service.SellerMailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +33,12 @@ public class SellerController {
 	@Resource
 	private SellerMapper sellerMapper;
 	@Resource
+	private ProductMapper productMapper;
+	@Resource
+	private CategoryMapper categoryMapper;
+	@Resource
+	private QnAMapper qnaMapper;
+	@Resource
 	private SellerMailService sellerMailService;
 
 	@Autowired
@@ -36,12 +49,14 @@ public class SellerController {
 	}
 
 	@RequestMapping("SellerHome") // 판매자 메인 페이지
-	public String home(HttpServletRequest request) {
+	public String home(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("loginVO") == null) {
 			return "seller/views/views2/seller-login-form.tiles";
-		} else {
-			return "sellerHome.tiles";
+		}else {
+			SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			model.addAttribute("getSellerProductList", productMapper.getSellerProductList(sellerVO.getSellerId()));
+			return "sellerHome.tiles";			
 		}
 	}
 
@@ -68,41 +83,34 @@ public class SellerController {
 			String sellerDetailedAddress, @RequestParam("logoImg") MultipartFile logoImgFile,
 			HttpServletRequest request) {
 		try {
-			if (!logoImgFile.isEmpty()) {
+			if(!logoImgFile.isEmpty()) {
 
-				// System.out.println(logoImgFile.getName());
-				// System.out.println(logoImgFile.getOriginalFilename());
 				String resourceSrc = request.getServletContext().getRealPath("/static/image/seller_logo/");
-				// System.out.println(resourceSrc);
-
-				// 파일명
-				String originalFile = logoImgFile.getOriginalFilename();
-				// 파일명 중 확장자만 추출 //lastIndexOf(".") - 뒤에 있는 . 의 index번호
-				String originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
-				// fileuploadtest.doc
-				// lastIndexOf(".") = 14(index는 0번부터)
-				// substring(14) = .doc
-
-				// 업무에서 사용하는 리눅스, UNIX는 한글지원이 안 되는 운영체제
-				// 파일업로드시 파일명은 ASCII코드로 저장되므로, 한글명으로 저장 필요
-				// UUID클래스 - (특수문자를 포함한)문자를 랜덤으로 생성 "-"라면 생략으로 대체
-				// String storedFileName = UUID.randomUUID().toString().replaceAll("-", "") +
-				// originalFileExtension;
-				String storedFileName = sellerId + "_logo." + originalFileExtension;
-
-				// 파일을 저장하기 위한 파일 객체 생성
-				// File file = new File(filePath + storedFileName);
-				File file = new File(resourceSrc + storedFileName);
-				// 파일 저장
-				logoImgFile.transferTo(file);
-
-				System.out.println(originalFile + "은 업로드한 파일이다.");
-				System.out.println(storedFileName + "라는 이름으로 업로드 됐다.");
-				System.out.println("파일사이즈는 " + logoImgFile.getSize());
-
-				SellerVO sellerVO = new SellerVO(sellerId, sellerPassword, sellerName, sellerEmail, sellerTel,
-						businessNumber, brand, logoImgFile.getOriginalFilename(), storedFileName, sellerPostNumber,
-						sellerAddress, sellerDetailedAddress, 0);
+				
+		        //파일명
+		        String originalFile = logoImgFile.getOriginalFilename();
+		        //파일명 중 확장자만 추출                                                //lastIndexOf(".") - 뒤에 있는 . 의 index번호
+		        String originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
+		        String storedFileName = sellerId + "_logo." + originalFileExtension;
+		        
+		        //파일을 저장하기 위한 파일 객체 생성
+		        File file = new File(resourceSrc + storedFileName);
+		        //파일 저장
+		        logoImgFile.transferTo(file);
+				
+				SellerVO sellerVO = 
+						new SellerVO(sellerId, 
+						sellerPassword, 
+						sellerName, 
+						sellerEmail, 
+						sellerTel, 
+						businessNumber, 
+						brand, 
+						logoImgFile.getOriginalFilename(), 
+						storedFileName,
+						sellerPostNumber, 
+						sellerAddress, 
+						sellerDetailedAddress,0);
 				sellerMapper.registerSeller(sellerVO);
 			}
 		} catch (Exception e) {
@@ -222,34 +230,193 @@ public class SellerController {
 	}
 
 	@RequestMapping("RegisterProductForm") // 상품 등록 폼
-	public String registerProductForm(HttpServletRequest request) {
+	public String registerProductForm(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("loginVO") == null) {
 			return "seller/views/views2/seller-login-form.tiles";
-		} else {
-
+		}else {
+			model.addAttribute("categoryList", categoryMapper.getCategoryList());
 			return "seller/views/views2/register-product-form.tiles";
 		}
 	}
-
+	
+	@RequestMapping("UpdateProductForm") // 상품 수정 폼
+	public String updateProductForm(HttpServletRequest request, Model model, int productId) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginVO")==null) {
+			return "seller/views/views2/seller-login-form.tiles";
+		}else {
+			SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			model.addAttribute("getSellerProductList", productMapper.getSellerProductList(sellerVO.getSellerId()));
+			model.addAttribute("categoryList", categoryMapper.getCategoryList());
+			model.addAttribute("getProductInfo", productMapper.getProductInfo(productId));
+			return "seller/views/views2/update-product-form.tiles";
+		}
+	}
+	
 	@RequestMapping("RegisterProduct") // 상품 등록
-	public String registerProduct() {
-		return null;
+	public String registerProduct(String productName, int price, String productInfo, int stock, String categorySelectDetail,
+			@RequestParam("productImg") MultipartFile productImgFile, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+		int categoryNo = categoryMapper.getCategoryNoByDetailCategoryName(categorySelectDetail);
+		CategoryVO categoryVO = new CategoryVO(categoryNo, null, null);
+		try {
+			if(!productImgFile.isEmpty()) {
+				String productResource = request.getServletContext().getRealPath("/static/image/product_img/");
+				// 파일명
+				String originalImgFile = productImgFile.getOriginalFilename();
+				// 확장자 추출
+				String originalImgFileExt = originalImgFile.substring(originalImgFile.lastIndexOf("."));
+				// 저장될 파일명
+				String storedImgFileName = sellerVO.getBrand() + "_product_img_" + categoryVO.getCategoryNo() + originalImgFileExt;
+				// 파일을 저장하기 위한 파일 객체 생성
+				File imgFile = new File(productResource + storedImgFileName);
+				// 파일 저장
+				productImgFile.transferTo(imgFile);
+				
+				ProductVO productVO = new ProductVO(
+						productName,
+						price,
+						productInfo,
+						stock,
+						productImgFile.getOriginalFilename(),
+						storedImgFileName,
+						sellerVO,
+						categoryVO);
+				productMapper.registerProduct(productVO);
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "sellerHome.tiles";
+	}
+	
+	@RequestMapping("UpdateProduct") // 상품 수정
+	public String updateProduct(String productName, int price, String productInfo, int stock, String categorySelectDetail, int productId,
+			@RequestParam("productImg") MultipartFile productImgFile, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+		int categoryNo = categoryMapper.getCategoryNoByDetailCategoryName(categorySelectDetail);
+		CategoryVO categoryVO = new CategoryVO(categoryNo, null, null);
+		try {
+			if(!productImgFile.isEmpty()) {
+				String productResource = request.getServletContext().getRealPath("/static/image/product_img/");
+				// 파일명
+				String originalImgFile = productImgFile.getOriginalFilename();
+				// 확장자 추출
+				String originalImgFileExt = originalImgFile.substring(originalImgFile.lastIndexOf("."));
+				// 저장될 파일명
+				String storedImgFileName = sellerVO.getBrand() + "_" + categoryVO.getCategoryNo() + "_" +  productId + originalImgFileExt;
+				// 파일을 저장하기 위한 파일 객체 생성
+				File imgFile = new File(productResource + storedImgFileName);
+				// 파일 저장
+				productImgFile.transferTo(imgFile);
+				
+				ProductVO productVO = new ProductVO(
+						productId,
+						productName,
+						price,
+						productInfo,
+						stock,
+						productImgFile.getOriginalFilename(),
+						storedImgFileName,
+						categoryVO);
+				productMapper.updateProduct(productVO);
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "sellerHome.tiles";
 	}
 
 	@RequestMapping("QnAList") // 고객 문의 목록
-	public String getQnAList(HttpServletRequest request) {
+	public String getQnAList(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("loginVO") == null) {
 			return "seller/views/views2/seller-login-form.tiles";
-		} else {
+		}else {
+			SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			model.addAttribute("getQnAList", qnaMapper.getQnAList(sellerVO.getSellerId()));
 			return "seller/views/views2/qna-list.tiles";
 		}
 	}
 
 	@RequestMapping("QnAAnswerForm") // 고객 문의 답변 폼
-	public String answerQnAForm() {
-		return "seller/views/views2/qna-answer-form.tiles";
+	public String answerQnAForm(HttpServletRequest request, Model model, int qnaNo) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginVO")==null) {
+			return "seller/views/views2/seller-login-form.tiles";
+		}else {
+			// SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			model.addAttribute("getQnAListByNo", qnaMapper.getQnAListByNo(qnaNo));
+			return "seller/views/views2/qna-answer-form.tiles";
+		}
+	}
+	
+	@RequestMapping("QnAAnswer") // 답변 등록
+	public String answerQnA(HttpServletRequest request, Model model, QnAVO qnaVO) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginVO")==null) {
+			return "seller/views/views2/seller-login-form.tiles";
+		}else {
+			
+			SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			qnaMapper.answerQnA(qnaVO);
+			model.addAttribute("getQnAList", qnaMapper.getQnAList(sellerVO.getSellerId()));
+			return "seller/views/views2/qna-list.tiles";
+		}
+	}
+	
+	@RequestMapping("OrderList") // 현재 주문 내역 리스트
+	public String getOrderList(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginVO")==null) {
+			return "seller/views/views2/seller-login-form.tiles";
+		}else {
+			SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			model.addAttribute("getOrderList", productMapper.getOrderList(sellerVO.getSellerId()));
+			return "seller/views/views2/order-list.tiles";
+		}
+	}
+	
+	@RequestMapping("updateDeliveryStatus") // 배송 정보 갱신
+	@ResponseBody
+	public String updateDeliveryStatus(HttpServletRequest request, Model model, String productId, String deliveryStatus) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginVO")==null) {
+			return "noSession";
+		}else {
+			try {
+				
+				Map<String, String> orderMap = new HashMap<>();
+				orderMap.put("productId", productId);
+				if("입금확인".equals(deliveryStatus)) {
+					deliveryStatus="배송준비중";
+				}else if("배송준비중".equals(deliveryStatus)) {
+					deliveryStatus="배송중";
+				}else if("배송중".equals(deliveryStatus)) {
+					deliveryStatus="배송완료";
+				}
+				orderMap.put("deliveryStatus", deliveryStatus);
+				productMapper.updateDeliveryStatus(orderMap);
+				return deliveryStatus;
+			
+			} catch (Exception e) {
+				//System.out.println(e.getMessage());
+				return "배송상태 변경 실패";
+			}
+		}
+	}
+	 
+	@RequestMapping("TotalSoldList") // 전체 판매 내역 리스트
+	public String totalSoldOrderList(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginVO")==null) {
+			return "seller/views/views2/seller-login-form.tiles";
+		}else {
+			return "seller/views/views2/total-sold-list.tiles";
+		}
 	}
 
 	@RequestMapping("TotalSoldList") // 전체 판매 내역 리스트

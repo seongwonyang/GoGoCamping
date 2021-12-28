@@ -1,11 +1,19 @@
 package org.kosta.gogocamping.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.gogocamping.model.domain.CustomerVO;
+import org.kosta.gogocamping.model.domain.PagingBean;
+import org.kosta.gogocamping.model.domain.OrderDetailVO;
+import org.kosta.gogocamping.model.domain.PagingBean;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
 import org.kosta.gogocamping.model.mapper.CustomerMapper;
+import org.kosta.gogocamping.model.mapper.ProductMapper;
 import org.kosta.gogocamping.model.mapper.SellerMapper;
 import org.kosta.gogocamping.model.service.MailService;
 import org.springframework.stereotype.Controller;
@@ -20,14 +28,17 @@ public class CustomerController {
 	@Resource
 	private MailService service;
 	@Resource
+	private ProductMapper productMapper;
+	@Resource
 	private SellerMapper sellerMapper;
 	@Resource
 	private CategoryMapper categoryMapper;
+	@Resource
+	private ProductMapper productMapper;
+	
 	
 	@RequestMapping("loginCustomerForm")
 	public String loginCustomerForm(Model model) {
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-login.tiles";
 	}
 	@RequestMapping("loginCustomer")
@@ -42,21 +53,34 @@ public class CustomerController {
 		}
 	}
 	@RequestMapping("logoutCustomer")
-	public String logoutCustomer(HttpSession session) {
+	public String logoutCustomer(HttpSession session, Model model) {
 		session.removeAttribute("loginVO");
+		session.removeAttribute("naverVO");
+		session.removeAttribute("kakaoVO");
+		int totalCount = productMapper.getAllProductCount();
+		PagingBean pagingBean = new PagingBean(totalCount);
+
+		int startRowNumber = pagingBean.getStartRowNumber();
+		int endRowNumber = pagingBean.getEndRowNumber();
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNumber", startRowNumber);
+		map.put("endRowNumber", endRowNumber);
+		map.put("option", "");
+		
+		model.addAttribute("pagingBean", pagingBean);
+		model.addAttribute("allProductList", productMapper.getAllProductList(map)); // 전체 상품 리스트
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "home.tiles";
 	}
 
 	@RequestMapping("registerCustomerForm")
 	public String registerCustomerForm(Model model) {
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-register-form.tiles";
 	}
 	@RequestMapping("registerForm")
 	public String registerForm(Model model) {
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/register-form.tiles";
 	}
 	@RequestMapping("checkId")
@@ -70,55 +94,77 @@ public class CustomerController {
 		}
 	}
 	@RequestMapping("registerCustomer") 
-	public String registerCustomer(String customerId, String customerPassword, String customerName, String customerEmail, String customerTel, String customerBirth, String customerPostNumber, String customerAddress, String customerDetailedAddress) {
+	public String registerCustomer(String customerId, String customerPassword, String customerName, String customerEmail, String customerTel, String customerBirth, String customerPostNumber, String customerAddress, String customerDetailedAddress, Model model) {
 		customerMapper.registerCustomer(customerId, customerPassword, customerName, customerEmail, customerTel, customerBirth, customerPostNumber, customerAddress, customerDetailedAddress);
+		int totalCount = productMapper.getAllProductCount();
+		PagingBean pagingBean = new PagingBean(totalCount);
+
+		int startRowNumber = pagingBean.getStartRowNumber();
+		int endRowNumber = pagingBean.getEndRowNumber();
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNumber", startRowNumber);
+		map.put("endRowNumber", endRowNumber);
+		map.put("option", "");
+		
+		model.addAttribute("pagingBean", pagingBean);
+		model.addAttribute("allProductList", productMapper.getAllProductList(map)); // 전체 상품 리스트
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "home.tiles";
 	}
 
 	@RequestMapping("customer-find-id-form")
 	public String customerFindIdForm(Model model) {
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-find-id-form.tiles";
 	}
 	@RequestMapping("customer-find-id-byEmail")
 	public String customerFindIdByEmail(Model model) {
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-find-id-byEmail.tiles";
 	}
 	@RequestMapping("customer-find-id-byTel")
 	public String customerFindIdByTel(Model model) {
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-find-id-byTel.tiles";
 	}
 	@RequestMapping("getCustomerIdByEmail")
 	public String getCustomerIdByEmail(String customerName, String customerEmail, Model model) {
 		CustomerVO customerVO = customerMapper.findCustomerIdByEmail(customerName, customerEmail);
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		model.addAttribute("customerVO", customerVO);
 		return "customer/customer-result-byEmail.tiles";
 	}
 	@RequestMapping("getCustomerIdByTel")
 	public String getCustomerIdByTel(String customerName, String customerTel, Model model) {
+		model.addAttribute("customerVO", customerMapper.findCustomerIdByTel(customerName, customerTel));
+
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
-		model.addAttribute("customerVO", customerMapper.findCustomerIdByTel(customerName, customerTel));
 		return "customer/customer-result-byTel.tiles";
 	}
 	@RequestMapping("resetCustomerPassword")
-	public String resetCustomerPassword(String customerId, String customerPassword, HttpSession session) {
+	public String resetCustomerPassword(String customerId, String customerPassword, HttpSession session, Model model) {
 		session.removeAttribute("athCode");
 		session.removeAttribute("checkId");
 		customerMapper.updatePassword(customerPassword, customerId);
+		int totalCount = productMapper.getAllProductCount();
+
+		PagingBean pagingBean = new PagingBean(totalCount);
+
+		int startRowNumber = pagingBean.getStartRowNumber();
+		int endRowNumber = pagingBean.getEndRowNumber();
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNumber", startRowNumber);
+		map.put("endRowNumber", endRowNumber);
+		map.put("option", "");
+		
+		model.addAttribute("pagingBean", pagingBean);
+		model.addAttribute("allProductList", productMapper.getAllProductList(map)); // 전체 상품 리스트
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "home.tiles";
 	}
 	@RequestMapping("customer-findPassword-form")
 	public String customerFindPasswordForm(Model model) {
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-findPassword-form.tiles";
 	}
 	@RequestMapping("findPassword")
@@ -138,14 +184,10 @@ public class CustomerController {
 	}
 	@RequestMapping("emailCode")
 	public String emailCode(Model model) {
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-emailCode-form.tiles";
 	}
 	@RequestMapping("resetPassword")
 	public String resetPassword(Model model) {
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-passwordRest.tiles";
 	}
 	public String getTempPassword(){
@@ -161,4 +203,69 @@ public class CustomerController {
         }
         return str;
     }
+	@RequestMapping("updateCustomerInfo") //정보수정폼으로 이동
+	public String updateCustomerInfo(Model model, String customerId) {
+		model.addAttribute("customerInfo", customerMapper.findCustomerId(customerId));
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
+		return "customer/customer-update-info.tiles";
+	}
+	@RequestMapping("updateInfo") //정보수정
+	public String updateInfo(String customerId, String customerEmail, String customerTel, String customerPostNumber, String customerAddress, String customerDetailedAddress,Model model) {
+		CustomerVO cvo=new CustomerVO(customerId,null, null, customerEmail, customerTel, customerPostNumber, customerAddress, customerDetailedAddress,null, null);
+		customerMapper.updateInfo(cvo);
+		model.addAttribute("customerInfo", customerMapper.findCustomerId(customerId));
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
+		return "customer/customer-update-info.tiles";
+	}
+	@RequestMapping("updateCustomerPassword") //비밀번호수정폼으로 이동
+	public String updateCustomerPassword(Model model, String customerId) {
+		model.addAttribute("passwordUpdate", customerMapper.equals(customerId));
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
+		return "customer/customer-update-password.tiles";
+	}
+	@RequestMapping("updateNewPassword") //비밀번호 수정
+	public String updateNewPassword(String customerId, String customerPassword, HttpSession session, Model model) {
+		customerMapper.updatePassword(customerPassword, customerId);
+		session.removeAttribute("loginVO");
+		int totalCount = productMapper.getAllProductCount();
+		PagingBean pagingBean = new PagingBean(totalCount);
+
+		int startRowNumber = pagingBean.getStartRowNumber();
+		int endRowNumber = pagingBean.getEndRowNumber();
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRowNumber", startRowNumber);
+		map.put("endRowNumber", endRowNumber);
+		map.put("option", "");
+		
+		model.addAttribute("pagingBean", pagingBean);
+		model.addAttribute("allProductList", productMapper.getAllProductList(map)); // 전체 상품 리스트
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
+		return "home.tiles";
+	}	
+	@RequestMapping("orderCheck")
+	public String orderCheck(String customerId, Model model) {
+		List<OrderDetailVO> list = customerMapper.orderCheck(customerId);
+		model.addAttribute("orderList", list);
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
+		return "customer/customer-orderCheck.tiles";
+	}
+	@RequestMapping("buyConfirm")
+	@ResponseBody
+	public String buyConfirm(int orderDetailNo) {
+		customerMapper.buyConfirm(orderDetailNo);
+		return "구매확정";
+	}
+	@RequestMapping("orderConfirm")
+	@ResponseBody
+	public String  orderConfirm(int orderDetailNo, int productId, int orderCount) {
+		customerMapper.orderConfirm(orderDetailNo);
+		customerMapper.sumStockCount(orderCount, productId);
+		return "주문취소";
+	}
 }

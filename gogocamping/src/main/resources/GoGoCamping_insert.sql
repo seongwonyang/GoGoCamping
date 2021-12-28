@@ -8,7 +8,7 @@ values('seller','판매자','a',1,'seller@naver.com','캠핑브랜드', '로고�
 
 -- 소비자
 insert into customer(customer_id,customer_name,customer_password,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
-values('customer','소비자','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소','1998-11-08',to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'));
+values('customer','소비자','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소',to_date('1998/11/08','YYYY-MM-DD'),sysdate);
 
 -- 카테고리
 insert into category(category_no,category_name,detail_category_name)
@@ -31,20 +31,21 @@ insert into review(review_no,grade,review_content,review_regdate,customer_id,pro
 values(review_seq.nextval,5,'리뷰내용',sysdate,'customer',1);
 
 -- 주문 정보
-insert into order_info(order_no,order_date,order_post_number,order_address,order_detailed_address,receiver_name,receiver_tel,payment,customer_id)
-values(order_info_seq.nextval,to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'),'00000','주문자 주소','주문자 상세주소','받는사람 이름','받는사람 번호','지불방법','customer');
+
+insert into order_info(order_no,order_date,order_comment,order_post_number,order_address,order_detailed_address,receiver_name,receiver_tel,payment,customer_id)
+values('주문번호난수생성',sysdate,'배송메시지','00000','주문자 주소','주문자 상세주소','받는사람 이름','받는사람 번호','지불방법','customer');
 
 -- 주문 상세 정보(상품)
 insert into order_detail(order_detail_no, order_count, order_price, delivery_status, delivery_compldate, refund_check, order_no, product_id)
 values(order_detail_seq.nextval,2,1500,'배송상태','배송완료날짜','0',1,1);
 
 -- 환불
-insert into refund(refund_no, refund_category, refund_reason, refund_reject_reason, refund_reason_img, order_detail_no)
-values(refund_seq.nextval,'환불카테고리','환불이유','환불사진','환불거절사유',1);
+insert into refund(refund_no, refund_category, refund_reason, refund_reject_reason, order_detail_no)
+values(refund_seq.nextval,'환불카테고리','환불이유','환불거절사유',1);
 
 -- QnA
 insert into QnA(qna_no, qna_category, title, content, regdate, product_id, customer_id)
-values(qna_seq.nextval,'질문카테고리','질문제목','질문내용',to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'),1,'customer');
+values(qna_seq.nextval,'질문카테고리','질문제목','질문내용',sysdate,1,'customer');
 
 
 
@@ -281,80 +282,77 @@ commit
 
 -- 상품 insert
 
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'아스가르드 7.1 데님 텐트',1340000,'아스가르드 7.1 데님 텐트',30,'https://www.gocamp.co.kr/shop/data/goods/1637636524219s0.jpg','jannu', 32);
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'아스가르드 7.1 데님 텐트',1340000,'아스가르드 7.1 데님 텐트',30,'https://www.gocamp.co.kr/shop/data/goods/1637636524219s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1637636524219s0.jpg','jannu', 32);
 
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'태프론아웃도어 압력밥솥',72000,'태프론아웃도어 압력밥솥',15,'https://www.gocamp.co.kr/shop/data/goods/1433302188_s_0.jpg','jannu', 49);
-
---
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'히트 3M 신슐레이트 페이일 카키',94500,'히트 3M 신슐레이트 페이일 카키',50,'https://www.gocamp.co.kr/shop/data/goods/1631179595873s0.jpg','jeep', 61);
-
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'그래니트 듀오 160 테이블',72000,'그래니트 듀오 160 테이블',40,'https://www.gocamp.co.kr/shop/data/goods/1433302188_s_0.jpg','jeep', 2);
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'태프론아웃도어 압력밥솥',72000,'태프론아웃도어 압력밥솥',15,'https://www.gocamp.co.kr/shop/data/goods/1433302188_s_0.jpg','https://www.gocamp.co.kr/shop/data/goods/1433302188_s_0.jpg','jannu', 49);
 
 --
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'ORO 스토퍼',8000,'ORO 스토퍼',50,'https://www.gocamp.co.kr/shop/data/goods/1630044312821s0.jpg','campis', 39);
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'히트 3M 신슐레이트 페이일 카키',94500,'히트 3M 신슐레이트 페이일 카키',50,'https://www.gocamp.co.kr/shop/data/goods/1631179595873s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1631179595873s0.jpg','jeep', 61);
 
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'코드슬링 B 2mm',14000,'코드슬링 B 2mm',40,'https://www.gocamp.co.kr/shop/data/goods/1629943531549s0.jpg','campis', 39);
-
---
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'캠핑용 캠프 애나멜웨어 세트',81000,'캠핑용 캠프 애나멜웨어 세트',100,'https://www.gocamp.co.kr/shop/data/goods/1630727152791s0.jpg','luettbiden', 51);
-
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'우드 플레잍 W1',31400,'우드 플레잍 W1',150,'https://www.gocamp.co.kr/shop/data/goods/1623466811717s0.jpg','luettbiden', 51);
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'그래니트 듀오 160 테이블',72000,'그래니트 듀오 160 테이블',40,'https://www.gocamp.co.kr/shop/data/goods/1433302188_s_0.jpg','https://www.gocamp.co.kr/shop/data/goods/1433302188_s_0.jpg','jeep', 2);
 
 --
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'쿠킹 테이블',144000,'쿠킹 테이블',80,'https://www.gocamp.co.kr/shop/data/goods/1592312381357s0.jpg','eztraveler', 7);
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'ORO 스토퍼',8000,'ORO 스토퍼',50,'https://www.gocamp.co.kr/shop/data/goods/1630044312821s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1630044312821s0.jpg','campis', 39);
 
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'비스트로 DLX 실버',12700,'비스트로 DLX 실버',90,'https://www.gocamp.co.kr/shop/data/goods/14494594397s0.jpg','eztraveler', 7);
-
---
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'캠핑용 접이식 스모커 훈연기',372000,'캠핑용 접이식 스모커 훈연기',120,'https://www.gocamp.co.kr/shop/data/goods/1600422699281s0.jpg','snowpeak', 23);
-
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'엔틱 그릴 세트 M',48000,'엔틱 그릴 세트 M',150,'https://www.gocamp.co.kr/shop/data/goods/1528094209626s0.jpg','snowpeak', 23);
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'코드슬링 B 2mm',14000,'코드슬링 B 2mm',40,'https://www.gocamp.co.kr/shop/data/goods/1629943531549s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1629943531549s0.jpg','campis', 39);
 
 --
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'핵사 아이언 화로대 S',129000,'핵사 아이언 화로대 S',120,'https://www.gocamp.co.kr/shop/data/goods/163342369839s0.jpg','montbell', 21);
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'캠핑용 캠프 애나멜웨어 세트',81000,'캠핑용 캠프 애나멜웨어 세트',100,'https://www.gocamp.co.kr/shop/data/goods/1630727152791s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1630727152791s0.jpg','luettbiden', 51);
 
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'화로대 그릴 세트',83000,'화로대 그릴 세트',150,'https://www.gocamp.co.kr/shop/data/goods/1589349514272s0.jpg','montbell', 21);
-
---
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'큐브 UL8 블랙 V2',111350,'큐브 UL8 블랙 V2',50,'https://www.gocamp.co.kr/shop/data/goods/1637297080399s0.jpg','coleman', 33);
-
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'에어로베이스 4 에어쉘터',735250,'에어로베이스 4 에어쉘터',200,'https://www.gocamp.co.kr/shop/data/goods/1603515745243s0.jpg','coleman', 33);
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'우드 플레잍 W1',31400,'우드 플레잍 W1',150,'https://www.gocamp.co.kr/shop/data/goods/1623466811717s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1623466811717s0.jpg','luettbiden', 51);
 
 --
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'더블네스트 해먹 프린트',112000,'더블네스트 해먹 프린트',200,'https://www.gocamp.co.kr/shop/data/goods/1615539079297s0.jpg','durango', 66);
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'쿠킹 테이블',144000,'쿠킹 테이블',80,'https://www.gocamp.co.kr/shop/data/goods/1592312381357s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1592312381357s0.jpg','eztraveler', 7);
 
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'정글 네트 해먹 세트',146250,'정글 네트 해먹 세트',180,'https://www.gocamp.co.kr/shop/data/goods/1587094609796s0.jpg','durango', 66);
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'비스트로 DLX 실버',12700,'비스트로 DLX 실버',90,'https://www.gocamp.co.kr/shop/data/goods/14494594397s0.jpg','https://www.gocamp.co.kr/shop/data/goods/14494594397s0.jpg','eztraveler', 7);
 
 --
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'투스카니 420 카페트',142800,'투스카니 420 카페트',200,'https://www.gocamp.co.kr/shop/data/goods/1618823490837s0.jpg','minimalworks', 42);
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'캠핑용 접이식 스모커 훈연기',372000,'캠핑용 접이식 스모커 훈연기',120,'https://www.gocamp.co.kr/shop/data/goods/1600422699281s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1600422699281s0.jpg','snowpeak', 23);
 
-insert into product(product_id,product_name,price,product_info,stock,product_img,seller_id,category_no)
-values(product_seq.nextval,'발렌시아 650 XL',150450,'발렌시아 650 XL',180,'https://www.gocamp.co.kr/shop/data/goods/1593488169980s0.jpg','minimalworks', 42);
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'엔틱 그릴 세트 M',48000,'엔틱 그릴 세트 M',150,'https://www.gocamp.co.kr/shop/data/goods/1528094209626s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1528094209626s0.jpg','snowpeak', 23);
+
+--
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'핵사 아이언 화로대 S',129000,'핵사 아이언 화로대 S',120,'https://www.gocamp.co.kr/shop/data/goods/163342369839s0.jpg','https://www.gocamp.co.kr/shop/data/goods/163342369839s0.jpg','montbell', 21);
+
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'화로대 그릴 세트',83000,'화로대 그릴 세트',150,'https://www.gocamp.co.kr/shop/data/goods/1589349514272s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1589349514272s0.jpg','montbell', 21);
+
+--
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'큐브 UL8 블랙 V2',111350,'큐브 UL8 블랙 V2',50,'https://www.gocamp.co.kr/shop/data/goods/1637297080399s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1637297080399s0.jpg','coleman', 33);
+
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'에어로베이스 4 에어쉘터',735250,'에어로베이스 4 에어쉘터',200,'https://www.gocamp.co.kr/shop/data/goods/1603515745243s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1603515745243s0.jpg','coleman', 33);
+
+--
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'더블네스트 해먹 프린트',112000,'더블네스트 해먹 프린트',200,'https://www.gocamp.co.kr/shop/data/goods/1615539079297s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1615539079297s0.jpg','durango', 66);
+
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'정글 네트 해먹 세트',146250,'정글 네트 해먹 세트',180,'https://www.gocamp.co.kr/shop/data/goods/1587094609796s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1587094609796s0.jpg','durango', 66);
+
+--
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'투스카니 420 카페트',142800,'투스카니 420 카페트',200,'https://www.gocamp.co.kr/shop/data/goods/1618823490837s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1618823490837s0.jpg','minimalworks', 42);
+
+insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
+values(product_seq.nextval,'발렌시아 650 XL',150450,'발렌시아 650 XL',180,'https://www.gocamp.co.kr/shop/data/goods/1593488169980s0.jpg','https://www.gocamp.co.kr/shop/data/goods/1593488169980s0.jpg','minimalworks', 42);
 
 commit
 
--- cart
-insert into cart(cart_no,product_count,customer_id,product_id)
-values(cart_seq.nextval,3,'customer',1);
 
 -- 구매후기
 insert into review(review_no, grade, review_content, review_regdate, customer_id, product_id)

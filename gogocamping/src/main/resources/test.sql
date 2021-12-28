@@ -203,9 +203,21 @@ and oi.order_date between to_date('2021-12-01', 'YYYY-MM-DD')
 and to_date('2021-12-22', 'YYYY-MM-DD')+1
 order by order_date desc
 
+--주문개수 조회
+select count(*) 
+from (select TO_CHAR(o.order_date, 'yyyy/mm/dd'), o.order_count, o.order_price, o.delivery_status, o.refund_check, p.product_name, p.product_img
+from (select i.order_date, i.customer_id, d.order_count, d.order_price, d.delivery_status, d.refund_check, d.product_id
+from order_info i , order_detail d
+where i.order_no = d.order_no) o, product p
+where o.product_id = p.product_id
+and o.customer_id='test2')
 
-
-
-
+--주문조회
+select TO_CHAR(o.order_date, 'yyyy/mm/dd'), o.order_count, o.order_price, o.delivery_status, o.refund_check, p.product_name, p.product_img
+from (select i.order_date, i.customer_id, d.order_count, d.order_price, d.delivery_status, d.refund_check, d.product_id
+from order_info i , order_detail d
+where i.order_no = d.order_no) o, product p
+where o.product_id = p.product_id
+and o.customer_id='test2'
 
 

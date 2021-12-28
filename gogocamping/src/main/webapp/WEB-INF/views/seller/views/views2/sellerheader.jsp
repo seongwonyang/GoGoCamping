@@ -119,7 +119,7 @@
                         <ul>
                             <li><a href="RegisterProductForm" style="color: #065E93">상품 등록</a></li>
                             <li><a href="QnAList" style="color: #065E93">고객 문의 관리</a></li>
-                            <li><a href="./blog.html" style="color: #065E93">현재 주문 내역</a></li>
+                            <li><a href="OrderList" style="color: #065E93">현재 주문 내역</a></li>
                             <li><a href="TotalSoldList" style="color: #065E93">전체 판매 내역</a></li>
                         </ul>
                     </nav>

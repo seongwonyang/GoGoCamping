@@ -35,4 +35,6 @@ public interface SellerMapper {
 
 	List<OrderDetailVO> getTotalSoldOrderListByDate(Map<String, Object> map);
 
+	SellerVO getSellerInfoByProduct(String sellerId);
+
 }

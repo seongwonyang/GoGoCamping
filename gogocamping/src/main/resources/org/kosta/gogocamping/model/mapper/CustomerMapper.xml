@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.CustomerMapper">
 <select id="loginCustomer" resultType="CustomerVO" parameterType="string">
-	select customer_id, customer_name, customer_email, customer_tel, customer_post_number, customer_address, customer_detailed_address, customer_birth
+	select customer_id, customer_password, customer_name, customer_email, customer_tel, customer_post_number, customer_address, customer_detailed_address, customer_birth
 	from customer
 	where customer_id=#{customerId}
 	and customer_password=#{customerPassword}
 </select>
 <insert id="registerCustomer" parameterType="customerVO">
 	insert into customer(customer_id,customer_name,customer_password,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
-	values(#{customerId},#{customerName},#{customerPassword},#{customerEmail},#{customerTel},#{customerPostNumber},#{customerAddress},#{customerDetailedAddress},#{customerBirth},to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'))
+	values(#{customerId},#{customerName},#{customerPassword},#{customerEmail},#{customerTel},#{customerPostNumber},#{customerAddress},#{customerDetailedAddress},#{customerBirth},sysdate)
 </insert>
 <select id="findCustomerId" resultType="CustomerVO" parameterType="string">
 	select * from customer where customer_id=#{value}
@@ -31,5 +31,35 @@
 </select>
 <update id="updatePassword" parameterType="customerVO">
 	update customer set customer_password = #{customerPassword} where customer_id = #{customerId}
+</update>
+<update id="updateInfo" parameterType="customerVO">
+	update customer set customer_email=#{customerEmail}, customer_tel=#{customerTel}, customer_post_number=#{customerPostNumber}, customer_address=#{customerAddress}, customer_detailed_address=#{customerDetailedAddress} where customer_id=#{customerId}
+</update>
+<resultMap type="OrderInfoVO" id="orderInfoMap">
+	 	<result column="customer_id" property="customerVO.customerId"/>
+</resultMap>
+<resultMap type="OrderDetailVO" id="orderDetailMap" extends="orderInfoMap">
+	 	<result column="order_date" property="orderInfoVO.orderDate"/>
+	 	<result column="product_name" property="productVO.productName"/>
+	 	<result column="product_img" property="productVO.productImg"/>
+	 	<result column="product_id" property="productVO.productId"/>
+</resultMap>
+<select id="orderCheck" resultMap="orderDetailMap">
+	select to_char(o.order_date, 'yy-mm-dd') as order_date, o.order_detail_no, o.order_date, o.order_count, o.order_price, o.delivery_status, o.refund_check,p.product_id, p.product_name, p.product_img
+	from (select i.order_date, i.customer_id, d.order_count, d.order_price, d.delivery_status, d.refund_check, d.product_id, d.order_detail_no
+	from order_info i , order_detail d
+	where i.order_no = d.order_no) o, product p
+	where o.product_id = p.product_id
+	and o.customer_id=#{value}
+	order by o.order_detail_no desc
+</select>
+<update id="buyConfirm" parameterType="int">
+	update order_detail set refund_check = 1 where order_detail_no = #{value}
+</update>
+<update id="sumStockCount" parameterType="int">
+	update product set stock = stock+#{orderCount} where product_id = #{productId}
+</update>
+<update id="orderConfirm" parameterType="int">
+	update order_detail set delivery_status = '주문취소', refund_check = 2 where order_detail_no = #{value}
 </update>
 </mapper>

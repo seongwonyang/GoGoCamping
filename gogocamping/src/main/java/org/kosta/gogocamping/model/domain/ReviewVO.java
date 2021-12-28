@@ -10,85 +10,77 @@ public class ReviewVO {
 	private int productId;
 	private ProductVO productVO;
 	private SellerVO sellerVO;
+	private CustomerVO customerVO;
+	private ProductVO productVO;
+	
 	public ReviewVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public ReviewVO(int reviewNo, int grade, String reviewImg, String reviewContent, String reviewRegdate,
-			String customerId, int productId, ProductVO productVO, SellerVO sellerVO) {
+
+	public ReviewVO(int reviewNo, int grade, String reviewContent, String reviewRegdate, CustomerVO customerVO,
+			ProductVO productVO) {
 		super();
 		this.reviewNo = reviewNo;
 		this.grade = grade;
-		this.reviewImg = reviewImg;
 		this.reviewContent = reviewContent;
 		this.reviewRegdate = reviewRegdate;
-		this.customerId = customerId;
-		this.productId = productId;
+		this.customerVO = customerVO;
 		this.productVO = productVO;
-		this.sellerVO = sellerVO;
 	}
 
 	public int getReviewNo() {
 		return reviewNo;
 	}
+
 	public void setReviewNo(int reviewNo) {
 		this.reviewNo = reviewNo;
 	}
+
 	public int getGrade() {
 		return grade;
 	}
+
 	public void setGrade(int grade) {
 		this.grade = grade;
 	}
-	public String getReviewImg() {
-		return reviewImg;
-	}
-	public void setReviewImg(String reviewImg) {
-		this.reviewImg = reviewImg;
-	}
+
 	public String getReviewContent() {
 		return reviewContent;
 	}
+
 	public void setReviewContent(String reviewContent) {
 		this.reviewContent = reviewContent;
 	}
+
 	public String getReviewRegdate() {
 		return reviewRegdate;
 	}
+
 	public void setReviewRegdate(String reviewRegdate) {
 		this.reviewRegdate = reviewRegdate;
 	}
-	public String getCustomerId() {
-		return customerId;
+
+	public CustomerVO getCustomerVO() {
+		return customerVO;
 	}
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
+
+	public void setCustomerVO(CustomerVO customerVO) {
+		this.customerVO = customerVO;
 	}
-	public int getProductId() {
-		return productId;
-	}
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
+
 	public ProductVO getProductVO() {
 		return productVO;
 	}
+
 	public void setProductVO(ProductVO productVO) {
 		this.productVO = productVO;
 	}
-	
-	public SellerVO getSellerVO() {
-		return sellerVO;
-	}
-	public void setSellerVO(SellerVO sellerVO) {
-		this.sellerVO = sellerVO;
-	}
+
 	@Override
 	public String toString() {
-		return "ReviewVO [reviewNo=" + reviewNo + ", grade=" + grade + ", reviewImg=" + reviewImg + ", reviewContent="
-				+ reviewContent + ", reviewRegdate=" + reviewRegdate + ", customerId=" + customerId + ", productId="
-				+ productId + ", productVO=" + productVO + ", sellerVO=" + sellerVO + "]";
+		return "ReviewVO [reviewNo=" + reviewNo + ", grade=" + grade + ", reviewContent=" + reviewContent
+				+ ", reviewRegdate=" + reviewRegdate + ", customerVO=" + customerVO + ", productVO=" + productVO + "]";
 	}
 	
 }

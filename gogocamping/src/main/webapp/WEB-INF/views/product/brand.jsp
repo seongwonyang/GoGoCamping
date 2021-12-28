@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
     <!-- Page Preloder -->
    <!--  <div id="preloder">
@@ -79,7 +80,7 @@
                     </div>
                     <div class="row">
                        <c:forEach items="${productListByBrand}" var="product">
-                           <div class="col-lg-4 col-md-6 col-sm-6">
+                           <div class="col-lg-4 col-md-6 col-sm-6" onclick="location.href='getProductDetailInfo?productId=${product.productId}'">
                                <div class="product__item">
                                    <div class="product__item__pic set-bg" data-setbg="${product.productImg}">
                                        <ul class="product__item__pic__hover">
@@ -90,7 +91,7 @@
                                    </div>
                                    <div class="product__item__text">
                                        <h6><a href="#">${product.productName}</a></h6>
-                                       <h5>${product.price}</h5>
+                                       <h5><fmt:formatNumber value="${product.price}" pattern="#,###" />원</h5>
                                    </div>
                                </div>
                            </div>

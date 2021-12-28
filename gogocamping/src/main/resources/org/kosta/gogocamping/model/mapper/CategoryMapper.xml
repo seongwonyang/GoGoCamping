@@ -14,7 +14,7 @@
    <result property="categoryVO.detailCategoryName" column="detail_category_name"/>
 </resultMap> 
 <select id="getProductListByCategory" resultMap="productMap" parameterType="Map">
-   select rnum, pc.category_no, pc.product_id, pc.product_name, pc.price, pc.product_img, pc.category_name, pc.detail_category_name
+   select rnum, pc.category_no, pc.product_id, pc.product_name, pc.price, pc.product_img, pc.product_img_stored, pc.category_name, pc.detail_category_name
    from ( select p.*, c.category_name, c.detail_category_name, row_number() 
    <choose>
       <when test='option.equals("low")'>
@@ -56,5 +56,21 @@
          order by product_name
       </otherwise>
    </choose>  
+</select>
+
+<!-- 대분류 카테고리 조회 -->
+<select id="getCategoryNameByProductId" parameterType="int" resultType="String">
+   select c.category_name
+   from product p, category c
+   where p.category_no = c.category_no and product_id = #{value}
+</select>
+
+<!-- 선택된 대분류에 따른 소분류 카테고리 조회 -->
+<select id="getDetailCategoryList" parameterType="String" resultType="CategoryVO">
+   select detail_category_name from category where category_name = #{value}
+</select>
+
+<select id="getCategoryNoByDetailCategoryName" parameterType="String" resultType="int">
+	select category_no from category where detail_category_name = #{value}
 </select>
 </mapper>

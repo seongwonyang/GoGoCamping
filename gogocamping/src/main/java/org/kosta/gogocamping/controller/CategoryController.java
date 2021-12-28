@@ -1,5 +1,6 @@
 package org.kosta.gogocamping.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.kosta.gogocamping.model.mapper.SellerMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CategoryController {
@@ -61,6 +63,7 @@ public class CategoryController {
 	      model.addAttribute("detailCategoryList", detailCategoryList);
 		  model.addAttribute("categoryList", categoryMapper.getCategoryList());
 		  model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
+		  model.addAttribute("option", option);
 		
 	      return "product/category.tiles";
 	}
@@ -84,4 +87,28 @@ public class CategoryController {
 		
 		return "product/detail-category.tiles";
 	}
+
+	@RequestMapping("getDetailCategoryList")
+	@ResponseBody
+	public ArrayList<String> getDetailCategoryList(String category){
+	ArrayList<CategoryVO> getDetailList = categoryMapper.getDetailCategoryList(category);
+	ArrayList<String> detailList = new ArrayList<String>();
+	      
+	for(int i=0; i<getDetailList.size(); i++) {
+		detailList.add(getDetailList.get(i).getDetailCategoryName());
+	}
+	      
+		return detailList;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+

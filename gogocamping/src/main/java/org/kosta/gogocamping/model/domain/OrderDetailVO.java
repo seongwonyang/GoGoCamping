@@ -110,5 +110,5 @@ public class OrderDetailVO {
             + orderPrice + ", deliveryStatus=" + deliveryStatus + ", deliveryCompldate=" + deliveryCompldate
             + ", refundCheck=" + refundCheck + ", orderInfoVO=" + orderInfoVO + ", productVO=" + productVO + "]";
    }
-   
+ 
 }
