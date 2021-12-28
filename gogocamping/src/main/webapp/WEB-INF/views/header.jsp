@@ -77,10 +77,7 @@
                         <div class="header__top__right">
                            <c:choose>
                             <c:when test="${sessionScope.loginVO==null}">
-                            <div class="header__top__right__social">
-		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
-		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
-                            </div>
+                            
                             <div class="header__top__right__social">
                                 <a href="loginCustomerForm"><i class="fa fa-user"></i> Login</a>
                             </div>
@@ -134,20 +131,27 @@
                             </c:when>
                             <c:otherwise>
                              <div class="header__top__right__social">
-		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
-		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
+                              <a href="getLikesList?customerId=${sessionScope.loginVO.customerId}"><i class="fa fa-heart"></i> <span></span></a>
+                              <a href="getProductListInCart"><i class="fa fa-shopping-bag"></i> <span></span></a>
                             </div>
                             <div class="header__top__right__auth">
                              <nav class="header__menu">
                         	<ul>
                             	<li style="text-align:center"><a href="#">마이페이지&nbsp;&nbsp;&nbsp;</a>
                                 	<ul class="header__menu__dropdown">
+                                    	<li><a href="#" id="updateInfo">정보수정</a></li>
+                                    	<li><a href="#" id="updatePassword">비밀번호수정</a></li>
                                     	<li><a href="#" id="orderCheck">주문조회</a></li>
-                                    	<li><a href="#">정보수정</a></li>
                                 	</ul>
                             	</li>
                             	</ul>
                             	</nav>
+                            	<form id="customerInfoForm" action="updateCustomerInfo" method="post"> 
+                            	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId }">
+                            	</form>
+                            	<form id="updatePasswordForm" action="updateCustomerPassword" method="post">
+                            	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId }">
+                            	</form>
                             	<form id="orderCheckForm" action="orderCheck" method="get">
                             	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId}">
                             	</form>
@@ -176,7 +180,7 @@
                                 <input type="text" id="keyword" name="keyword" placeholder="찾으시는 상품을 검색해 보세요!">
                                 <button type="submit" class="site-btn">SEARCH</button>
                             </form>
-                        </div>    
+                        </div>
                     </div>
                 </div>
             </div>
@@ -232,6 +236,12 @@
 		}
 	}
 	$(function(){
+		$("#updateInfo").click(function(){
+			$("#customerInfoForm").submit();
+		});
+		$("#updatePassword").click(function(){
+			$("#updatePasswordForm").submit();
+		});
 		$("#orderCheck").click(function(){
 			$("#orderCheckForm").submit();
 		})

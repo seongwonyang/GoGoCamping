@@ -1,11 +1,11 @@
 package org.kosta.gogocamping.model.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.gogocamping.model.domain.ProductVO;
-import org.kosta.gogocamping.model.domain.SellerVO;
 
 @Mapper
 public interface ProductMapper {
@@ -27,5 +27,21 @@ public interface ProductMapper {
 	List<ProductVO> getBrandCategroyList(Map<String, String> map);
 
 	List<ProductVO> getProductListByBrandAndCategory(Map<String, String> map);
+
+	void registerProduct(ProductVO productVO);
+
+	List<ProductVO> getSellerProductList(String sellerId);
+	
+	ProductVO getProductInfo(int productId);
+
+	void updateProduct(ProductVO productVO);
+
+	ProductVO getProductDetailInfo(int productId);
+
+	int getProductStockCount(int productId);
+
+	void updateProductStockCount(Map<String, Object> map);
+
+	ArrayList<ProductVO> getRelatedProductList(String categoryName);
 
 }

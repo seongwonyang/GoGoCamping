@@ -147,23 +147,4 @@ where i.order_no = d.order_no
 -- 구매확정
 update order_detail set refund_check = 1 where order_detail_no = 1
 
---주문취소 및 재고량 증가
 
-delete from order_detail where order_detail_no = 1
-
-update product set stock = stock+1 where product_id = 1
-
-
--- 묶여있는  테이블 확인하는 sql
-select
-    constraint_name,
-    table_name,
-    r_constraint_name
-from
-    user_constraints
-where
-    constraint_name = 'FK_ORDER_DETAIL_NO';
-    
---주문취소
-
-update order_detail set delivery_status = '주문취소' where order_detail_no = 3

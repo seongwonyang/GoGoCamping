@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <body>
     <!-- Page Preloder -->
    <!--  <div id="preloder">
@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Go Go Camping</h2>
+                        <h2>Go Go Camping for ${sessionScope.loginVO.brand}</h2>
                     </div>
                 </div>
             </div>
@@ -41,33 +41,41 @@
                                     <th>상품명</th>
                                     <th>가격</th>
                                     <th>재고량</th>
+                                    <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <img src="img/cart/cart-1.jpg" alt="">
-                                        <h5>Vegetable’s Package</h5>
-                                    </td>
-                                    <td>
-                                        $55.00
-                                    </td>
-                                    <td>
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        $110.00
-                                    </td>
-                                    <td>
-                                        <span class="icon_close"></span>
-                                    </td>
-                                    <td><button type="button" class="site-btn" style="background-color: #065E93; border-radius: 10px;">상품 정보 수정</button></td>
-                                </tr>
-                            </tbody>
+	                            <tbody>
+	                            <c:forEach items="${getSellerProductList}" var="product">
+	                                <tr>
+	                                    <td>
+	                                        ${product.productId}
+	                                        <form id="UpdateProductForm2" action="UpdateProductForm">
+                        						<input type="hidden" id="productId" name="productId" value="">
+                       						</form>
+	                                    </td>
+	                                    <td>
+	                                        ${product.categoryVO.categoryName}<br>
+	                                        ${product.categoryVO.detailCategoryName}                                        
+	                                    </td>
+	                                    <td>
+	                                        ${product.productName}
+	                                    </td>
+	                                    <td>
+	                                        ${product.price}
+	                                    </td>
+	                                    <td>
+	                                        ${product.stock}
+	                                    </td>
+	                                    <td>
+	                                    	<a class="updateProductBtn" data-productid="${product.productId}">
+		                                    	<button type="button" class="site-btn" style="background-color: #065E93; border-radius: 10px;">
+		                                    		상품 정보 수정
+		                                    	</button>
+	                                    	</a>
+	                                	</td>
+	                                </tr>
+	                                </c:forEach>
+	                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -84,5 +92,16 @@
         </div>
     </section>
     <!-- Product Section End -->
-
 </body>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+		
+		$(function(){		
+			$('.updateProductBtn').on('click', function() {
+			    var tabType = $(this).data('productid');
+			    $("#productId").val($(this).data('productid'));
+			    
+			    $("#UpdateProductForm2").submit();
+			});
+		});
+	</script>

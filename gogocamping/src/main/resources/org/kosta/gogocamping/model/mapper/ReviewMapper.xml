@@ -1,4 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.ReviewMapper">
+<resultMap id="reviewMap" type="ReviewVO">
+	<result property="customerVO.customerId" column="customer_id"/>
+	<result property="productVO.productId" column="product_id" />
+</resultMap>
+
+<!-- 상품에 달린 리뷰 리스트 -->
+<select id="getReviewListByProductId" parameterType="map" resultMap="reviewMap">
+	SELECT * FROM review WHERE product_id = ${productId}
+	<choose>
+		<when test='option.equals("highStar")'>
+			order by grade desc
+		</when>
+		<when test='option.equals("lowStar")'>
+			order by grade
+		</when>
+		<otherwise>
+			order by review_regdate desc
+		</otherwise>
+	</choose>
+</select>
+
+<select id="getReviewCountByProductId" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM review WHERE product_id = ${value}
+</select>
+
+<select id="getAvgReview" parameterType="int" resultType="int">
+	SELECT AVG(grade) FROM review WHERE product_id = ${value}
+</select>
+
+<insert id="writeReview" parameterType="ReviewVO">
+	insert into review(review_no,grade,review_content,review_regdate,customer_id,product_id)
+	values(review_seq.nextval,#{grade},#{reviewContent},sysdate,#{customerVO.customerId},#{productVO.productId})
+</insert>
 </mapper>

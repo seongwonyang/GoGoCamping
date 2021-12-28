@@ -23,6 +23,8 @@ public interface CustomerMapper {
 	
 	void updatePassword(String customerPassword, String customerId);
 	
+	void updateInfo(CustomerVO customerVO);
+  
 	public List<OrderDetailVO> orderCheck(String customerId);
 	
 	void buyConfirm(int orderDetailNo);
