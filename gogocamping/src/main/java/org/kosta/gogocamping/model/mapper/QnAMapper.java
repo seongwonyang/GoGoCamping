@@ -9,6 +9,12 @@ import org.kosta.gogocamping.model.domain.QnAVO;
 @Mapper
 public interface QnAMapper {
 
+	List<QnAVO> getQnAList(String sellerId);
+
+	void answerQnA(QnAVO qnaVO);
+
+	List<QnAVO> getQnAListByNo(int qnaNo);
+
 	List<QnAVO> getQnAListByProductId(Map<String, Object> map);
 
 	int getQnACountByProductId(int productId);

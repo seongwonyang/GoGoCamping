@@ -134,6 +134,12 @@ ol {
 	margin: 0 auto;
 }
 
+.section-title h5 {
+	color: #1c1c1c;
+	font-weight: 700;
+	position: relative;
+}
+
 .section-title h3 {
 	color: #1c1c1c;
 	font-weight: 700;

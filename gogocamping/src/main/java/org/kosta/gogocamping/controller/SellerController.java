@@ -1,16 +1,21 @@
 package org.kosta.gogocamping.controller;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.gogocamping.model.domain.CategoryVO;
+import org.kosta.gogocamping.model.domain.CustomerVO;
 import org.kosta.gogocamping.model.domain.ProductVO;
+import org.kosta.gogocamping.model.domain.QnAVO;
 import org.kosta.gogocamping.model.domain.SellerVO;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
 import org.kosta.gogocamping.model.mapper.ProductMapper;
+import org.kosta.gogocamping.model.mapper.QnAMapper;
 import org.kosta.gogocamping.model.mapper.SellerMapper;
 import org.kosta.gogocamping.model.service.SellerMailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +34,8 @@ public class SellerController {
 	private ProductMapper productMapper;
 	@Resource
 	private CategoryMapper categoryMapper;
+	@Resource
+	private QnAMapper qnaMapper;
 	@Resource
 	private SellerMailService sellerMailService;
 	
@@ -317,18 +324,92 @@ public class SellerController {
 	}
 	
 	@RequestMapping("QnAList") // 고객 문의 목록
-	public String getQnAList(HttpServletRequest request) {
+	public String getQnAList(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginVO")==null) {
 			return "seller/views/views2/seller-login-form.tiles";
 		}else {
-		return "seller/views/views2/qna-list.tiles";
+			SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			model.addAttribute("getQnAList", qnaMapper.getQnAList(sellerVO.getSellerId()));
+			return "seller/views/views2/qna-list.tiles";
 		}
 	}
 	
 	@RequestMapping("QnAAnswerForm") // 고객 문의 답변 폼
-	public String answerQnAForm() {
-		return "seller/views/views2/qna-answer-form.tiles";
+	public String answerQnAForm(HttpServletRequest request, Model model, int qnaNo) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginVO")==null) {
+			return "seller/views/views2/seller-login-form.tiles";
+		}else {
+			// SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			model.addAttribute("getQnAListByNo", qnaMapper.getQnAListByNo(qnaNo));
+			return "seller/views/views2/qna-answer-form.tiles";
+		}
+	}
+	
+	@RequestMapping("QnAAnswer") // 답변 등록
+	public String answerQnA(HttpServletRequest request, Model model, QnAVO qnaVO) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginVO")==null) {
+			return "seller/views/views2/seller-login-form.tiles";
+		}else {
+			
+			SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			qnaMapper.answerQnA(qnaVO);
+			model.addAttribute("getQnAList", qnaMapper.getQnAList(sellerVO.getSellerId()));
+			return "seller/views/views2/qna-list.tiles";
+		}
+	}
+	
+	@RequestMapping("OrderList") // 현재 주문 내역 리스트
+	public String getOrderList(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginVO")==null) {
+			return "seller/views/views2/seller-login-form.tiles";
+		}else {
+			SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			model.addAttribute("getOrderList", productMapper.getOrderList(sellerVO.getSellerId()));
+			return "seller/views/views2/order-list.tiles";
+		}
+	}
+	
+	@RequestMapping("updateDeliveryStatus") // 배송 정보 갱신
+	@ResponseBody
+	public String updateDeliveryStatus(HttpServletRequest request, Model model, String productId, String deliveryStatus) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginVO")==null) {
+			return "noSession";
+		}else {
+			try {
+				
+				Map<String, String> orderMap = new HashMap<>();
+				orderMap.put("productId", productId);
+				if("입금확인".equals(deliveryStatus)) {
+					deliveryStatus="배송준비중";
+				}else if("배송준비중".equals(deliveryStatus)) {
+					deliveryStatus="배송중";
+				}else if("배송중".equals(deliveryStatus)) {
+					deliveryStatus="배송완료";
+				}
+				orderMap.put("deliveryStatus", deliveryStatus);
+				productMapper.updateDeliveryStatus(orderMap);
+				return deliveryStatus;
+			
+			} catch (Exception e) {
+				//System.out.println(e.getMessage());
+				return "배송상태 변경 실패";
+			}
+		}
+	}
+	 
+	@RequestMapping("TotalSoldList") // 전체 판매 내역 리스트
+	public String totalSoldOrderList(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginVO")==null) {
+			return "seller/views/views2/seller-login-form.tiles";
+		}else {
+			return "seller/views/views2/total-sold-list.tiles";
+		}
 	}
 }
 

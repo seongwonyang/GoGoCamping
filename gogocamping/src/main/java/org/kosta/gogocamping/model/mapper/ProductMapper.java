@@ -36,6 +36,10 @@ public interface ProductMapper {
 
 	void updateProduct(ProductVO productVO);
 
+	List<ProductVO> getOrderList(String sellerId);
+
+	void updateDeliveryStatus(Map<String, String> orderMap);
+  
 	ProductVO getProductDetailInfo(int productId);
 
 	int getProductStockCount(int productId);
