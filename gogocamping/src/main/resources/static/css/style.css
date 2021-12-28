@@ -3488,3 +3488,14 @@ ol {
 		font-size: 24px;
 	}
 }
+
+#qnaTitle {
+	outline:none;
+	border-color:#D8D8D8;
+    box-shadow:none;
+}
+#qnaContent {
+	outline:none;
+	border-color:#D8D8D8;
+    box-shadow:none;
+}

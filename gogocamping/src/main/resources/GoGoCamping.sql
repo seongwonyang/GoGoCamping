@@ -158,10 +158,9 @@ create table refund(
    refund_no number primary key,
    refund_category varchar2(100) not null,
    refund_reason clob not null,
-   refund_reason_img varchar2(100),
    refund_reject_reason clob,
    order_detail_no number not null,
-    constraint fk_order_detail_no foreign key(order_detail_no) references order_detail(order_detail_no)
+   constraint fk_order_detail_no foreign key(order_detail_no) references order_detail(order_detail_no)
 );
 create sequence refund_seq;
 

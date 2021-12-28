@@ -146,3 +146,32 @@ where i.order_no = d.order_no
 
 --
 update order_detail set refund_check = 1 where order_detail_no = 1
+
+select * from product where product_id = 1;
+
+-- QnA
+-- 문의 유형 : 상품문의/배송문의
+insert into QnA(qna_no, qna_category, title, content, regdate, product_id, customer_id)
+values(qna_seq.nextval,'상품문의','상품문의2','질문내용',sysdate,1,'sehee167');
+insert into QnA(qna_no, qna_category, title, content, regdate, product_id, customer_id)
+values(qna_seq.nextval,'배송문의','배송문의2','질문내용',sysdate,1,'sehee167');
+
+-- 문의 유형 별 게시물 조회
+select row_number() over(order by regdate) as rnum, q.*, c.* from qna q, customer c 
+where q.customer_id = c.customer_id and qna_category = '상품문의';
+
+select count(*) from qna where product_id = 1;
+
+-- review 
+select * from review order by grade desc -- 별점 높은순
+select * from review order by grade -- 별점 낮은순
+select * from review order by review_regdate desc -- 최신순
+
+
+
+insert into review(review_no,grade,review_content,review_regdate,customer_id,product_id)
+values(review_seq.nextval,5,'리뷰내용1',sysdate,'sehee167',1);
+
+insert into review(review_no,grade,review_content,review_regdate,customer_id,product_id)
+values(review_seq.nextval,3,'리뷰내용2',sysdate,'sehee167',1);
+
