@@ -26,5 +26,9 @@ public interface CustomerMapper {
 	public List<OrderDetailVO> orderCheck(String customerId);
 	
 	void buyConfirm(int orderDetailNo);
+	
+	void orderConfirm(int orderDetailNo);
+	
+	void sumStockCount(int orderCount ,int productId);
 
 }

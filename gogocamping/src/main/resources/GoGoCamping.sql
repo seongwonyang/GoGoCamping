@@ -40,6 +40,27 @@ create table customer(
 	customer_birth date not null,
 	customer_regdate date not null
 );
+ALTER TABLE customer MODIFY customer_password NULL;
+
+
+--네이버 로그인
+create table naver_login(
+	customer_id varchar2(100) primary key,
+	customer_name varchar2(100) not null,
+	naver_email varchar2(100) not null
+)
+select naver_id from naver_login where naver_email='ch3655@jr.naver.com'
+
+drop table naver_login
+
+--카카오 로그인
+create table kakao_login(
+	customer_id varchar2(100) primary key,
+	customer_name varchar2(100) not null,
+	kakao_email varchar2(100) not null
+)
+
+drop table naver_login
 
 drop table manager;
 drop table seller;
@@ -182,6 +203,8 @@ drop sequence refund_seq;
 drop sequence QnA_seq;
 
 delete from product
+
+select customer_password from customer where customer_id=#{value}
 
 
 

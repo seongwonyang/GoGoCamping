@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.NaverLoginMapper">
+<insert id="registerNaver" parameterType="string">
+	insert into naver_login(customer_id,customer_name,naver_email)
+	values(#{customerId},#{customerName},#{naverEmail})
+</insert>
+<select id="findNaverId" resultType="NaverLoginVO">
+	select * from naver_login where naver_email = #{value}
+</select>
+<insert id="naverRegisterCustomer" parameterType="customerVO">
+	insert into customer(customer_id,customer_name,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
+	values(#{customerId},#{customerName},#{customerEmail},#{customerTel},#{customerPostNumber},#{customerAddress},#{customerDetailedAddress},#{customerBirth},to_date(sysdate,'YYYY-MM-DD HH24:MI:SS'))
+</insert>
 </mapper>

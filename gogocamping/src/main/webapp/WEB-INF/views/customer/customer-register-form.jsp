@@ -24,7 +24,7 @@
 						<h5 style="font-weight: 700;">생년월일</h5><br> 
 						<input type="date" name="customerBirth" placeholder="  생일" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
 						<h5 style="font-weight: 700;">주소</h5><br> 
-						<input type="text" id="customerPostNumber" name="customerPostNumber" placeholder="  우편번호" required="required" readonly="readonly" style="width: 322px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;">
+						<input type="text" id="customerPostNumber" name="customerPostNumber" placeholder="  우편번호" required="required" readonly="readonly" style="width: 344px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;">
 						<button type="button" class="site-btn" id="address_kakao" style="height: 50px; background-color: #245207; border-radius: 10px; border-radius: 10px;">주소검색</button><br><br>
 						<input type="text" id="customerAddress" name="customerAddress" placeholder="  주소" required="required" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
 						<input type="text" id="customerDetailedAddress" name="customerDetailedAddress" placeholder="  상세주소" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>

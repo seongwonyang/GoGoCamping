@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <body>
     <!-- Page Preloder -->
-    <div id="preloder">
+    <!-- <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
     <!-- Humberger Begin -->
 <!--     <div class="humberger__menu__overlay"></div>
@@ -86,6 +87,50 @@
                             <div class="header__top__right__auth">
                                 <a href="registerForm"><i class="fa fa-user"></i> 회원가입</a>
                             </div>
+                            </c:when>
+                            <c:when test="${sessionScope.naverVO!=null}">
+                            <div class="header__top__right__social">
+		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
+		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
+                            </div>
+                            <div class="header__top__right__auth">
+                             <nav class="header__menu">
+                        	<ul>
+                            	<li style="text-align:center"><a href="#">마이페이지&nbsp;&nbsp;&nbsp;</a>
+                                	<ul class="header__menu__dropdown">
+                                    	<li><a href="#" id="orderCheck">주문조회</a></li>
+                                	</ul>
+                            	</li>
+                            	</ul>
+                            	</nav>
+                            	<form id="orderCheckForm" action="orderCheck" method="get">
+                            	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId}">
+                            	</form>
+                            	</div>
+                            	${sessionScope.loginVO.customerName}님&nbsp;&nbsp;&nbsp;
+                            	<a href="logoutCustomer">logout</a>
+                            </c:when>
+                            <c:when test="${sessionScope.kakaoVO!=null }">
+                            <div class="header__top__right__social">
+		                        <a href="#"><i class="fa fa-heart"></i> <span></span></a>
+		                        <a href="#"><i class="fa fa-shopping-bag"></i> <span></span></a>
+                            </div>
+                            <div class="header__top__right__auth">
+                             <nav class="header__menu">
+                        	<ul>
+                            	<li style="text-align:center"><a href="#">마이페이지&nbsp;&nbsp;&nbsp;</a>
+                                	<ul class="header__menu__dropdown">
+                                    	<li><a href="#" id="orderCheck">주문조회</a></li>
+                                	</ul>
+                            	</li>
+                            	</ul>
+                            	</nav>
+                            	<form id="orderCheckForm" action="orderCheck" method="get">
+                            	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId}">
+                            	</form>
+                            	</div>
+                            	${sessionScope.loginVO.customerName}님&nbsp;&nbsp;&nbsp;
+                            	<a href="logoutCustomer">logout</a>
                             </c:when>
                             <c:otherwise>
                              <div class="header__top__right__social">

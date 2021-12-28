@@ -43,12 +43,23 @@
                                     <c:choose>
                                     <c:when test="${order.refundCheck eq 0}">
                                     <td class="shoping__cart__price">
+                                    		<input type="hidden" id="productId" name="productId" value="${order.productVO.productId}">
+                                    		<input type="hidden" id="orderCount" name="orderCount" value="${order.orderCount}">
+                                    		<a class="orderConfirm" data-detailno="${order.orderDetailNo}" data-ordercount="${order.orderCount}" data-productid="${order.productVO.productId}">
+                                    		<button type="button" class="site-btn" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">주문취소</button></a>
+                                    </td>
+                                    <td class="shoping__cart__price">
                                     	<input type="hidden" name="orderDetailNo" id="orderDetailNo" value="${order.orderDetailNo}">
                                     	<form id="submitId" action="orderCheck" method="get">
                                     		<input type="hidden" name="customerId" id="customerId" value="${sessionScope.loginVO.customerId}">
                                     	</form>
-                                    	<button type="button" class="site-btn" id="buyConfirm" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">구매확정</button>
+                                    		<a class="buyConfirm" data-detailno="${order.orderDetailNo}">
+                                    		<button type="button" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">구매확정</button></a>
                                     </td>
+                                    </c:when>
+                                    <c:when test="${order.deliveryStatus == '주문취소'}">
+                                   	 	<td></td>
+                                    	<td></td>
                                     </c:when>
                                     <c:otherwise>
                                     <td class="shoping__cart__price">
@@ -70,8 +81,14 @@
     </section>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript">
+        //구매확정
     	$(function(){
-    		$("#buyConfirm").click(function(){
+    		$(".buyConfirm").click(function() {
+    			if (!confirm("구매확정 하시겠습니까?")) {
+    	            return false;
+    	        } else {
+    	        	$("#orderDetailNo").val($(this).data('detailno'));
+    	        }
     			$.ajax({
 					type:"get",
 					url:"buyConfirm",
@@ -82,7 +99,28 @@
 						}
 					}
 				});//ajax
-    		});
-    	});
+    		});//click
+    		
+    		//주문취소
+    		$(".orderConfirm").click(function() {
+    			if (!confirm("주문취소 하시겠습니까?")) {
+    	            return false;
+    	        } else {
+    	        	$("#orderDetailNo").val($(this).data('detailno'));
+        			$("#productId").val($(this).data('productid'));
+        			$("#orderCount").val($(this).data('ordercount'));
+    	        }
+    			$.ajax({
+					type:"get",
+					url:"orderConfirm",
+					data:"orderDetailNo="+$("#orderDetailNo").val()+"&productId="+$("#productId").val()+"&orderCount="+$("#orderCount").val(),
+					success:function(result){
+						if(result=="주문취소"){
+							$("#submitId").submit();
+						}
+					}
+				});//ajax
+    		});//click
+    	});//ready
     </script>
 </body>
