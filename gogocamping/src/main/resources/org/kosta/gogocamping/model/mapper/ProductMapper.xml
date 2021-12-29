@@ -7,6 +7,25 @@
 <sql id="selectProductAllWithCategory">
 	select rnum, p.product_id, p.product_name, p.price, p.product_img, product_img_stored
 </sql>
+
+<resultMap id="productMap" type="ProductVO">
+	<result property="sellerVO.sellerId" column="seller_id"/>
+	<result property="sellerVO.sellerEmail" column="seller_email"/>
+	<result property="sellerVO.brand" column="brand"/>
+	<result property="sellerVO.sellerTel" column="seller_tel"/>
+	<result property="categoryVO.categoryNo" column="category_no"/>
+	<result property="categoryVO.categoryName" column="category_name"/>
+	<result property="categoryVO.detailCategoryName" column="detail_category_name"/>
+</resultMap> 
+<resultMap id="productDetailMap" type="OrderDetailVO">
+	<result property="sellerVO.sellerId" column="seller_id"/>
+	<result property="productVO.productId" column="product_id"/>
+	<result property="productVO.productName" column="product_name"/>
+	<result property="orderInfoVO.orderNo" column="order_no"/>
+	<result property="orderInfoVO.orderDate" column="order_date"/>	
+</resultMap> 
+
+<!-- 전체 상품 조회 -->
 <select id="getAllProductList" parameterType="Map" resultType="ProductVO">
 	<include refid="selectProductAll"/> 
 	from (select p.*, row_number() 
@@ -23,9 +42,20 @@
 	</choose>
 	as rnum from product p) where rnum between #{startRowNumber} and #{endRowNumber}
 </select>
+<!-- 전체 상품 조회 (인기순 정렬) -->
+<select id="getAllProductListByPopular" parameterType="Map" resultType="ProductVO">
+	select rnum, product_id, product_name, price, product_img, product_img_stored, c from (
+	select * from (
+		select p.*, row_number() over(order by (select count(*) from order_detail where product_id = p.product_id group by p.product_id)) as rnum,
+		nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
+		from product p
+	) order by c desc) where rnum between #{startRowNumber} and #{endRowNumber}
+</select>	
 <select id="getAllProductCount" resultType="int">
 	select count(*) from product
 </select>
+
+<!-- 검색된 상품 조회 -->
 <select id="getSearchProductList" parameterType="Map" resultType="ProductVO">
 	<include refid="selectProductAllWithCategory"/> 
 	from (
@@ -46,54 +76,38 @@
 	) p
 	<!-- where rnum between #{startRowNumber} and #{endRowNumber} -->
 </select>
+<!-- 검색된 상품 조회 (인기순 정렬) -->
+<select id="getSearchProductListByPopular" parameterType="Map" resultType="ProductVO">
+	select p.*, c.*, nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
+	from product p, category c where p.category_no=c.category_no and REPLACE(p.product_name, ' ', '') like '%' || #{keyword} || '%'
+	order by c desc
+</select>
 <select id="getSearchProductCount" parameterType="Map" resultType="int">
 	select count(*) from product
 	where REPLACE(product_name, ' ', '') like '%' || #{keyword} || '%'
 </select>
 
-<resultMap id="productMap" type="ProductVO">
-	<result property="sellerVO.sellerId" column="seller_id"/>
-	<result property="sellerVO.sellerEmail" column="seller_email"/>
-	<result property="sellerVO.brand" column="brand"/>
-	<result property="sellerVO.sellerTel" column="seller_tel"/>
-	<result property="categoryVO.categoryNo" column="category_no"/>
-	<result property="categoryVO.categoryName" column="category_name"/>
-	<result property="categoryVO.detailCategoryName" column="detail_category_name"/>
-</resultMap> 
-
-<resultMap id="sellerProductMap" type="ProductVO">
-	<result property="sellerVO.sellerId" column="seller_id"/>
-	<result property="categoryVO.categoryNo" column="category_no"/>
-	<result property="categoryVO.categoryName" column="category_name"/>
-	<result property="categoryVO.detailCategoryName" column="detail_category_name"/>
-</resultMap> 
-
-<!-- <resultMap type="OrderInfoVO" id="orderCustomerMap">
-	<result property="customerVO.customerId" column="customer_id"/>
-</resultMap> -->
-
-<resultMap id="productDetailMap" type="OrderDetailVO">
-	<result property="sellerVO.sellerId" column="seller_id"/>
-	<result property="productVO.productId" column="product_id"/>
-	<result property="productVO.productName" column="product_name"/>
-	<result property="orderInfoVO.orderNo" column="order_no"/>
-	<result property="orderInfoVO.orderDate" column="order_date"/>	
-</resultMap> 
-
 <parameterMap id="registerProductMap" type="ProductVO">
 	<parameter property="sellerVO.sellerId"/>
 	<parameter property="categoryVO.categoryNo"/>
 </parameterMap> 
-
 <parameterMap id="updateProductMap" type="ProductVO">
 	<parameter property="categoryVO.categoryNo"/>
 </parameterMap> 
-
 <parameterMap id="updateDeliveryMap" type="OrderDetailVO">
 	<parameter property="productVO.productId"/>
 </parameterMap> 
 
-<select id="getProductListByBrand" resultMap="productMap" parameterType="Map"><!-- 브랜드별 상품리스트 조회 -->
+<!-- 해당 브랜드에 존재하는 카테고리 조회 -->
+<select id="getBrandCategroyList" resultMap="productMap" parameterType="Map">
+	select distinct c.category_name, s.brand
+	from product p, seller s, category c
+	where p.seller_id = s.seller_id and p.category_no = c.category_no
+	and s.brand = #{brand}
+	order by c.category_name desc
+</select>
+<!-- 브랜드별 상품 조회 -->
+<select id="getProductListByBrand" resultMap="productMap" parameterType="Map">
 	select p.*, s.seller_id, s.seller_email, s.brand, s.seller_tel, c.* 
 	from product p, seller s, category c
 	where p.seller_id = s.seller_id and p.category_no = c.category_no
@@ -110,14 +124,15 @@
 		</otherwise>
 	</choose>
 </select>
-<select id="getBrandCategroyList" resultMap="productMap" parameterType="Map">
-	select distinct c.category_name, s.brand
-	from product p, seller s, category c
-	where p.seller_id = s.seller_id and p.category_no = c.category_no
-	and s.brand = #{brand}
-	order by c.category_name desc
+<!-- 브랜드별 상품 조회 (인기순 정렬) -->
+<select id="getProductListByBrandByPopular" resultMap="productMap" parameterType="Map">
+	select s.brand, p.*, nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
+	from product p, seller s
+	where p.seller_id = s.seller_id
+	and s.brand = #{brand} order by c desc
 </select>
-<select id="getProductListByBrandAndCategory" resultMap="productMap" parameterType="Map"><!-- 브랜드별 카테고리별 상품리스트 조회 -->
+<!-- 브랜드 카테고리별 상품 조회 -->
+<select id="getProductListByBrandAndCategory" resultMap="productMap" parameterType="Map">
 	select s.brand, p.*, c.*
 	from product p, seller s, category c
 	where p.seller_id = s.seller_id and p.category_no = c.category_no
@@ -134,7 +149,13 @@
 		</otherwise>
 	</choose>
 </select>
-
+<!-- 브랜드 카테고리별 상품 조회 (인기순 정렬) -->
+<select id="getProductListByBrandAndCategoryByPopular" resultMap="productMap" parameterType="Map">
+	select s.brand, p.*, c.*, nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
+	from product p, seller s, category c
+	where p.seller_id = s.seller_id and p.category_no = c.category_no
+	and s.brand = #{brand} and c.category_name = #{category} order by c desc
+</select>
 <!-- 상품 상세페이지 로딩 시 정보 조회 -->
 <select id="getProductDetailInfo" resultMap="productMap" parameterType="int">
 	select * from product where product_id = #{value}
@@ -157,13 +178,13 @@
 	insert into product(product_id, product_name, price, product_info, stock, product_img, product_img_stored, seller_id, category_no)
 	values(product_seq.nextval, #{productName}, #{price}, #{productInfo}, #{stock}, #{productImg}, #{productImgStored}, #{sellerVO.sellerId}, #{categoryVO.categoryNo})
 </insert>
-<select id="getSellerProductList" resultMap="sellerProductMap" parameterType="String">
+<select id="getSellerProductList" resultMap="productMap" parameterType="String">
 	select p.product_id, p.product_name, p.price, p.product_info, p.stock, c.category_no, c.category_name, c.detail_category_name
 	from product p, category c
 	where p.seller_id = #{sellerVO.sellerId} and p.category_no = c.category_no
 	order by p.product_id desc
 </select>
-<select id="getProductInfo" resultMap="sellerProductMap" parameterType="int">
+<select id="getProductInfo" resultMap="productMap" parameterType="int">
 	select *
 	from product
 	where product_id = #{productId}

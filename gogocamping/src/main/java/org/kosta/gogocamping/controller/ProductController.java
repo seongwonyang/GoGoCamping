@@ -49,17 +49,15 @@ public class ProductController {
 		this.sellerMapper = sellerMapper;
 	}
 	
-	@RequestMapping("getAllProductList")
+	@RequestMapping("getAllProductList") // 메인페이지(전체 상품 리스트 조회)
 	public String getAllProductList(int pageNo, String option, Model model) {
 		int totalCount = productMapper.getAllProductCount();
 
 		PagingBean pagingBean = new PagingBean(totalCount);
 
 		if (pageNo == 0) {
-			// 현재 페이지가 1page로 할당되어 있음
 			pagingBean = new PagingBean(totalCount);
 		} else {
-			// client에서 보낸 page번호로 할당한다
 			pagingBean = new PagingBean(totalCount, pageNo);
 		}
 
@@ -68,8 +66,12 @@ public class ProductController {
 		map.put("endRowNumber", pagingBean.getEndRowNumber());
 		map.put("option", option);
 		
+		if(option.equals("popular")) { // 인기순 정렬 상품 리스트
+			model.addAttribute("allProductList", productMapper.getAllProductListByPopular(map));
+		} else { // 인기순 정렬 외(가격순) 정렬 상품 리스트
+			model.addAttribute("allProductList", productMapper.getAllProductList(map));
+		}
 		model.addAttribute("pagingBean", pagingBean);
-		model.addAttribute("allProductList", productMapper.getAllProductList(map));
 		model.addAttribute("option", option);
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
@@ -77,7 +79,7 @@ public class ProductController {
 		return "home.tiles";
 	}
 	
-	@RequestMapping("searchProductList")
+	@RequestMapping("searchProductList") // 검색된 상품 조회
 	public String searchProductList(String keyword, String option, Model model) {
 		int totalCount = productMapper.getSearchProductCount(keyword);
 		
@@ -85,18 +87,21 @@ public class ProductController {
 		map.put("keyword", keyword);
 		map.put("option", option);
 		
+		if(option.equals("popular")) { // 인기순 정렬 상품 리스트
+			model.addAttribute("searchProductList", productMapper.getSearchProductListByPopular(map));
+		} else { // 인기순 정렬 외(가격순) 정렬 상품 리스트
+			model.addAttribute("searchProductList", productMapper.getSearchProductList(map));
+		}
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("option", option);
 		model.addAttribute("searchTotalProductCount", totalCount);
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
-		model.addAttribute("searchProductList", productMapper.getSearchProductList(map));
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 
 		return "product/search-product.tiles";
 	}
 	
-	@RequestMapping("getProductListByBrand") 
+	@RequestMapping("getProductListByBrand") // 브랜드별 상품 조회
 	public String getProductListByBrand(String brand, String category, String option, Model model) {
 		Map<String, String> map = new HashMap<>();
 		map.put("brand", brand);
@@ -104,23 +109,30 @@ public class ProductController {
 		map.put("option", option);
 		
 		model.addAttribute("brand", brand);
-		model.addAttribute("categroy", category);
+		model.addAttribute("category", category);
 		model.addAttribute("option", option);
-		
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
-		model.addAttribute("brandCategoryList", productMapper.getBrandCategroyList(map)); // 전체 브랜드 리스트
+		model.addAttribute("brandCategoryList", productMapper.getBrandCategroyList(map)); 
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 
 		if(category != "") {
+			if(option.equals("popular")) {
+				model.addAttribute("productListByBrand", productMapper.getProductListByBrandAndCategoryByPopular(map));
+				System.out.println(option + " getProductListByBrandAndCategoryByPopular");
+			}
 			model.addAttribute("productListByBrand", productMapper.getProductListByBrandAndCategory(map));
 		} else {
+			if(option.equals("popular")) {
+				model.addAttribute("productListByBrand", productMapper.getProductListByBrandByPopular(map));
+				System.out.println(option + " getProductListByBrandByPopular");
+			}
 			model.addAttribute("productListByBrand", productMapper.getProductListByBrand(map));
 		}
 		
 		return "product/brand.tiles"; 
 	}
 
-	@RequestMapping("getProductDetailInfo")
+	@RequestMapping("getProductDetailInfo") // 상품 상세보기
 	public String getProductDetailInfo(int productId, String sortOption, Model model, HttpServletRequest request) {
 		ProductVO productVO = productMapper.getProductDetailInfo(productId);
 		SellerVO sellerVO = sellerMapper.getSellerInfoByProduct(productVO.getSellerVO().getSellerId());
