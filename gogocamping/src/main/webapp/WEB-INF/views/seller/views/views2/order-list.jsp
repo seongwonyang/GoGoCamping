@@ -46,7 +46,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${getOrderList}" var="product">
+                            <c:forEach items="${getOrderList}" var="product" varStatus="index">
                             	<c:if test="${product.deliveryStatus != '배송완료'}">
 	                                <tr>
 	                                    <td>
@@ -66,8 +66,8 @@
 	                                        ${product.orderPrice}
 	                                    </td>
 	                                    <td>
-	                                        <span id="deliveryStatusVal">
-			                                	<a onclick="btnChange('${product.productVO.productId}', '${product.deliveryStatus}')" type="button" class="site-btn" style="color: white; background-color: #065E93; border-radius: 10px;">${product.deliveryStatus}</a>
+	                                        <span id="deliveryStatusVal${index.count }">
+			                                	<a onclick="btnChange('${product.orderDetailNo}', '${product.deliveryStatus}', '${index.count }')" type="button" class="site-btn" style="color: white; background-color: #065E93; border-radius: 10px;">${product.deliveryStatus}</a>
 	                                        </span>
 	                                    </td>
 	                                </tr>
@@ -87,12 +87,12 @@
 </body>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript">
-	    function btnChange(productId, deliveryStatus) {
+	    function btnChange(orderDetailNo, deliveryStatus, index) {
 	    	$.ajax({
 		        type:"post",
 		        url:"updateDeliveryStatus",
 		        //dataType:"json",
-		        data: "productId="+productId+"&deliveryStatus="+deliveryStatus,
+		        data: "orderDetailNo="+orderDetailNo+"&deliveryStatus="+deliveryStatus,
 		        success : function(result){
 		           console.log(result);
 		           if(result!="") {
@@ -102,9 +102,9 @@
 					   }else if(result=="배송완료") {
 						   var btnText = '<a onclick="#" type="button" class="site-btn" style="color: white; background-color: black; border-radius: 10px;">' + result + '</a>';		        		   
 		        	   }else {		        		   
-		        	       var btnText = '<a onclick="btnChange(\'' + productId + '\', \'' + result + '\')" type="button" class="site-btn" style="color: white; background-color: #065E93; border-radius: 10px;">' + result + '</a>';
+		        	       var btnText = '<a onclick="btnChange(\'' + orderDetailNo + '\', \'' + result + '\')" type="button" class="site-btn" style="color: white; background-color: #065E93; border-radius: 10px;">' + result + '</a>';
 		        	   }
-		        	   $("#deliveryStatusVal").html(btnText);
+		        	   $("#deliveryStatusVal"+index).html(btnText);
 		           }else {
 		        	   alert(result);
 		           }

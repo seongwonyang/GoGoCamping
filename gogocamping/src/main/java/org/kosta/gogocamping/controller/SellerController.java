@@ -382,16 +382,16 @@ public class SellerController {
 	
 	@RequestMapping("updateDeliveryStatus") // 배송 정보 갱신
 	@ResponseBody
-	public String updateDeliveryStatus(HttpServletRequest request, Model model, String productId, String deliveryStatus) {
+	public String updateDeliveryStatus(HttpServletRequest request, Model model, int orderDetailNo, String deliveryStatus) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginVO")==null) {
 			return "noSession";
 		}else {
 			try {
 				
-				Map<String, String> orderMap = new HashMap<>();
-				orderMap.put("productId", productId);
-				if("입금확인".equals(deliveryStatus)) {
+				Map<String, Object> orderMap = new HashMap<>();
+				orderMap.put("orderDetailNo", orderDetailNo);
+				if("주문완료".equals(deliveryStatus)) {
 					deliveryStatus="배송준비중";
 				}else if("배송준비중".equals(deliveryStatus)) {
 					deliveryStatus="배송중";
