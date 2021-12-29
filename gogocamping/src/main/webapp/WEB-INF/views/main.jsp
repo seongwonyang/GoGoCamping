@@ -148,21 +148,10 @@
                             <div class="col-lg-4 col-md-5">
                                 <div class="filter__sort">
                                     <select id="sort" onchange="sortProduct(this.value)">
-                                    	<c:choose>
-                                    		<c:when test="${option=='high'}">
-		                                        <option value="high" selected="selected">높은 가격순</option>
-		                                        <option value="low">낮은 가격순</option>
-		                                    </c:when>
-		                                    <c:when test="${option=='low'}">
-		                                        <option value="high">높은 가격순</option>
-		                                        <option value="low" selected="selected">낮은 가격순</option>
-		                                    </c:when>
-		                                    <c:otherwise>
-		                                    	<option selected="selected" disabled>----정렬----</option>
-		                                        <option value="high">높은 가격순</option>
-		                                        <option value="low">낮은 가격순</option>
-		                                    </c:otherwise>
-										</c:choose>
+                                    	<option value="" selected="selected" disabled="disabled">----정렬----</option>
+                                   		<option value="popular" ${option == 'popular' ? 'selected="selected"' : ''}>인기순</option>
+								        <option value="high" ${option == 'high' ? 'selected="selected"' : ''}>높은 가격순</option>
+								        <option value="low" ${option == 'low' ? 'selected="selected"' : ''}>낮은 가격순</option>
                                     </select>
                                 </div>
                             </div>

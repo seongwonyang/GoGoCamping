@@ -221,3 +221,46 @@ where o.product_id = p.product_id
 and o.customer_id='test2'
 
 
+-- 인기순 정렬
+-- 전체 상품 인기순 정렬 (페이징 포함)
+select rnum, product_id, product_name, price, product_img, product_img_stored, c from (
+select * from (
+	select p.*, row_number() over(order by (select count(*) from order_detail where product_id = p.product_id group by p.product_id)) as rnum,
+	nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
+	from product p
+) order by c desc) where rnum between 1 and 7
+
+-- 카테고리(대분류) 상품 인기순 정렬 (페이징 포함)
+select rnum, product_id, product_name, price, product_img, category_name, detail_category_name, c from (
+select * from (
+   select p.*, row_number() over(order by (select count(*) from order_detail where product_id = p.product_id group by p.product_id) desc) as rnum, c.category_name, c.detail_category_name,
+   nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
+   from product p, category c where p.category_no=c.category_no and c.category_name='의자/테이블/침대'
+) order by c desc )
+where rnum between 1 and 3
+
+-- 카테고리(소분류) 상품 인기순 정렬
+select p.*, c.*, nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
+from product p, category c
+where p.category_no = c.category_no
+and c.category_name = '침낭/매트/해먹' and c.detail_category_name = '베개/쿠션'
+order by c desc
+
+-- 검색 상품 인기순 정렬
+select p.*, c.*, nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
+from product p, category c where p.category_no=c.category_no and REPLACE(p.product_name, ' ', '') like '%이%'
+order by c desc
+
+-- 브랜드별 인기순 정렬
+select s.brand, p.*, nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
+from product p, seller s
+where p.seller_id = s.seller_id
+and s.brand = '스노우피크(Snowpeak)' order by c desc
+
+-- 브랜드 카테고리별 인기순 정렬
+select s.brand, p.*, c.*, nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
+from product p, seller s, category c
+where p.seller_id = s.seller_id and p.category_no = c.category_no
+and s.brand = '지프(JEEP)' and c.category_name = '침낭/매트/해먹' order by c desc
+
+

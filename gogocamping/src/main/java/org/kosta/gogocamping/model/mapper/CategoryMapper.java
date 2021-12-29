@@ -13,14 +13,17 @@ public interface CategoryMapper {
 
    List<CategoryVO> getCategoryList();
 
-   List<ProductVO> getProductListByCategory(Map<String, Object> map);
+   List<ProductVO> getProductListByCategory(Map<String, Object> map); // 카테고리(대분류)별 상품조회
+   
+   List<ProductVO> getProductListByCategoryByPopular(Map<String, Object> map); // 카테고리(대분류)별 상품조회 (인기순 정렬)
    
    int getCategoryCount(String categoryName);
 
-   List<CategoryVO> getProductListByDetailCategory(Map<String, Object> map);
+   List<CategoryVO> getProductListByDetailCategory(Map<String, Object> map); // 카테고리(소분류)별 상품조회
+   
+   List<CategoryVO> getProductListByDetailCategoryByPopular(Map<String, Object> map); // 카테고리(소분류)별 상품조회 (인기순 정렬)
 
    List<CategoryVO> getDetailCategory(Map<String, Object> map);
-
 
    String getCategoryNameByProductId(int productId);
 

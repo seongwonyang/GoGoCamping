@@ -10,23 +10,27 @@ import org.kosta.gogocamping.model.domain.ProductVO;
 @Mapper
 public interface ProductMapper {
 
-	List<ProductVO> getAllProductList(Map<String, Object> map);
+	List<ProductVO> getAllProductList(Map<String, Object> map); // 전체 상품 조회
+	
+	List<ProductVO> getAllProductListByPopular(Map<String, Object> map); // 전체 상품 조회 (인기순 정렬)
 
 	int getAllProductCount();
 
-	List<ProductVO> getSortedProductListOrderByHighPrice(Map<String, Integer> map);
-
-	List<ProductVO> getSortedProductListOrderByLowPrice(Map<String, Integer> map);
-
-	List<ProductVO> getSearchProductList(Map<String, Object> map);
+	List<ProductVO> getSearchProductList(Map<String, Object> map); // 검색된 상품 조회
+	
+	List<ProductVO> getSearchProductListByPopular(Map<String, Object> map); // 검색된 상품 조회 (인기순 정렬)
 	
 	int getSearchProductCount(String keyword);
 
-	List<ProductVO> getProductListByBrand(Map<String, String> map);
+	List<ProductVO> getBrandCategroyList(Map<String, String> map); // 해당 브랜드에 존재하는 카테고리 조회
+	
+	List<ProductVO> getProductListByBrand(Map<String, String> map); // 브랜드별 상품 조회
+	
+	List<ProductVO> getProductListByBrandByPopular(Map<String, String> map); // 브랜드별 상품 조회 (인기순 정렬)
 
-	List<ProductVO> getBrandCategroyList(Map<String, String> map);
-
-	List<ProductVO> getProductListByBrandAndCategory(Map<String, String> map);
+	List<ProductVO> getProductListByBrandAndCategory(Map<String, String> map); // 브랜드 카테고리별 상품 조회
+	
+	List<ProductVO> getProductListByBrandAndCategoryByPopular(Map<String, String> map); // 브랜드 카테고리별 상품 조회 (인기순 정렬)
 
 	void registerProduct(ProductVO productVO);
 
