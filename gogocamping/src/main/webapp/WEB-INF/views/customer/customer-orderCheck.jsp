@@ -41,37 +41,51 @@
 										${order.deliveryStatus}
                                     </td>
                                     <c:choose>
-                                    <c:when test="${order.refundCheck eq 0}">
-                                    <td class="shoping__cart__price">
-                                    		<input type="hidden" id="productId" name="productId" value="${order.productVO.productId}">
-                                    		<input type="hidden" id="orderCount" name="orderCount" value="${order.orderCount}">
-                                    		<a class="orderConfirm" data-detailno="${order.orderDetailNo}" data-ordercount="${order.orderCount}" data-productid="${order.productVO.productId}">
-                                    		<button type="button" class="site-btn" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">주문취소</button></a>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                    	<input type="hidden" name="orderDetailNo" id="orderDetailNo" value="${order.orderDetailNo}">
-                                    	<form id="submitId" action="orderCheck" method="get">
-                                    		<input type="hidden" name="customerId" id="customerId" value="${sessionScope.loginVO.customerId}">
-                                    	</form>
-                                    		<a class="buyConfirm" data-detailno="${order.orderDetailNo}">
-                                    		<button type="button" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">구매확정</button></a>
-                                    </td>
+                                    <c:when test="${order.deliveryStatus == '주문완료'}">
+	                                    <td class="shoping__cart__price">
+	                                    		<input type="hidden" id="productId" name="productId" value="${order.productVO.productId}">
+	                                    		<input type="hidden" id="orderCount" name="orderCount" value="${order.orderCount}">
+	                                    		<a class="orderConfirm" data-detailno="${order.orderDetailNo}" data-ordercount="${order.orderCount}" data-productid="${order.productVO.productId}">
+	                                    		<button type="button" class="site-btn" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">주문취소</button></a>
+	                                    </td>
+	                                </c:when>
+                                    <c:when test="${order.deliveryStatus == '배송준비중'}">
+                                   	 	<td></td>
+                                    	<td></td>
+                                    </c:when>
+                                    <c:when test="${order.deliveryStatus == '배송중'}">
+                                   	 	<td></td>
+                                    	<td></td>
+                                    </c:when>
+                                    <c:when test="${order.deliveryStatus == '배송완료'}">
+	                                    <td class="shoping__cart__price">
+	                                    	<input type="hidden" name="orderDetailNo" id="orderDetailNo" value="${order.orderDetailNo}">
+	                                    	<form id="submitId" action="orderCheck" method="get">
+	                                    		<input type="hidden" name="customerId" id="customerId" value="${sessionScope.loginVO.customerId}">
+	                                    	</form>
+	                                    		<a class="buyConfirm" data-detailno="${order.orderDetailNo}">
+	                                    		<button type="button" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">구매확정</button></a>
+	                                    </td>
+	                                    <td class="shoping__cart__price">
+	                                    	<button type="button" onclick="location.href='refund?orderDetailNo=${order.orderDetailNo}'" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">교환/환불</button>
+	                                    </td>
                                     </c:when>
                                     <c:when test="${order.deliveryStatus == '주문취소'}">
                                    	 	<td></td>
                                     	<td></td>
                                     </c:when>
-                                    <c:otherwise>
+                                    <c:when test="${order.deliveryStatus == '환불요청'}">
+                                   	 	<td></td>
+                                    	<td></td>
+                                    </c:when>
+                                    <c:when test="${order.deliveryStatus == '구매확정'}">
                                     <td class="shoping__cart__price">
-                                    	<form action="writeReviewPage" id="writeReviewPage" name="writeReviewPage" method="get">
-		                              <input type="hidden" name="productId" value="${order.productVO.productId}">
-									      <button type="submit" class="site-btn" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">리뷰작성</button>						      
-									  </form> 
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                    	<button type="button" onclick="location.href='refund?orderDetailNo=${order.orderDetailNo}'" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">교환/환불</button>
+                                   		<form action="writeReviewPage" id="writeReviewPage" name="writeReviewPage" method="get">
+			                            	<input type="hidden" name="productId" value="${order.productVO.productId}">
+										    <button type="submit" class="site-btn" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">리뷰작성</button>						      
+								    	</form> 
                                     </td>		
-                                    </c:otherwise>
+                                    </c:when>
                                     </c:choose>
                                 </tr>
                                 </c:forEach>

@@ -196,14 +196,14 @@
 	where product_id = #{productId}
 </update>
 <select id="getOrderList" resultMap="productDetailMap" parameterType="String">
-	select i.order_no, p.product_name, p.product_id, d.order_count, i.order_date, d.order_price, d.delivery_status
+	select i.order_no, p.product_name, p.product_id, d.order_detail_no, d.order_count, i.order_date, d.order_price, d.delivery_status
 	from order_info i, order_detail d, product p
 	where d.product_id = p.product_id 
 	and i.order_no = d.order_no
 	and seller_id = #{sellerId}
 </select>
-<update id="updateDeliveryStatus" parameterMap="updateDeliveryMap">
-	update order_detail set delivery_status = #{deliveryStatus} where product_id = #{productId}
+<update id="updateDeliveryStatus" parameterType="map">
+	update order_detail set delivery_status = #{deliveryStatus} where order_detail_no = #{orderDetailNo}
 </update>
 </mapper>
 

@@ -42,7 +42,7 @@ public interface ProductMapper {
 
 	List<ProductVO> getOrderList(String sellerId);
 
-	void updateDeliveryStatus(Map<String, String> orderMap);
+	void updateDeliveryStatus(Map<String, Object> orderMap);
   
 	ProductVO getProductDetailInfo(int productId);
 

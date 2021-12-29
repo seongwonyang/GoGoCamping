@@ -54,7 +54,7 @@
 	order by o.order_detail_no desc
 </select>
 <update id="buyConfirm" parameterType="int">
-	update order_detail set refund_check = 1 where order_detail_no = #{value}
+	update order_detail set refund_check = 1, delivery_status = '구매확정' where order_detail_no = #{value}
 </update>
 <update id="sumStockCount" parameterType="int">
 	update product set stock = stock+#{orderCount} where product_id = #{productId}
