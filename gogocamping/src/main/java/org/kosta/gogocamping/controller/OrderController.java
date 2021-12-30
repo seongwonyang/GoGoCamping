@@ -48,6 +48,7 @@ public class OrderController {
 	public String order(HttpServletRequest request, OrderInfoVO orderInfoVO, Model model) {
 		HttpSession session = request.getSession(false);
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
+		String customerId = customerVO.getCustomerId();
 		@SuppressWarnings("unchecked")
 		List<Integer> checkList = (List<Integer>) session.getAttribute("checkList");
 		@SuppressWarnings("unchecked")
@@ -74,7 +75,7 @@ public class OrderController {
 		String orderNo = today + ge.excuteGenerate(); // 주문번호
 		
 		orderInfoVO.setOrderNo(orderNo);
-		customerVO.setCustomerId(customerVO.getCustomerId());
+		customerVO.setCustomerId(customerId);
 		orderInfoVO.setCustomerVO(customerVO);
 		orderService.insertOrderInfo(orderInfoVO); // order_info에 주문정보 insert 
 		
@@ -98,7 +99,7 @@ public class OrderController {
 
 			model.addAttribute("orderList", orderService.orderCheck(customerVO.getCustomerId()));
 		}
-		return "customer/customer-orderCheck.tiles"; // 주문 성공 시 마이페이지 주문내역으로 이동
+		return "redirect:orderCheck?customerId="+customerId; // 주문 성공 시 마이페이지 주문내역으로 이동
 	}
 	
 }

@@ -1,14 +1,13 @@
 package org.kosta.gogocamping.controller;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.gogocamping.model.domain.CustomerVO;
-import org.kosta.gogocamping.model.domain.PagingBean;
 import org.kosta.gogocamping.model.domain.OrderDetailVO;
 import org.kosta.gogocamping.model.domain.PagingBean;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
@@ -109,7 +108,7 @@ public class CustomerController {
 		model.addAttribute("allProductList", productMapper.getAllProductList(map)); // 전체 상품 리스트
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
-		return "home.tiles";
+		return "redirect:/";
 	}
 
 	@RequestMapping("customer-find-id-form")
@@ -261,7 +260,7 @@ public class CustomerController {
 	}
 	@RequestMapping("orderConfirm")
 	@ResponseBody
-	public String  orderConfirm(int orderDetailNo, int productId, int orderCount) {
+	public String orderConfirm(int orderDetailNo, int productId, int orderCount) {
 		customerMapper.orderConfirm(orderDetailNo);
 		customerMapper.sumStockCount(orderCount, productId);
 		return "주문취소";
