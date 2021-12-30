@@ -16,7 +16,7 @@
 							<input type="password" id="sellerPwck" name="sellerPwck" placeholder="  비밀번호 확인" required="required" style="width: 445px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;" onkeyup="checkPassword()"><br>
 							<span id="checkPassword"></span><br>
 							<input type="text" name="sellerName" placeholder="  이름" required="required" style="width: 445px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;"><br><br>
-							<input type="text" name="sellerEmail" placeholder="  이메일" required="required" style="width: 445px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;"><br><br>
+							<input type="email" name="sellerEmail" placeholder="  이메일" required="required" style="width: 445px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;"><br><br>
 							<input type="text" name="sellerTel" placeholder="  전화번호" required="required" style="width: 445px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;"><br><br>
 							<input type="text" name="businessNumber" placeholder="  사업자번호" required="required" style="width: 445px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;"><br><br>
 							<input type="text" name="brand" placeholder="  브랜드명" required="required" style="width: 445px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;"><br><br>

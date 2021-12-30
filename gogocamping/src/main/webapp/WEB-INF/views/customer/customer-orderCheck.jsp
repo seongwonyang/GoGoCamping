@@ -12,7 +12,8 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th class="shoping__product">상품정보</th>
+                                	<th>주문번호</th>
+                                    <th class="shoping__product">상품명</th>
                                     <th>주문일자</th>
                                     <th>수량</th>
                                     <th>총 가격</th>
@@ -24,15 +25,19 @@
                             <tbody>
                             <c:forEach items="${orderList }" var="order">
                                 <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="${order.productVO.productImg}" alt="">
-                                        <h5>${order.productVO.productName}	</h5>
+                                	<td>
+                                		${order.orderInfoVO.orderNo }<br>
+                                		<img src="${order.productVO.productImg}" alt="" onclick="location.href='getProductDetailInfo?productId=${order.productVO.productId}&sortOption='">
+                                	</td>
+                                    <td class="shoping__cart__prices">
+                                   
+                                        <h5 onclick="location.href='getProductDetailInfo?productId=${order.productVO.productId}&sortOption='">${order.productVO.productName}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
                                         ${order.orderInfoVO.orderDate}
                                     </td>
                                     <td class="shoping__cart__price">
-                                        ${order.orderCount}	
+                                        ${order.orderCount}
                                     </td>
                                     <td class="shoping__cart__price">
                                         ${order.orderPrice}	
@@ -43,11 +48,15 @@
                                     <c:choose>
                                     <c:when test="${order.deliveryStatus == '주문완료'}">
 	                                    <td class="shoping__cart__price">
-	                                    		<input type="hidden" id="productId" name="productId" value="${order.productVO.productId}">
-	                                    		<input type="hidden" id="orderCount" name="orderCount" value="${order.orderCount}">
-	                                    		<a class="orderConfirm" data-detailno="${order.orderDetailNo}" data-ordercount="${order.orderCount}" data-productid="${order.productVO.productId}">
-	                                    		<button type="button" class="site-btn" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">주문취소</button></a>
+	                                    	<form id="submitId" action="orderCheck" method="get">
+	                                    		<input type="hidden" name="customerId" id="customerId" value="${sessionScope.loginVO.customerId}">
+	                                    	</form>
+                                    		<input type="hidden" id="productId" name="productId" value="${order.productVO.productId}">
+                                    		<input type="hidden" id="orderCount" name="orderCount" value="${order.orderCount}">
+                                    		<a class="orderConfirm" data-detailno="${order.orderDetailNo}" data-ordercount="${order.orderCount}" data-productid="${order.productVO.productId}">
+                                    		<button type="button" class="site-btn" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">주문취소</button></a>
 	                                    </td>
+	                                    <td></td>
 	                                </c:when>
                                     <c:when test="${order.deliveryStatus == '배송준비중'}">
                                    	 	<td></td>
@@ -84,7 +93,8 @@
 			                            	<input type="hidden" name="productId" value="${order.productVO.productId}">
 										    <button type="submit" class="site-btn" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">리뷰작성</button>						      
 								    	</form> 
-                                    </td>		
+                                    </td>
+                                    <td></td>
                                     </c:when>
                                     </c:choose>
                                 </tr>
@@ -107,9 +117,9 @@
     	        	$("#orderDetailNo").val($(this).data('detailno'));
     	        }
     			$.ajax({
-					type:"get",
+					type:"post",
 					url:"buyConfirm",
-					data:"orderDetailNo="+$("#orderDetailNo").val(),
+					data:"orderDetailNo="+$(this).data('detailno'),
 					success:function(result){
 						if(result=="구매확정"){
 							$("#submitId").submit();
@@ -128,9 +138,9 @@
         			$("#orderCount").val($(this).data('ordercount'));
     	        }
     			$.ajax({
-					type:"get",
+					type:"post",
 					url:"orderConfirm",
-					data:"orderDetailNo="+$("#orderDetailNo").val()+"&productId="+$("#productId").val()+"&orderCount="+$("#orderCount").val(),
+					data:"orderDetailNo="+$(this).data('detailno')+"&productId="+$(this).data('productid')+"&orderCount="+$(this).data('ordercount'),
 					success:function(result){
 						if(result=="주문취소"){
 							$("#submitId").submit();

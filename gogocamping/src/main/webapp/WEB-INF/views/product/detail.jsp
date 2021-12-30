@@ -311,24 +311,28 @@
 <script type="text/javascript">
 	$(function(){
 		$("#insertToCart").click(function() { // 장바구니 담기
-			let detailProductId = document.getElementById("detailProductId").value;
-			let detailProductCount = document.getElementById("detailProductCount").value;
-			$.ajax({
-				type:"post",
-				url:"insertProductInCart",
-				data:"productId="+detailProductId+"&productCount="+detailProductCount,
-				success:function(){
-					let goToCartPage = confirm("상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?");
-					if(goToCartPage) {
-						location.href="getProductListInCart";
-					} 
-				}
-			});//ajax
+			if(${sessionScope.loginVO==null}) {
+		      alert("로그인이 필요한 서비스입니다.");
+		    } else {
+				let detailProductId = document.getElementById("detailProductId").value;
+				let detailProductCount = document.getElementById("detailProductCount").value;
+				$.ajax({
+					type:"post",
+					url:"insertProductInCart",
+					data:"productId="+detailProductId+"&productCount="+detailProductCount,
+					success:function(){
+						let goToCartPage = confirm("상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?");
+						if(goToCartPage) {
+							location.href="getProductListInCart";
+						} 
+					}
+				});//ajax
+		    }
 		});//insertToCart
 
   $("#heartIcon").click(function() { // 찜하기 버튼 클릭
     if(${sessionScope.loginVO==null}) {
-      alert("로그인 후 이용 가능합니다.");
+      alert("로그인이 필요한 서비스입니다.");
     } else {
       $.ajax({
         type:"post",
