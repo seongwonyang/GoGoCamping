@@ -19,7 +19,7 @@
 						<input type="password" name="customerPwck" id="customerPwck" placeholder="  비밀번호 확인" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;" onkeyup="checkPassword()"><br>
 						<span id="checkPassword"></span><br>
 						<input type="text" name="customerName" placeholder="  이름" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<input type="text" name="customerEmail" placeholder="  이메일" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br> 
+						<input type="email" name="customerEmail" placeholder="  이메일" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br> 
 						<input type="text" name="customerTel" placeholder="  전화번호 ex) 010-1234-5678" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
 						<h5 style="font-weight: 700;">생년월일</h5><br> 
 						<input type="date" name="customerBirth" placeholder="  생일" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
@@ -28,7 +28,7 @@
 						<button type="button" class="site-btn" id="address_kakao" style="height: 50px; background-color: #245207; border-radius: 10px; border-radius: 10px;">주소검색</button><br><br>
 						<input type="text" id="customerAddress" name="customerAddress" placeholder="  주소" required="required" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
 						<input type="text" id="customerDetailedAddress" name="customerDetailedAddress" placeholder="  상세주소" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<button type="submit" class="site-btn" id="hash" style="height: 50px; background-color: #245207; border-radius: 10px;">가입하기</button><br><br>
+						<button type="submit" onclick="alert('회원가입이 완료되었습니다.')" class="site-btn" id="hash" style="height: 50px; background-color: #245207; border-radius: 10px;">가입하기</button><br><br>
 						</form>
 					</div>
 				</div>

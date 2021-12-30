@@ -67,7 +67,7 @@
 	                                    		<button type="button" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">구매확정</button></a>
 	                                    </td>
 	                                    <td class="shoping__cart__price">
-	                                    	<button type="button" onclick="location.href='refund?orderDetailNo=${order.orderDetailNo}'" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">교환/환불</button>
+	                                    	<button type="button" onclick="location.href=refund?orderDetailNo='${order.orderDetailNo}'" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">교환/환불</button>
 	                                    </td>
                                     </c:when>
                                     <c:when test="${order.deliveryStatus == '주문취소'}">
@@ -101,7 +101,7 @@
         //구매확정
     	$(function(){
     		$(".buyConfirm").click(function() {
-    			if (!confirm("구매확정 하시겠습니까?")) {
+    			if (!confirm("구매를 확정하시겠습니까?")) {
     	            return false;
     	        } else {
     	        	$("#orderDetailNo").val($(this).data('detailno'));
@@ -117,10 +117,9 @@
 					}
 				});//ajax
     		});//click
-    		
     		//주문취소
     		$(".orderConfirm").click(function() {
-    			if (!confirm("주문취소 하시겠습니까?")) {
+    			if (!confirm("주문을 취소하시겠습니까?")) {
     	            return false;
     	        } else {
     	        	$("#orderDetailNo").val($(this).data('detailno'));

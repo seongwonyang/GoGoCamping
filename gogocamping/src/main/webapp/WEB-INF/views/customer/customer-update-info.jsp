@@ -18,7 +18,7 @@
 						<button type="button" class="site-btn" id="address_kakao" style="height: 50px; background-color: #245207; border-radius: 10px; border-radius: 10px;">주소검색</button><br><br>
 						<input type="text" id="customerAddress" name="customerAddress" placeholder="  주소" required="required" readonly="readonly" value="${customerInfo.customerAddress }" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
 						<input type="text" id="customerDetailedAddress" name="customerDetailedAddress" placeholder="  상세주소" required="required" value="${customerInfo.customerDetailedAddress }" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<button type="submit" class="site-btn" id="hash" style="height: 50px; background-color: #245207; border-radius: 10px;">변경하기</button><br><br>
+						<button type="submit" onclick="alert('회원정보가 변경되었습니다.')" class="site-btn" id="hash" style="height: 50px; background-color: #245207; border-radius: 10px;">변경하기</button><br><br>
 						</form>
 					</div>
 				</div>

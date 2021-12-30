@@ -9,9 +9,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.kosta.gogocamping.model.domain.OrderDetailVO;
 import org.kosta.gogocamping.model.domain.CategoryVO;
-import org.kosta.gogocamping.model.domain.CustomerVO;
+import org.kosta.gogocamping.model.domain.OrderDetailVO;
 import org.kosta.gogocamping.model.domain.ProductVO;
 import org.kosta.gogocamping.model.domain.QnAVO;
 import org.kosta.gogocamping.model.domain.SellerVO;
@@ -116,7 +115,11 @@ public class SellerController {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
+		return "redirect:sellerRegisterResultPage";
+	}
+	
+	@RequestMapping("sellerRegisterResultPage")
+	public String sellerRegisterResult() {
 		return "seller/views/views2/seller-register-result.tiles";
 	}
 

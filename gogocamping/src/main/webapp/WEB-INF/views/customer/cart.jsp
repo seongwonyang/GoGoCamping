@@ -102,7 +102,7 @@
 <script type="text/javascript">
 $(function(){
 	if('${soldout}' == 'soldout'){
-		alert("재고가 부족하여 주문할 수 없습니다.");
+		alert("선택 상품의 재고량이 부족하여 주문이 불가능합니다.");
 		location.replace("getProductListInCart");
 	}
 	
