@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.OrderMapper">
+<resultMap id="orderInfoMap" type="OrderInfoVO">
+	 	<result column="customer_id" property="customerVO.customerId"/>
+</resultMap>
+<resultMap id="orderDetailMap" type="OrderDetailVO" extends="orderInfoMap">
+		<result column="order_no" property="orderInfoVO.orderNo"/>
+	 	<result column="order_date" property="orderInfoVO.orderDate"/>
+	 	<result column="product_id" property="productVO.productId"/>
+	 	<result column="product_name" property="productVO.productName"/>
+	 	<result column="product_img" property="productVO.productImg"/>
+	 	<result column="price" property="productVO.price"/>
+</resultMap>
+<!-- 주문하기 -->
 <insert id="insertOrderInfo" parameterType="orderInfoVO">
 	insert into order_info(order_no,order_date,order_comment,order_post_number,order_address,order_detailed_address,receiver_name,receiver_tel,payment,customer_id)
 	values(#{orderNo},sysdate,#{orderComment},#{orderPostNumber},#{orderAddress},#{orderDetailedAddress},#{receiverName},#{receiverTel},#{payment},#{customerVO.customerId})
@@ -9,11 +21,28 @@
 	insert into order_detail(order_detail_no, order_count, order_price, delivery_status, refund_check, order_no, product_id)
 	values(order_detail_seq.nextval,#{orderCount},#{orderPrice},#{deliveryStatus},#{refundCheck},#{orderInfoVO.orderNo},#{productVO.productId})
 </insert>
-
-<resultMap id="orderDetailMap" type="OrderDetailVO">
-	<result property="productVO.productName" column="product_name"/>
-	<result property="productVO.price" column="price"/>
-</resultMap> 
+<!-- 주문조회 -->
+<select id="selectOrderList" resultMap="orderDetailMap">
+	select o.order_no, to_char(o.order_date, 'yy-mm-dd') as order_date, o.order_detail_no, o.order_date, o.order_count, o.order_price, o.delivery_status, o.refund_check,p.product_id, p.product_name, p.product_img
+	from (select i.order_no, i.order_date, i.customer_id, d.order_count, d.order_price, d.delivery_status, d.refund_check, d.product_id, d.order_detail_no
+	from order_info i , order_detail d
+	where i.order_no = d.order_no) o, product p
+	where o.product_id = p.product_id
+	and o.customer_id=#{value}
+	order by o.order_detail_no desc
+</select>
+<!-- 주문취소 -->
+<update id="updateToOrderCancelStatus" parameterType="int">
+	update order_detail set delivery_status = '주문취소', refund_check = 2 where order_detail_no = #{value}
+</update>
+<!-- 주문취소 후 취소 상품 재고량 증가 -->
+<update id="updateStockCount" parameterType="int">
+	update product set stock = stock+#{orderCount} where product_id = #{productId}
+</update>
+<!-- 구매확정 -->
+<update id="buyConfirm" parameterType="int">
+	update order_detail set refund_check = 1, delivery_status = '구매확정' where order_detail_no = #{value}
+</update>
 
 <select id="getProductInfoByOrderDetailNo" parameterType="int" resultMap="orderDetailMap">
 	select o.*, p.product_name, p.price

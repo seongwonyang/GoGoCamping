@@ -441,4 +441,5 @@ public class SellerController {
 		model.addAttribute("totalSoldList", totalSoldList);
 		return totalSoldList;
 	}
+	
 }

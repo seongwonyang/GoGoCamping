@@ -2,14 +2,12 @@ package org.kosta.gogocamping.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.kosta.gogocamping.model.domain.CategoryVO;
 import org.kosta.gogocamping.model.domain.PagingBean;
-import org.kosta.gogocamping.model.domain.ProductVO;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
 import org.kosta.gogocamping.model.mapper.ProductMapper;
 import org.kosta.gogocamping.model.mapper.SellerMapper;
@@ -102,13 +100,4 @@ public class CategoryController {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
 

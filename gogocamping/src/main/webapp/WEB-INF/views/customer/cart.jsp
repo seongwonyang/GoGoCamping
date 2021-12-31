@@ -278,7 +278,7 @@ $(function(){
 		if(checkList[0]=="on"){
 			checkList.shift();
 		}
-		location.href = "orderProduct?checkList="+checkList;
+		location.href = "/order/orderform?checkList="+checkList;
 	});
 });//ready
 

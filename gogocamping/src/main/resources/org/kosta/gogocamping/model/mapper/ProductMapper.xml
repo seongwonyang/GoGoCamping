@@ -7,7 +7,6 @@
 <sql id="selectProductAllWithCategory">
 	select rnum, p.product_id, p.product_name, p.price, p.product_img, product_img_stored
 </sql>
-
 <resultMap id="productMap" type="ProductVO">
 	<result property="sellerVO.sellerId" column="seller_id"/>
 	<result property="sellerVO.sellerEmail" column="seller_email"/>
@@ -24,7 +23,6 @@
 	<result property="orderInfoVO.orderNo" column="order_no"/>
 	<result property="orderInfoVO.orderDate" column="order_date"/>	
 </resultMap> 
-
 <!-- 전체 상품 조회 -->
 <select id="getAllProductList" parameterType="Map" resultType="ProductVO">
 	<include refid="selectProductAll"/> 
@@ -42,7 +40,7 @@
 	</choose>
 	as rnum from product p) where rnum between #{startRowNumber} and #{endRowNumber}
 </select>
-<!-- 전체 상품 조회 (인기순 정렬) -->
+<!-- 전체 상품 조회(인기순 정렬) -->
 <select id="getAllProductListByPopular" parameterType="Map" resultType="ProductVO">
 	select rnum, product_id, product_name, price, product_img, product_img_stored, c from (
 	select * from (
@@ -54,7 +52,6 @@
 <select id="getAllProductCount" resultType="int">
 	select count(*) from product
 </select>
-
 <!-- 검색된 상품 조회 -->
 <select id="getSearchProductList" parameterType="Map" resultType="ProductVO">
 	<include refid="selectProductAllWithCategory"/> 
@@ -76,7 +73,7 @@
 	) p
 	<!-- where rnum between #{startRowNumber} and #{endRowNumber} -->
 </select>
-<!-- 검색된 상품 조회 (인기순 정렬) -->
+<!-- 검색된 상품 조회(인기순 정렬) -->
 <select id="getSearchProductListByPopular" parameterType="Map" resultType="ProductVO">
 	select p.*, c.*, nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
 	from product p, category c where p.category_no=c.category_no and REPLACE(p.product_name, ' ', '') like '%' || #{keyword} || '%'
@@ -124,7 +121,7 @@
 		</otherwise>
 	</choose>
 </select>
-<!-- 브랜드별 상품 조회 (인기순 정렬) -->
+<!-- 브랜드별 상품 조회(인기순 정렬) -->
 <select id="getProductListByBrandByPopular" resultMap="productMap" parameterType="Map">
 	select s.brand, p.*, nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
 	from product p, seller s
@@ -149,7 +146,7 @@
 		</otherwise>
 	</choose>
 </select>
-<!-- 브랜드 카테고리별 상품 조회 (인기순 정렬) -->
+<!-- 브랜드 카테고리별 상품 조회(인기순 정렬) -->
 <select id="getProductListByBrandAndCategoryByPopular" resultMap="productMap" parameterType="Map">
 	select s.brand, p.*, c.*, nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
 	from product p, seller s, category c
@@ -166,7 +163,6 @@
 <update id="updateProductStockCount" parameterType="map">
 	update product set stock = stock - #{productCount} where product_id = #{productId}
 </update>
-
 <!-- 상품 상세 페이지에서 관련(동일 카테고리) 상품 조회 -->
 <select id="getRelatedProductList" parameterType="String" resultType="ProductVO">
 	select p.*

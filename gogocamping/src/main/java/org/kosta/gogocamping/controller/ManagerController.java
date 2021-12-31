@@ -23,13 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ManagerController {
 	@Resource
 	private ManagerMapper managerMapper;
-	
 	@Resource
 	private ManagerService managerService;
-	
 	@Resource
 	private SellerMapper sellerMapper;
-	
 	@Resource
 	private ReviewMapper reviewMapper;
 	
@@ -41,7 +38,6 @@ public class ManagerController {
 		}else {
 			return "managerHome.tiles";
 		}
-		
 	}
 	
 	@RequestMapping("managerLoginForm")
@@ -65,7 +61,6 @@ public class ManagerController {
 		}else {
 			return "아이디 또는 비밀번호를 확인하세요.";
 		}
-		
 	}
 	
 	@RequestMapping("managerLogout")

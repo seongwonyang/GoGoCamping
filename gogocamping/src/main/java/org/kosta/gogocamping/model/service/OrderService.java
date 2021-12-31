@@ -5,7 +5,6 @@ import java.util.List;
 import org.kosta.gogocamping.model.domain.CartVO;
 import org.kosta.gogocamping.model.domain.OrderDetailVO;
 import org.kosta.gogocamping.model.domain.OrderInfoVO;
-import org.springframework.ui.Model;
 
 public interface OrderService {
 
@@ -18,9 +17,11 @@ public interface OrderService {
 	int getProductPrice(int productId);
 
 	void order(OrderDetailVO orderDetailVO, int productId, int productCount, int cartNo);
+	
+	List<OrderDetailVO> selectOrderList(String customerId);
 
-	void getTotalInfo(String customerId, Model model);
+	void buyConfirm(int orderDetailNo);
 
-	List<OrderDetailVO> orderCheck(String customerId);
+	void cancelOrder(int orderDetailNo, int productId, int orderCount);
 
 }

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
     <!-- Page Preloder -->
    <!--  <div id="preloder">
@@ -37,36 +38,13 @@
                     <div class="filter__item"><!-- 전체 상품리스트 조회 -->
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
-                                <div class="filter__sort">
-                                    <select id="sort" onchange="sortProduct(this.value)">
-                                    	<c:choose>
-                                    		<c:when test="${option=='high'}">
-		                                        <option value="high" selected="selected">높은 가격순</option>
-		                                        <option value="low">낮은 가격순</option>
-		                                    </c:when>
-		                                    <c:when test="${option=='low'}">
-		                                        <option value="high">높은 가격순</option>
-		                                        <option value="low" selected="selected">낮은 가격순</option>
-		                                    </c:when>
-		                                    <c:otherwise>
-		                                    	<option selected="selected" disabled>----정렬----</option>
-		                                        <option value="high">높은 가격순</option>
-		                                        <option value="low">낮은 가격순</option>
-		                                    </c:otherwise>
-										</c:choose>
-                                    </select>
-                                </div>
                             </div>
                             <div class="col-lg-4 col-md-4">
-                                <div class="filter__found"><!-- 
-                                    <h6><span>16</span> Products found</h6>
-                                 --></div>
+                                <div class="filter__found">
+                                    <h6><span>${fn:length(likesList)}</span> Products found</h6>
+                                </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
-                                <div class="filter__option">
-                                    <!-- <span class="icon_grid-2x2"></span>
-                                    <span class="icon_ul"></span> -->
-                                </div>
                             </div>
                         </div>
                     </div>
