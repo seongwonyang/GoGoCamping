@@ -11,52 +11,48 @@ import org.kosta.gogocamping.model.domain.OrderDetailVO;
 import org.kosta.gogocamping.model.domain.OrderInfoVO;
 import org.kosta.gogocamping.model.mapper.CartMapper;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
-import org.kosta.gogocamping.model.mapper.CustomerMapper;
 import org.kosta.gogocamping.model.mapper.OrderMapper;
 import org.kosta.gogocamping.model.mapper.ProductMapper;
 import org.kosta.gogocamping.model.mapper.SellerMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 	@Resource
-	OrderMapper orderMapper;
+	private OrderMapper orderMapper;
 	@Resource
-	ProductMapper productMapper;
+	private ProductMapper productMapper;
 	@Resource
-	CartMapper cartMapper;
+	private CartMapper cartMapper;
 	@Resource
 	private SellerMapper sellerMapper;
 	@Resource
 	private CategoryMapper categoryMapper;
-	@Resource
-	private CustomerMapper customerMapper;
 	
 	@Override
-	public CartVO getCheckedProductListInCart(int cartNo) {
+	public CartVO getCheckedProductListInCart(int cartNo) { // 장바구니에서 체크된 상품 리스트 조회
 		return cartMapper.getCheckedProductListInCart(cartNo);
 	}
 	
 	@Override
-	public int getProductStockCount(int productId) {
+	public int getProductStockCount(int productId) { // 해당 상품 재고량 조회
 		return productMapper.getProductStockCount(productId);
 	}
 	
 	@Override
-	public void insertOrderInfo(OrderInfoVO orderInfoVO) {
+	public void insertOrderInfo(OrderInfoVO orderInfoVO) { // 주문
 		orderMapper.insertOrderInfo(orderInfoVO);
 	}
 	
 	@Override
-	public int getProductPrice(int productId) {
+	public int getProductPrice(int productId) { // 해당 상품 가격 조회
 		return productMapper.getProductDetailInfo(productId).getPrice();
 	}
 	
 	@Override
 	@Transactional
-	public void order(OrderDetailVO orderDetailVO, int productId, int productCount, int cartNo) {
+	public void order(OrderDetailVO orderDetailVO, int productId, int productCount, int cartNo) { // 주문
 		// 1. 주문 상세 정보 insert
 		orderMapper.insertOrderDetail(orderDetailVO);
 		// 2. 상품 재고량 감소
@@ -67,19 +63,22 @@ public class OrderServiceImpl implements OrderService {
 		// 3. 장바구니에서 주문한 상품 삭제
 		cartMapper.deleteProductInCart(cartNo);
 	} 
-
-	@Override
-	public void getTotalInfo(String customerId, Model model) {
-		model.addAttribute("productListInCart", cartMapper.getProductListInCart(customerId)); // 장바구니 목록
-		model.addAttribute("totalCountInCart", cartMapper.getTotalCountInCart(customerId)); // 장바구니에 담긴 총 상품수
-		
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
-	} 
 	
 	@Override
-	public List<OrderDetailVO> orderCheck(String customerId){
-		return customerMapper.orderCheck(customerId);
+	public List<OrderDetailVO> selectOrderList(String customerId){ // 주문 조회
+		return orderMapper.selectOrderList(customerId); 
 	}
+	
+	@Override
+	public void buyConfirm(int orderDetailNo) {
+		orderMapper.buyConfirm(orderDetailNo); // 구매확정
+	}
+	
+	@Override
+	@Transactional
+	public void cancelOrder(int orderDetailNo, int productId, int orderCount) {
+		orderMapper.updateToOrderCancelStatus(orderDetailNo); // 주문취소
+		orderMapper.updateStockCount(orderCount, productId); // 주문취소 후 취소 상품 재고량 증가
+	} 
 	
 }

@@ -37,11 +37,11 @@ public class RefundController{
 	
 	@RequestMapping("refund")
 	public String refund(HttpServletRequest request, int orderDetailNo, Model model) {
-		HttpSession session = request.getSession(false);
-		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
+		//HttpSession session = request.getSession(false);
+		//CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
 		
 		model.addAttribute("refundProduct", orderMapper.getProductInfoByOrderDetailNo(orderDetailNo));
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());
+		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		
 		return "customer/refund.tiles";
@@ -61,7 +61,7 @@ public class RefundController{
 		refundMapper.insertRefund(refundVO); // 환불 테이블 삽입
 		orderMapper.updateStatusOrderDetail(orderDetailNo);
 		
-		List<OrderDetailVO> list = customerMapper.orderCheck(customerVO.getCustomerId());
+		List<OrderDetailVO> list = orderMapper.selectOrderList(customerVO.getCustomerId());
 		model.addAttribute("orderList", list);
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
