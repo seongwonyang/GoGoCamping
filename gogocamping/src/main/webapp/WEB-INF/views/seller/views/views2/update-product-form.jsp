@@ -17,7 +17,7 @@
                             <select id = "categorySelectDetail" name="categorySelectDetail" style="border: 2.5px solid #065E93; border-radius: 10px;" required="required">
                             </select>
                         </div>
-						<img style="width: 444px; height: 120px;" src="/static/image/seller_logo/${sessionScope.loginVO.logoImgStored}">
+						<img style="width: 444px; height: 120px;" src="/static/image/seller_logo/${sessionScope.sellerVO.logoImgStored}">
 						<br><br>
 						<input type="hidden" id="productId" name="productId" value="${getProductInfo.productId}">
 						<input type="text" id="productName" name="productName" value="${getProductInfo.productName}" placeholder="  상품명" required="required" style="width: 444px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;"><br><br>

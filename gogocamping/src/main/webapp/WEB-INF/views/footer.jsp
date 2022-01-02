@@ -12,7 +12,7 @@
                         <ul>
                             <li>경기도 성남시 분당구 성남대로 34</li>
                             <li>TEL. 031-606-9311</li>
-                            <li><a href="seller/home" style="color: black">판매자 페이지</a></li>
+                            <li><a href="/seller/home" style="color: black">판매자 페이지</a></li>
                             <li><a href="/manager/home" style="color: black">관리자 페이지</a></li>
                         </ul>
                     </div>

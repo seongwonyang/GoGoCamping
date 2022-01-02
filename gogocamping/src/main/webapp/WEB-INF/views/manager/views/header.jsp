@@ -24,7 +24,7 @@
                         <div class="header__top__right">
                            <div class="header__top__right__auth">
                             	<c:choose>
-                           			<c:when test="${sessionScope.loginVO==null }">
+                           			<c:when test="${sessionScope.managerVO==null }">
                            				<a href="/manager/loginForm"><i class="fa fa-user"></i> Login</a>
                            			</c:when>
                            			<c:otherwise>
@@ -48,8 +48,16 @@
                 <div class="col-lg-9" style="margin-top: 30px;">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="/manager/registerAdmin">가입 승인</a></li>
-                            <li><a href="/manager/reviewManagement">고객 후기 관리</a></li>
+                        	<c:choose>
+                        		<c:when test="${sessionScope.managerVO!=null }">
+		                            <li><a href="/manager/registerAdmin">가입 승인</a></li>
+		                            <li><a href="/manager/reviewManagement">고객 후기 관리</a></li>
+	                            </c:when>
+	                            <c:otherwise>
+	                            	 <li><a href="#">가입 승인</a></li>
+		                            <li><a href="#">고객 후기 관리</a></li>
+	                            </c:otherwise>
+	                        </c:choose>
                         </ul>
                     </nav>
                 </div>

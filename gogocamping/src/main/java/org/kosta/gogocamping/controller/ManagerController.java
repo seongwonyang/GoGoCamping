@@ -34,7 +34,7 @@ public class ManagerController {
 	@RequestMapping("/home")
 	public String managerHome(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("loginVO") == null) {
+		if(session.getAttribute("managerVO") == null) {
 			return "manager/views/manager-login-form.tiles";
 		}else {
 			return "managerHome.tiles";
@@ -55,7 +55,7 @@ public class ManagerController {
 		
 		if(loginVO!=null) {
 			HttpSession session = request.getSession(false);
-			session.setAttribute("loginVO", loginVO);
+			session.setAttribute("managerVO", loginVO);
 			session.setAttribute("loginAuth", "manger custormerseller");
 
 			return "로그인성공";
@@ -75,7 +75,7 @@ public class ManagerController {
 	@RequestMapping("/registerAdmin")
 	public String RegisterAdmin(Model model,HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		if(session.getAttribute("loginVO") == null) {
+		if(session.getAttribute("managerVO") == null) {
 			return "manager/views/manager-login-form.tiles";
 		}
 		
@@ -105,7 +105,7 @@ public class ManagerController {
 	@RequestMapping("/reviewManagement")
 	public String reviewManagement(Model model, HttpServletRequest request, String sellerId) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("loginVO") == null) {
+		if(session.getAttribute("managerVO") == null) {
 			return "manager/views/manager-login-form.tiles";
 		}else {
 			// 브랜드 리스트
