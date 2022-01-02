@@ -8,7 +8,7 @@
                <div class="hero__search">
                   <div class="#">
                      <br><h3 style="font-weight: 700;">비밀번호 재설정</h3><br><br>
-                     <form action="resetSellerPassword" method="post">
+                     <form action="/seller/resetSellerPassword" method="post">
                         <input type="text" name="sellerId" id="sellerId" placeholder=" 아이디" value="${sessionScope.sellerId}" readonly="readonly" required="required" style="width: 445px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;"><br><br>
                   		<input type="password" name="sellerPassword" id="sellerPassword" placeholder="  비밀번호" required="required" style="width: 445px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;" onkeyup="passwordStrength()"><br>
 						<span id="strengthPassword" ></span><br>
@@ -21,8 +21,8 @@
             </div>
          </div>
       </div>
-<script type="text/javascript" src="<c:url value='js/core.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='js/sha256.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/core.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/sha256.min.js'/>"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script> 
 <script type="text/javascript">
 function checkPassword() {

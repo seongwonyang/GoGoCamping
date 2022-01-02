@@ -6,7 +6,7 @@
 			<div class="row h-100">
 				<div class="col-lg-9 mx-auto text-center mt-7 mb-5">
 					<div class="hero__search">
-						<form method="post" action="RegisterProduct" enctype="multipart/form-data">
+						<form method="post" action="/seller/registerProduct" enctype="multipart/form-data">
 						<br><h3 style="font-weight: 700;">상품 등록</h3><br><br>
 						<div class="filter__sort">
                             <select id="categorySelect">
@@ -41,7 +41,7 @@
 			    	$("#categorySelectDetail").empty();
 			    	$.ajax({
 			        type:"get",
-			        url:"getDetailCategoryList",
+			        url:"/category/getDetailCategoryList",
 			        dataType:"json",
 			        data: "category="+category,
 			        success : function(detailCategoryList){

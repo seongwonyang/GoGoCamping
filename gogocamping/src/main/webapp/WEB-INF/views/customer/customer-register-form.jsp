@@ -10,7 +10,7 @@
 					<div style="">
 						<br>
 						<h3 style="font-weight: 700;">회원 가입 정보</h3><br><br>
-						<form action="registerCustomer" method="post">
+						<form action="/customer/register" method="post" onsubmit="alert('회원가입이 완료되었습니다.')">
 						<input type="text" name="customerId" id="customerId" placeholder="  아이디" required="required" style="width: 300px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;">
 						<button type="button" class="site-btn" id="checkId" style="height: 50px; background-color: #245207; border-radius: 10px;">아이디중복확인</button><br>
 						<span id="checkIdResult"></span><br>
@@ -28,7 +28,7 @@
 						<button type="button" class="site-btn" id="address_kakao" style="height: 50px; background-color: #245207; border-radius: 10px; border-radius: 10px;">주소검색</button><br><br>
 						<input type="text" id="customerAddress" name="customerAddress" placeholder="  주소" required="required" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
 						<input type="text" id="customerDetailedAddress" name="customerDetailedAddress" placeholder="  상세주소" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<button type="submit" onclick="alert('회원가입이 완료되었습니다.')" class="site-btn" id="hash" style="height: 50px; background-color: #245207; border-radius: 10px;">가입하기</button><br><br>
+						<button type="submit" class="site-btn" id="hash" style="height: 50px; background-color: #245207; border-radius: 10px;">가입하기</button><br><br>
 						</form>
 					</div>
 				</div>
@@ -56,7 +56,7 @@ $(function() {
 	$("#checkId").click(function(){
 		$.ajax({
 			type:"get",
-			url:"checkId",
+			url:"/customer/checkId",
 			data:"customerId="+$("#customerId").val(),
 			success:function(result){
 				$("#checkIdResult").text(result);

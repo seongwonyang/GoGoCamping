@@ -9,7 +9,7 @@
 					<div style="">
 						<br>
 						<h3 style="font-weight: 700;">카카오 회원 가입</h3><br><br>
-						<form action="kakaoRegisterCustomer" method="post">
+						<form action="/kakaoRegisterCustomer" method="post">
 						<input type="hidden" name="customerId" id="customerId" value="${customerId}">
 						<input type="text" name="customerName"  value="${name}" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
 						<input type="text" name="customerEmail"  value="${email}" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br> 

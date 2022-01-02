@@ -75,11 +75,11 @@ th, td {
 			if(confirm("삭제하시겠습니까?")==true) {
 				$.ajax({
 					type:"post",
-					url:"deleteReview",
+					url:"/manager/deleteReview",
 					data:"reviewNo="+'${detailReview.reviewNo}',
 					success: function(checkDelete) {
 						if(checkDelete=="삭제완료") {
-							$(location).attr("href","reviewManagement");
+							$(location).attr("href","/manager/reviewManagement");
 						}
 					}
 				});

@@ -6,7 +6,7 @@
 			<div class="row h-100">
 				<div class="col-lg-9 mx-auto text-center mt-7 mb-5">
 					<div class="hero__search">
-                        <form method="post" action="SellerRegister" enctype="multipart/form-data">
+                        <form method="post" action="/seller/register" enctype="multipart/form-data">
                         	<br><h3 style="font-weight: 700;">판매자 가입 정보</h3><br><br>
 							<input type="text" name="sellerId" id="sellerId" placeholder="  아이디" required="required" style="width: 300px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;">
 							<button type="button" class="site-btn" id="checkId" style="height: 50px; background-color: #065E93; border-radius: 10px;">아이디 중복확인</button><br>
@@ -35,8 +35,8 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="<c:url value='js/core.min.js'/>"></script>
-		<script type="text/javascript" src="<c:url value='js/sha256.min.js'/>"></script>
+		<script type="text/javascript" src="<c:url value='/js/core.min.js'/>"></script>
+		<script type="text/javascript" src="<c:url value='/js/sha256.min.js'/>"></script>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		<script type="text/javascript">
@@ -56,7 +56,7 @@
 				$("#checkId").click(function(){
 					$.ajax({
 						type:"get",
-						url:"findSellerById",
+						url:"/seller/findSellerById",
 						data:"sellerId="+$("#sellerId").val(),
 						success:function(result){
 							$("#checkIdResult").text(result);

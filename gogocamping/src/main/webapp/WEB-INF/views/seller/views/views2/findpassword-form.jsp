@@ -19,22 +19,22 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="<c:url value='js/core.min.js'/>"></script>
-		<script type="text/javascript" src="<c:url value='js/sha256.min.js'/>"></script>
+		<script type="text/javascript" src="<c:url value='/js/core.min.js'/>"></script>
+		<script type="text/javascript" src="<c:url value='/js/sha256.min.js'/>"></script>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 	   	<script type="text/javascript">
 	   		$(function(){
 	   			$("#findPwBtn").click(function(){
 	   				$.ajax({
 	   	               type:"get",
-	   	               url:"findSellerPwByBusinessNo",
+	   	               url:"/seller/findSellerPwByBusinessNo",
 	   	               data:"sellerId="+$("#sellerId").val()+"&sellerName="+$("#sellerName").val()+"&businessNumber="+$("#businessNumber").val(),
 	   	               success:function(result){
 	   	                  if(result=="회원 정보가 일치하지 않습니다.") {
 	   	                     $("#findPwResult").text(result);
 	   	                  }else {
 	   	                	$("#result").text(result);
-							$(location).attr('href','sellerEmailCode'); 	                  	 
+							$(location).attr('href','/seller/emailCode'); 	                  	 
 	   	                  }
 	   	               }
 	   				});

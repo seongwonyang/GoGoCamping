@@ -7,7 +7,7 @@
 				<div class="hero__search">
 					<div style="">
 						<h3 style="font-weight: 700;">회원 정보 수정</h3><br><br>
-						<form action="updateInfo" method="post">
+						<form action="/customer/updateInfo" method="post">
 						<input type="hidden" name="customerId" id="customerId" value="${customerInfo.customerId }" >
 						<input type="text" name="customerName" id="customerName" placeholder="  이름" required="required" readonly="readonly" value="${customerInfo.customerName }" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
 						<input type="text" name="customerEmail" id="customerEmail" placeholder="  이메일" required="required" value="${customerInfo.customerEmail }" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br> 

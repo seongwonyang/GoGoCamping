@@ -24,8 +24,8 @@
                <div class="hero__search">
                    	<h4>네이버 아이디로 가입 완료</h4><br><br>
                    	<h5>버튼을 클릭하여 로그인하여 주시기 바랍니다.</h5><br><br>
-                 	 <a href="<%=apiURL%>"><img height="50" src="img/btnG_완성형.PNG"/></a><br><br><br><br>
-                 	 <img src="img/네이버-가입.png" alt="">
+                 	 <a href="<%=apiURL%>"><img height="50" src="/img/btnG_완성형.PNG"/></a><br><br><br><br>
+                 	 <img src="/img/네이버-가입.png" alt="">
                </div>
             </div>
          </div>

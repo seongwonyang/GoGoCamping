@@ -10,7 +10,7 @@
     </div> -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/camp.png">
+    <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -60,7 +60,7 @@
                     </div>
             	<div class="row featured__filter">
             	<c:forEach items="${searchProductList}" var="product">
-	                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat" onclick="location.href='getProductDetailInfo?productId=${product.productId}&sortOption='">
+	                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat" onclick="location.href='/product/getProductDetailInfo?productId=${product.productId}&sortOption='">
 	                    <div class="featured__item">
 	                        <div class="featured__item__pic set-bg" data-setbg="${product.productImg}">
 	                            <ul class="featured__item__pic__hover">
@@ -95,7 +95,7 @@
 </script> -->
 <script type="text/javascript">
 	function sortProduct(i) {
-		location.href = "searchProductList?keyword=${keyword}&option="+i;
+		location.href = "/product/search?keyword=${keyword}&option="+i;
 	}
 </script>
 </body>

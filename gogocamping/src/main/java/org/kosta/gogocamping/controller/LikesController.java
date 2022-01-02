@@ -17,13 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("/likes")
 public class LikesController {
 	@Resource
 	LikesMapper likesMapper;
-
 	@Resource
 	SellerMapper sellerMapper;
-
 	@Resource
 	CategoryMapper categoryMapper;
 
@@ -34,7 +33,7 @@ public class LikesController {
 	}
 
 	// 좋아요&좋아요 취소
-	@RequestMapping("likesAndEmptyLikes")
+	@RequestMapping("/likesAndEmptyLikes")
 	@ResponseBody
 	public int likesAndEmptyLikes(String customerId, int productId) {
 
@@ -55,7 +54,7 @@ public class LikesController {
 	}
 
 	// 좋아요(찜)한 상품 리스트 출력
-	@RequestMapping("getLikesList")
+	@RequestMapping("/list")
 	public String getLikesList(String customerId, Model model) {
 		List<LikesVO> likesList = likesMapper.getLikesList(customerId);
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList());

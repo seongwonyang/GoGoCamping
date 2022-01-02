@@ -10,7 +10,7 @@
     </div> -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/camp.png">
+    <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -37,7 +37,7 @@
                             <h4>${brand}</h4>
                             <ul>
                             <c:forEach items="${brandCategoryList}" var="c">
-                                <li><a href="getProductListByBrand?brand=${c.sellerVO.brand}&category=${c.categoryVO.categoryName}&option=">${c.categoryVO.categoryName}</a></li>        
+                                <li><a href="/product/getProductListByBrand?brand=${c.sellerVO.brand}&category=${c.categoryVO.categoryName}&option=">${c.categoryVO.categoryName}</a></li>        
                                 <input type="hidden" id="category" value="${c.categoryVO.categoryName}">
                             </c:forEach>
                             </ul>
@@ -69,7 +69,7 @@
                     </div>
                     <div class="row">
                        <c:forEach items="${productListByBrand}" var="product">
-                           <div class="col-lg-4 col-md-6 col-sm-6" onclick="location.href='getProductDetailInfo?productId=${product.productId}&sortOption='">
+                           <div class="col-lg-4 col-md-6 col-sm-6" onclick="location.href='/product/getProductDetailInfo?productId=${product.productId}&sortOption='">
                                <div class="product__item">
                                    <div class="product__item__pic set-bg" data-setbg="${product.productImg}">
                                        <ul class="product__item__pic__hover">
@@ -89,7 +89,7 @@
     </section>
 <script type="text/javascript">
    function sortProduct(i) {
-      location.href = "getProductListByBrand?brand=${brand}&category="+'${category}'+"&option="+i;
+      location.href = "/product/getProductListByBrand?brand=${brand}&category="+'${category}'+"&option="+i;
    }
 </script>
 </body>

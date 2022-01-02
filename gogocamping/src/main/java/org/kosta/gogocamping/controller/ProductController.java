@@ -27,6 +27,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/product")
 public class ProductController {
 	@Resource
 	private ProductMapper productMapper;
@@ -49,7 +50,7 @@ public class ProductController {
 		this.sellerMapper = sellerMapper;
 	}
 	
-	@RequestMapping("getAllProductList") // 메인페이지(전체 상품 리스트 조회)
+	@RequestMapping("/getAllProductList") // 메인페이지(전체 상품 리스트 조회)
 	public String getAllProductList(int pageNo, String option, Model model) {
 		int totalCount = productMapper.getAllProductCount();
 
@@ -79,7 +80,7 @@ public class ProductController {
 		return "home.tiles";
 	}
 	
-	@RequestMapping("searchProductList") // 검색된 상품 조회
+	@RequestMapping("/search") // 검색된 상품 조회
 	public String searchProductList(String keyword, String option, Model model) {
 		int totalCount = productMapper.getSearchProductCount(keyword);
 		
@@ -101,7 +102,7 @@ public class ProductController {
 		return "product/search-product.tiles";
 	}
 	
-	@RequestMapping("getProductListByBrand") // 브랜드별 상품 조회
+	@RequestMapping("/getProductListByBrand") // 브랜드별 상품 조회
 	public String getProductListByBrand(String brand, String category, String option, Model model) {
 		Map<String, String> map = new HashMap<>();
 		map.put("brand", brand);
@@ -132,7 +133,7 @@ public class ProductController {
 		return "product/brand.tiles"; 
 	}
 
-	@RequestMapping("getProductDetailInfo") // 상품 상세보기
+	@RequestMapping("/getProductDetailInfo") // 상품 상세보기
 	public String getProductDetailInfo(int productId, String sortOption, Model model, HttpServletRequest request) {
 		ProductVO productVO = productMapper.getProductDetailInfo(productId);
 		SellerVO sellerVO = sellerMapper.getSellerInfoByProduct(productVO.getSellerVO().getSellerId());

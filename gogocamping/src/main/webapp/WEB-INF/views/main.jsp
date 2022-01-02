@@ -10,7 +10,7 @@
     </div> -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/camp.png">
+    <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -60,8 +60,8 @@
             	<div class="row featured__filter">
             	<c:forEach items="${allProductList}" var="product">
 	                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
-	                    <div class="featured__item" onclick="location.href='getProductDetailInfo?productId=${product.productId}&sortOption='">
-	                        <div class="featured__item__pic set-bg" data-setbg="${product.productImg}">
+	                    <div class="featured__item" onclick="location.href='/product/getProductDetailInfo?productId=${product.productId}&sortOption='">
+	                        <div class="featured__item__pic set-bg" data-setbg="${product.productImgStored}">
 	                            <ul class="featured__item__pic__hover">
 	                            </ul>
 	                        </div>
@@ -77,25 +77,25 @@
 						<ul class="pagination justify-content-center" style="margin: 20px 0">
 							<c:if test="${pagingBean.previousPageGroup}">
 								<li class="page-item"><a class="page-link"
-									href="getAllProductList?pageNo=${pagingBean.startPageOfPageGroup-1}&option=${option}">Previous</a></li>
+									href="/product/getAllProductList?pageNo=${pagingBean.startPageOfPageGroup-1}&option=${option}">Previous</a></li>
 							</c:if>
 							<c:forEach begin="${pagingBean.startPageOfPageGroup}"
 								end="${pagingBean.endPageOfPageGroup}" var="page">
 								<c:choose>
 									<c:when test="${page == pagingBean.nowPage}">
 										<li class="page-item active"><a class="page-link"
-											href="getAllProductList?pageNo=${page}&option=${option}">${page}</a></li>
+											href="/product/getAllProductList?pageNo=${page}&option=${option}">${page}</a></li>
 										<input type="hidden" id="pageNo" value="${page}">
 									</c:when>
 									<c:otherwise>
 										<li class="page-item"><a class="page-link"
-											href="getAllProductList?pageNo=${page}&option=${option}">${page}</a></li>
+											href="/product/getAllProductList?pageNo=${page}&option=${option}">${page}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
 							<c:if test="${pagingBean.nextPageGroup}">
 								<li class="page-item"><a class="page-link"
-									href="getAllProductList?pageNo=${pagingBean.endPageOfPageGroup+1}&option=${option}">Next</a></li>
+									href="/product/getAllProductList?pageNo=${pagingBean.endPageOfPageGroup+1}&option=${option}">Next</a></li>
 							</c:if>
 						</ul>
 		            </div><%-- 페이징 처리 --%>
@@ -107,7 +107,7 @@
 <script type="text/javascript">
 	function sortProduct(i) {
 		var pageNo = document.getElementById("pageNo").value;
-		location.href = "getAllProductList?pageNo="+pageNo+"&option="+i;
+		location.href = "/product/getAllProductList?pageNo="+pageNo+"&option="+i;
 	}
 	
 	

@@ -10,7 +10,7 @@
     </div> -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/camp.png">
+    <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -52,10 +52,10 @@
             	<c:forEach items="${likesList}" var="likes">
 	                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
 	                    <div class="featured__item">
-	                        <div class="featured__item__pic set-bg" data-setbg="${likes.productVO.productImg}" onclick="location.href='getProductDetailInfo?productId=${likes.productVO.productId}&sortOption='">
+	                        <div class="featured__item__pic set-bg" data-setbg="${likes.productVO.productImg}" onclick="location.href='/product/getProductDetailInfo?productId=${likes.productVO.productId}&sortOption='">
 	                        </div>
 	                        <div class="text-center">
-	                        	<a href="#none" class="heartIcon" data-productid="${likes.productVO.productId}"><img id="heart${likes.productVO.productId}" src="img/likes/likes.png" class="text-center" style="align:center; width:30px;"></a>
+	                        	<a href="#none" class="heartIcon" data-productid="${likes.productVO.productId}"><img id="heart${likes.productVO.productId}" src="/img/likes/likes.png" class="text-center" style="align:center; width:30px;"></a>
 	                        	</div>
 	                        <div class="featured__item__text">
 		                        <h6><a class="move" href="#">${likes.productVO.productName}</a></h6>
@@ -69,25 +69,25 @@
 						<ul class="pagination justify-content-center" style="margin: 20px 0">
 							<c:if test="${pagingBean.previousPageGroup}">
 								<li class="page-item"><a class="page-link"
-									href="getAllProductList?pageNo=${pagingBean.startPageOfPageGroup-1}&option=${option}">Previous</a></li>
+									href="/product/getAllProductList?pageNo=${pagingBean.startPageOfPageGroup-1}&option=${option}">Previous</a></li>
 							</c:if>
 							<c:forEach begin="${pagingBean.startPageOfPageGroup}"
 								end="${pagingBean.endPageOfPageGroup}" var="page">
 								<c:choose>
 									<c:when test="${page == pagingBean.nowPage}">
 										<li class="page-item active"><a class="page-link"
-											href="getAllProductList?pageNo=${page}&option=${option}">${page}</a></li>
+											href="/product/getAllProductList?pageNo=${page}&option=${option}">${page}</a></li>
 										<input type="hidden" id="pageNo" value="${page}">
 									</c:when>
 									<c:otherwise>
 										<li class="page-item"><a class="page-link"
-											href="getAllProductList?pageNo=${page}&option=${option}">${page}</a></li>
+											href="/product/getAllProductList?pageNo=${page}&option=${option}">${page}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
 							<c:if test="${pagingBean.nextPageGroup}">
 								<li class="page-item"><a class="page-link"
-									href="getAllProductList?pageNo=${pagingBean.endPageOfPageGroup+1}&option=${option}">Next</a></li>
+									href="/product/getAllProductList?pageNo=${pagingBean.endPageOfPageGroup+1}&option=${option}">Next</a></li>
 							</c:if>
 						</ul>
 		            </div><%-- 페이징 처리 --%>
@@ -99,7 +99,7 @@
 <script type="text/javascript">
 	function sortProduct(i) {
 		var pageNo = document.getElementById("pageNo").value;
-		location.href = "getAllProductList?pageNo="+pageNo+"&option="+i;
+		location.href = "/product/getAllProductList?pageNo="+pageNo+"&option="+i;
 	};
 	$(function() {
 		$(".heartIcon").on('click',function() {
@@ -109,13 +109,13 @@
 			//alert("${sessionScope.loginVO.customerId}");
 			$.ajax({
 				type:"post",
-				url:"likesAndEmptyLikes",
+				url:"/likes/likesAndEmptyLikes",
 				data:"customerId="+'${sessionScope.loginVO.customerId}'+"&productId="+$(this).data('productid'),
 				success: function(checkLikes) {
 					if(checkLikes==0) { // 찜목록에서 삭제되면
-						$("#heart"+productId).attr("src","img/likes/dislikes.png");
+						$("#heart"+productId).attr("src","/img/likes/dislikes.png");
 					} else { // 찜목록에 추가되면
-						$("#heart"+productId).attr("src","img/likes/likes.png");
+						$("#heart"+productId).attr("src","/img/likes/likes.png");
 					}
 				}
 			});

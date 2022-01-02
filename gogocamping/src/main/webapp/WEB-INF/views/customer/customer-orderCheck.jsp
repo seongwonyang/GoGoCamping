@@ -27,11 +27,11 @@
                                 <tr>
                                 	<td>
                                 		${order.orderInfoVO.orderNo }<br>
-                                		<img src="${order.productVO.productImg}" alt="" onclick="location.href='getProductDetailInfo?productId=${order.productVO.productId}&sortOption='">
+                                		<img src="${order.productVO.productImg}" alt="" onclick="location.href='/product/getProductDetailInfo?productId=${order.productVO.productId}&sortOption='">
                                 	</td>
                                     <td class="shoping__cart__prices">
                                    
-                                        <h5 onclick="location.href='getProductDetailInfo?productId=${order.productVO.productId}&sortOption='">${order.productVO.productName}</h5>
+                                        <h5 onclick="location.href='/product/getProductDetailInfo?productId=${order.productVO.productId}&sortOption='">${order.productVO.productName}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
                                         ${order.orderInfoVO.orderDate}
@@ -53,7 +53,7 @@
 	                                    	</form>
                                     		<input type="hidden" id="productId" name="productId" value="${order.productVO.productId}">
                                     		<input type="hidden" id="orderCount" name="orderCount" value="${order.orderCount}">
-                                    		<a class="orderConfirm" data-detailno="${order.orderDetailNo}" data-ordercount="${order.orderCount}" data-productid="${order.productVO.productId}">
+                                    		<a class="orderCancel" data-detailno="${order.orderDetailNo}" data-ordercount="${order.orderCount}" data-productid="${order.productVO.productId}">
                                     		<button type="button" class="site-btn" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">주문취소</button></a>
 	                                    </td>
 	                                    <td></td>
@@ -76,7 +76,7 @@
 	                                    		<button type="button" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">구매확정</button></a>
 	                                    </td>
 	                                    <td class="shoping__cart__price">
-	                                    	<button type="button" onclick="location.href=refund?orderDetailNo='${order.orderDetailNo}'" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">교환/환불</button>
+	                                    	<button type="button" onclick="location.href=/refund/writePage?orderDetailNo='${order.orderDetailNo}'" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">교환/환불</button>
 	                                    </td>
                                     </c:when>
                                     <c:when test="${order.deliveryStatus == '주문취소'}">
@@ -89,7 +89,7 @@
                                     </c:when>
                                     <c:when test="${order.deliveryStatus == '구매확정'}">
                                     <td class="shoping__cart__price">
-                                   		<form action="writeReviewPage" id="writeReviewPage" name="writeReviewPage" method="get">
+                                   		<form action="/review/writePage" id="writeReviewPage" name="writeReviewPage" method="get">
 			                            	<input type="hidden" name="productId" value="${order.productVO.productId}">
 										    <button type="submit" class="site-btn" style="width: 100px; height: 50px; background-color: #245207; border-radius: 10px;">리뷰작성</button>						      
 								    	</form> 
@@ -118,7 +118,7 @@
     	        }
     			$.ajax({
 					type:"post",
-					url:"buyConfirm",
+					url:"/order/buyConfirm",
 					data:"orderDetailNo="+$(this).data('detailno'),
 					success:function(result){
 						if(result=="구매확정"){
@@ -128,7 +128,8 @@
 				});//ajax
     		});//click
     		//주문취소
-    		$(".orderConfirm").click(function() {
+    		
+    		$(".orderCancel").click(function() {
     			if (!confirm("주문을 취소하시겠습니까?")) {
     	            return false;
     	        } else {
@@ -138,7 +139,7 @@
     	        }
     			$.ajax({
 					type:"post",
-					url:"orderConfirm",
+					url:"/order/orderCancel",
 					data:"orderDetailNo="+$(this).data('detailno')+"&productId="+$(this).data('productid')+"&orderCount="+$(this).data('ordercount'),
 					success:function(result){
 						if(result=="주문취소"){

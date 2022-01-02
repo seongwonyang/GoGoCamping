@@ -13,7 +13,7 @@
                         <input type="text" id="customerEmail" name="customerEmail" placeholder="  이메일"  style="width: 444px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br>
                         <span id="result"></span><br>
                         <button type="button" class="site-btn" id="findPassword" style="width: 222px; height: 50px; background-color: #245207; border-radius: 10px;">비밀번호 찾기</button>
-                        <button type="button" class="site-btn" onclick="location.href='loginCustomerForm'" style="width: 222px; height: 50px; background-color: #245207; border-radius: 10px;">로그인 하기</button>
+                        <button type="button" class="site-btn" onclick="location.href='/customer/loginForm'" style="width: 222px; height: 50px; background-color: #245207; border-radius: 10px;">로그인 하기</button>
                         <br><br>
                            </form>
                   </div>
@@ -27,14 +27,14 @@
 			$("#findPassword").click(function(){
 				$.ajax({
 					type : "get",
-					url : "findPassword",
+					url : "/customer/findPassword",
 					data : "customerId="+$("#customerId").val()+"&customerEmail="+$("#customerEmail").val(),
 					success : function(result) {
 						if(result=="아이디 또는 이메일이 일치하지않습니다."){
 							$("#result").text(result);
 						}else{
 							$("#result").text(result);
-							$(location).attr('href','emailCode');
+							$(location).attr('href','/customer/emailCode');
 						}
 					}
 				});//ajax

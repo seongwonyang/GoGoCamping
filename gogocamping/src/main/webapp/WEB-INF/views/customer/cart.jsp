@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
 	<!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/camp.png">
+    <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -53,8 +53,8 @@
                                 		<input type="checkbox" value="${cart.cartNo}" name="chk" checked="checked">
                                 	</td>
                                     <td class="shoping__cart__item">
-                                        <img src="${cart.productVO.productImg}" alt="" onclick="location.href='getProductDetailInfo?productId=${cart.productVO.productId}&sortOption='">
-                                        <h5 onclick="location.href='getProductDetailInfo?productId=${cart.productVO.productId}&sortOption='">${cart.productVO.productName}</h5>
+                                        <img src="${cart.productVO.productImg}" alt="" onclick="location.href='/product/getProductDetailInfo?productId=${cart.productVO.productId}&sortOption='">
+                                        <h5 onclick="location.href='/product/getProductDetailInfo?productId=${cart.productVO.productId}&sortOption='">${cart.productVO.productName}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
                                     	<fmt:formatNumber value="${cart.productVO.price}" pattern="#,###" />원
@@ -110,7 +110,7 @@ $(function(){
 		$("input[name=checkAll]").prop("checked", true);
 		$.ajax({
 			type:"get",
-			url:"getTotalPriceInCart",
+			url:"/cart/getTotalPriceInCart",
 			success:function(result){
 				$("#totalPrice").text(numberWithCommas(result)+"원");
 				$("#checkedProductCount").text($("input[name=chk]:checked").length + "개");				
@@ -123,7 +123,7 @@ $(function(){
 			$("input[name=chk]").prop("checked", true);
 			$.ajax({
 				type:"get",
-				url:"getTotalPriceInCart",
+				url:"/cart/getTotalPriceInCart",
 				success:function(totalPrice){
 					$("#totalPrice").text(numberWithCommas(totalPrice)+"원");
 					$("#checkedProductCount").text($("input[name=chk]:checked").length + "개");
@@ -150,7 +150,7 @@ $(function(){
 			$("#checkAll").prop("checked", true);
 			$.ajax({
 				type:"get",
-				url:"getTotalPriceInCart",
+				url:"/cart/getTotalPriceInCart",
 				success:function(totalPrice){
 					$("#totalPrice").text(numberWithCommas(totalPrice)+"원");
 					$("#checkedProductCount").text($("input[name=chk]:checked").length + "개");
@@ -172,7 +172,7 @@ $(function(){
 
 		$.ajax({
 			type:"get",
-			url:"getCheckedProductTotalPriceInCart",
+			url:"/cart/getCheckedProductTotalPriceInCart",
 			traditional : true,
 			data: {"checkList" : checkList},
 			success:function(checkedTotalPrice){
@@ -199,7 +199,7 @@ $(function(){
 			if(checkDelete) {
 				$.ajax({
 					type:"post",
-					url:"deleteCheckedProduct",
+					url:"/cart/deleteCheckedProduct",
 					traditional : true,
 					data: {"checkedDeleteList" : checkedDeleteList},
 					success:function(result){
@@ -222,7 +222,7 @@ $(function(){
  	$(".deleteProduct").on('click', function() { // x 아이콘 클릭으로 상품 삭제
 	    $.ajax({
 			type:"post",
-			url:"deleteProduct",
+			url:"/cart/deleteProduct",
 			data:"cartNo="+$(this).data('cartno'),
 			success:function(){
 				alert("선택한 상품이 삭제되었습니다.");
@@ -240,7 +240,7 @@ $(function(){
 		} else {
 			$.ajax({
 				type:"post",
-				url:"minusProductCountInCart",
+				url:"/cart/minusProductCountInCart",
 				data:"cartNo="+$(this).next().children().next().val(),
 				success:function(){
 					//alert("감소");
@@ -255,7 +255,7 @@ $(function(){
 		//alert($(this).prev().children().next().val()); // cartNo
 		$.ajax({
 			type:"post",
-			url:"plusProductCountInCart",
+			url:"/cart/plusProductCountInCart",
 			data:"cartNo="+$(this).prev().children().next().val(),
 			success:function(){
 				//alert("증가");

@@ -8,7 +8,7 @@
     </div> -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/camp.png">
+    <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -49,7 +49,7 @@
 	                                <tr>
 	                                    <td>
 	                                        ${product.productId}
-	                                        <form id="UpdateProductForm2" action="UpdateProductForm">
+	                                        <form id="UpdateProductForm2" action="/seller/updateProductForm">
                         						<input type="hidden" id="productId" name="productId" value="">
                        						</form>
 	                                    </td>

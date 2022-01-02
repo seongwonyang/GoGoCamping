@@ -4,7 +4,7 @@
 <body>
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/캠핑장.png">
+    <section class="breadcrumb-section set-bg" data-setbg="/img/캠핑장.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -127,7 +127,7 @@
 <script type="text/javascript">
 	function adminSeller(sellerId){
 		if(confirm("해당 판매자의 가입을 승인하시겠습니까?")==true){
-			location.href="adminSeller?sellerId="+sellerId;
+			location.href="/manager/adminSeller?sellerId="+sellerId;
 		}else{
 			return false;
 		}

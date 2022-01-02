@@ -9,7 +9,7 @@
 				<div class="hero__search">
 					<div style="">
 						<h3 style="font-weight: 700;">비밀번호 수정</h3><br><br>
-						<form action="updateNewPassword" method="post" onsubmit="return checkpassword()">
+						<form action="/customer/updateNewPassword" method="post" onsubmit="return checkpassword()">
 						<input type="hidden" name="customerId" id="customerId" value="${sessionScope.loginVO.customerId }" >
 						<input type="password" name="password" id="password" placeholder="  기존 비밀번호" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
 						<input type="password" name="customerPassword" id="customerPassword" placeholder="  변경할 비밀번호" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;" onkeyup="passwordStrength()"><br>
@@ -23,8 +23,8 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="<c:url value='js/core.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='js/sha256.min.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/js/core.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/sha256.min.js'/>"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script> 
 <script type="text/javascript">
 $(function() {

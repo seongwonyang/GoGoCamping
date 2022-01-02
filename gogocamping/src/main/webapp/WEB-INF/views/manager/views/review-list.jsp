@@ -34,7 +34,7 @@ th, td {
 					<ul id="toc-content">
 						<c:forEach items="${allBrandList}" var="brandList">
 							<li>
-								<a href="reviewManagement?sellerId='${brandList.sellerId}'">${brandList.brand}</a>
+								<a href="/manager/reviewManagement?sellerId='${brandList.sellerId}'">${brandList.brand}</a>
 							</li>
 						</c:forEach>
 					</ul>
@@ -65,7 +65,7 @@ th, td {
 							<img src="${reviewList.productVO.productImg}">  ${reviewList.productVO.productName}
 						</td>
 						<td>
-							<a href="getDetailReview?reviewNo=${reviewList.reviewNo}">${reviewList.reviewContent}</a>
+							<a href="/manager/getDetailReview?reviewNo=${reviewList.reviewNo}">${reviewList.reviewContent}</a>
 						</td>
 						<td>${reviewList.productVO.sellerVO.sellerId} </td>
 						<td style="width: 70px;" class="shoping__cart__price">${reviewList.reviewRegdate}</td>

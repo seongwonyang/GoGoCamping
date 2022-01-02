@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("/category")
 public class CategoryController {
 	@Resource
 	ProductMapper productMapper;
@@ -32,7 +33,7 @@ public class CategoryController {
 	 * return "/header.jsp"; }
 	 */
 
-	@RequestMapping("category") // 카테고리(대분류)별 상품조회
+	@RequestMapping("/categoryProduct") // 카테고리(대분류)별 상품조회
 	public String getProductListByCategory(String categoryName, int pageNo, String option, Model model) {
 	      int totalCount = categoryMapper.getCategoryCount(categoryName); // 카테고리별(대분류) 상품수
 	      
@@ -65,7 +66,7 @@ public class CategoryController {
 	      return "product/category.tiles";
 	}
 
-	@RequestMapping("detailCategoryProduct") // 카테고리(소분류)별 상품조회
+	@RequestMapping("/detailCategoryProduct") // 카테고리(소분류)별 상품조회
 	public String getProductListByDetailCategory(String categoryName, String detailCategoryName, String option, Model model) {
 		  Map<String, Object> map = new HashMap<String, Object>();
 	      map.put("categoryName", categoryName);
@@ -87,7 +88,7 @@ public class CategoryController {
 		return "product/detail-category.tiles";
 	}
 
-	@RequestMapping("getDetailCategoryList")
+	@RequestMapping("/getDetailCategoryList")
 	@ResponseBody
 	public ArrayList<String> getDetailCategoryList(String category){
 		ArrayList<CategoryVO> getDetailList = categoryMapper.getDetailCategoryList(category);

@@ -8,7 +8,7 @@
 					<div class="hero__search">
 						<div class="#">
 							<br><h3 style="font-weight: 700;">고객 문의 답변</h3><br><br>
-							<form action="QnAAnswer" method="post">
+							<form action="/seller/QnAAnswer" method="post">
 							<c:forEach items="${getQnAListByNo}" var="qna">
 								<input type="hidden" id="qnaNo" name="qnaNo" value="${qna.qnaNo}">
 								<input type="text" id="title" name="title" value="${qna.title}" readonly="readonly" style="width: 444px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;"><br><br>

@@ -127,14 +127,14 @@ public class OrderController {
 		return "customer/customer-orderCheck.tiles";
 	}
 	
-	@RequestMapping("buyConfirm")
+	@RequestMapping("/buyConfirm")
 	@ResponseBody
 	public String buyConfirm(int orderDetailNo) {
 		orderService.buyConfirm(orderDetailNo); // 구매확정
 		return "구매확정";
 	}
 	
-	@RequestMapping("orderConfirm")
+	@RequestMapping("/orderCancel")
 	@ResponseBody
 	public String orderConfirm(int orderDetailNo, int productId, int orderCount) { 
 		orderService.cancelOrder(orderDetailNo, productId, orderCount);

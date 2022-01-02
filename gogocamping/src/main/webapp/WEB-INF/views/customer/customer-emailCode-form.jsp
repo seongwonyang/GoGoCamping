@@ -28,7 +28,7 @@
       			if(confrimCode!=code){
       				$("#result").text("인증코드가 일치하지 않습니다.");
       			}else{
-      				$(location).attr('href','resetPassword');
+      				$(location).attr('href','/customer/resetPassword');
       			}
       		});//click
       	});//ready
