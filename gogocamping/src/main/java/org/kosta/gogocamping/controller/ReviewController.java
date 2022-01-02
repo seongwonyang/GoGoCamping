@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/review")
 public class ReviewController {
 	@Resource
 	private ReviewMapper reviewMapper;
@@ -23,7 +24,7 @@ public class ReviewController {
 	@Resource
 	private CategoryMapper categoryMapper;
 	
-	@RequestMapping("writeReviewPage")
+	@RequestMapping("/writePage")
 	public String writeReviewPage(int productId, Model model) {
 		model.addAttribute("productId", productId);
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
@@ -31,7 +32,7 @@ public class ReviewController {
 		return "customer/review-write.tiles";
 	}
 	
-	@RequestMapping("writeReview")
+	@RequestMapping("/write")
 	public String writeReview(HttpServletRequest request, ReviewVO reviewVO, int productId) {
 		HttpSession session = request.getSession(false);
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
@@ -47,6 +48,6 @@ public class ReviewController {
 		
 		reviewMapper.writeReview(reviewVO);
 		
-		return "redirect:getProductDetailInfo?productId="+productId+"&sortOption=";
+		return "redirect:/product/getProductDetailInfo?productId="+productId+"&sortOption=";
 	}
 }

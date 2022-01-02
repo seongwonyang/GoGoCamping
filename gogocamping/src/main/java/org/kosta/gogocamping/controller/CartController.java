@@ -20,15 +20,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("/cart")
 public class CartController {
 	@Resource
-	CartMapper cartMapper;
+	private CartMapper cartMapper;
 	@Resource
 	private SellerMapper sellerMapper;
 	@Resource
 	private CategoryMapper categoryMapper;
 	
-	@RequestMapping("getProductListInCart")
+	@RequestMapping("/list")
 	public String getProductListInCart(HttpServletRequest request, Model model) { // 장바구니 확인
 		HttpSession session = request.getSession(false);
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
@@ -42,7 +43,7 @@ public class CartController {
 		return "customer/cart.tiles";
 	}
 	
-	@RequestMapping("getCheckedProductTotalPriceInCart")
+	@RequestMapping("/getCheckedProductTotalPriceInCart")
 	@ResponseBody
 	public int getCheckedProductTotalPriceInCart(@RequestParam List<Integer> checkList) { // 선택된 상품 가격 합계
 		int cartNo, productPrice, productCount, checkedTotalPrice = 0;
@@ -56,7 +57,7 @@ public class CartController {
 	    return checkedTotalPrice;
 	}
 	
-	@RequestMapping("getTotalPriceInCart")
+	@RequestMapping("/getTotalPriceInCart")
 	@ResponseBody
 	public int getTotalPriceInCart(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
@@ -71,7 +72,7 @@ public class CartController {
 		return totalPrice;
 	}
 	
-	@RequestMapping("deleteProductInCart")
+	@RequestMapping("/deleteProductInCart")
 	public String deleteProductInCart(HttpServletRequest request, int cartNo, Model model) { // 장바구니 상품 삭제
 		HttpSession session = request.getSession(false);
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
@@ -87,7 +88,7 @@ public class CartController {
 		return "customer/cart.tiles";
 	}
 	
-	@RequestMapping("deleteCheckedProduct")
+	@RequestMapping("/deleteCheckedProduct")
 	@ResponseBody
 	public int deleteCheckedProduct(@RequestParam List<Integer> checkedDeleteList) { // 선택 상품 삭제
 		int result = 0; // 선택된 상품이 없을 때 0 반환
@@ -101,7 +102,7 @@ public class CartController {
 		return result;
 	}
 	
-	@RequestMapping("insertProductInCart") 
+	@RequestMapping("/insertProductInCart") 
 	@ResponseBody
 	public void insertProductInCart(HttpServletRequest request, int productId, int productCount) { // 장바구니 담기 HttpSession session =
 		HttpSession session = request.getSession(false);
@@ -120,7 +121,7 @@ public class CartController {
 		}  
 	}
 	
-	@RequestMapping("changeProductCountInCart")
+	@RequestMapping("/changeProductCountInCart")
 	@ResponseBody
 	public void changeProductCountInCart(int cartNo, int productCount) { // 상품 수량 변경
 		Map<String, Object> map = new HashMap<>(); 
@@ -130,19 +131,19 @@ public class CartController {
 		cartMapper.changeProductCountInCart(map);
 	} 
 	
-	@RequestMapping("deleteProduct")
+	@RequestMapping("/deleteProduct")
 	@ResponseBody
 	public void deleteProduct(int cartNo) {
 		cartMapper.deleteProductInCart(cartNo);
 	}
 	
-	@RequestMapping("plusProductCountInCart")
+	@RequestMapping("/plusProductCountInCart")
 	@ResponseBody
 	public void plusProductCountInCart(int cartNo) {
 		cartMapper.plusProductCountInCart(cartNo);
 	}
 	
-	@RequestMapping("minusProductCountInCart")
+	@RequestMapping("/minusProductCountInCart")
 	@ResponseBody
 	public void minusProductCountInCart(int cartNo) {
 		cartMapper.minusProductCountInCart(cartNo);

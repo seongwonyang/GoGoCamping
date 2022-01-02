@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
+@RequestMapping("/seller")
 public class SellerController {
 	@Resource
 	private SellerMapper sellerMapper;
@@ -47,7 +48,7 @@ public class SellerController {
 		this.sellerMailService = sellerMailService;
 	}
 
-	@RequestMapping("SellerHome") // 판매자 메인 페이지
+	@RequestMapping("/home") // 판매자 메인 페이지
 	public String home(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("loginVO") == null) {
@@ -59,13 +60,13 @@ public class SellerController {
 		}
 	}
 
-	@RequestMapping("SellerRegisterForm") // 판매자 회원가입 폼
+	@RequestMapping("/registerForm") // 판매자 회원가입 폼
 	public String registerSellerForm() {
 
 		return "seller/views/views2/seller-register-form.tiles";
 	}
 
-	@RequestMapping("findSellerById") // 아이디 중복체크 위한 아이디 존재여부 확인
+	@RequestMapping("/findSellerById") // 아이디 중복체크 위한 아이디 존재여부 확인
 	@ResponseBody
 	public String findSellerById(String sellerId) {
 		SellerVO sellerVO = sellerMapper.findSellerById(sellerId);
@@ -76,7 +77,7 @@ public class SellerController {
 		}
 	}
 
-	@RequestMapping("SellerRegister") // 판매자 회원가입
+	@RequestMapping("/register") // 판매자 회원가입
 	public String registerSeller(String sellerId, String sellerPassword, String sellerName, String sellerEmail,
 			String sellerTel, String businessNumber, String brand, String sellerPostNumber, String sellerAddress,
 			String sellerDetailedAddress, @RequestParam("logoImg") MultipartFile logoImgFile,
@@ -115,21 +116,21 @@ public class SellerController {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return "redirect:sellerRegisterResultPage";
+		return "redirect:/seller/registerResultPage";
 	}
 	
-	@RequestMapping("sellerRegisterResultPage")
+	@RequestMapping("/registerResultPage")
 	public String sellerRegisterResult() {
 		return "seller/views/views2/seller-register-result.tiles";
 	}
 
-	@RequestMapping("findSellerIdForm") // 판매자 아이디 찾기 폼
+	@RequestMapping("/findSellerIdForm") // 판매자 아이디 찾기 폼
 	public String findSellerIdForm() {
 
 		return "seller/views/views2/findid-form.tiles";
 	}
 
-	@RequestMapping("findSellerIdByBusinessNo") // 판매자 아이디 찾기
+	@RequestMapping("/findSellerIdByBusinessNo") // 판매자 아이디 찾기
 	@ResponseBody
 	public String findSellerIdByBusinessNo(String sellerName, String businessNumber) {
 		SellerVO sellerVO = new SellerVO(null, null, sellerName, null, null, businessNumber, null, null, null, null,
@@ -143,13 +144,13 @@ public class SellerController {
 		}
 	}
 
-	@RequestMapping("findSellerPwForm") // 판매자 비밀번호 찾기 폼
+	@RequestMapping("/findSellerPwForm") // 판매자 비밀번호 찾기 폼
 	public String findSellerPwForm() {
 
 		return "seller/views/views2/findpassword-form.tiles";
 	}
 
-	@RequestMapping("findSellerPwByBusinessNo") // 판매자 비밀번호 찾기
+	@RequestMapping("/findSellerPwByBusinessNo") // 판매자 비밀번호 찾기
 	@ResponseBody
 	public String findSellerPwByBusinessNo(String sellerId, String sellerName, String businessNumber,
 			HttpSession session) {
@@ -181,17 +182,17 @@ public class SellerController {
 		return str;
 	}
 
-	@RequestMapping("sellerEmailCode") // 비밀번호 인증 코드 입력
+	@RequestMapping("/emailCode") // 비밀번호 인증 코드 입력
 	public String sellerEmailCode() {
 		return "seller/views/views2/seller-email-code.tiles";
 	}
 
-	@RequestMapping("resetPasswordForm") // 비밀번호 재설정
+	@RequestMapping("/resetPasswordForm") // 비밀번호 재설정
 	public String resetPasswordForm() {
 		return "seller/views/views2/seller-password-reset.tiles";
 	}
 
-	@RequestMapping("resetSellerPassword")
+	@RequestMapping("/resetSellerPassword")
 	public String resetCustomerPassword(String sellerId, String sellerPassword, HttpSession session) {
 		session.removeAttribute("authCode");
 		session.removeAttribute("sellerId");
@@ -200,13 +201,13 @@ public class SellerController {
 		return "home.tiles";
 	}
 
-	@RequestMapping("SellerLoginForm") // 판매자 로그인 폼
+	@RequestMapping("/loginForm") // 판매자 로그인 폼
 	public String loginSellerForm() {
 
 		return "seller/views/views2/seller-login-form.tiles";
 	}
 
-	@RequestMapping("SellerLogin") // 판매자 로그인
+	@RequestMapping("/login") // 판매자 로그인
 	@ResponseBody
 	public String loginSeller(String sellerId, String sellerPassword, HttpServletRequest request) {
 		SellerVO sellerVO = new SellerVO(sellerId, sellerPassword);
@@ -224,7 +225,7 @@ public class SellerController {
 		}
 	}
 
-	@RequestMapping("SellerLogout") // 판매자 로그아웃
+	@RequestMapping("/logout") // 판매자 로그아웃
 	public String logoutSeller(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		session.invalidate();
@@ -232,7 +233,7 @@ public class SellerController {
 		return "seller/views/views2/seller-login-form.tiles";
 	}
 
-	@RequestMapping("RegisterProductForm") // 상품 등록 폼
+	@RequestMapping("/registerProductForm") // 상품 등록 폼
 	public String registerProductForm(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("loginVO") == null) {
@@ -243,7 +244,7 @@ public class SellerController {
 		}
 	}
 	
-	@RequestMapping("UpdateProductForm") // 상품 수정 폼
+	@RequestMapping("/updateProductForm") // 상품 수정 폼
 	public String updateProductForm(HttpServletRequest request, Model model, int productId) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginVO")==null) {
@@ -257,7 +258,7 @@ public class SellerController {
 		}
 	}
 	
-	@RequestMapping("RegisterProduct") // 상품 등록
+	@RequestMapping("/registerProduct") // 상품 등록
 	public String registerProduct(String productName, int price, String productInfo, int stock, String categorySelectDetail,
 			@RequestParam("productImg") MultipartFile productImgFile, HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -292,10 +293,10 @@ public class SellerController {
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
-		return "redirect:SellerHome";
+		return "redirect:/seller/home";
 	}
 	
-	@RequestMapping("UpdateProduct") // 상품 수정
+	@RequestMapping("/updateProduct") // 상품 수정
 	public String updateProduct(String productName, int price, String productInfo, int stock, String categorySelectDetail, int productId,
 			@RequestParam("productImg") MultipartFile productImgFile, HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -333,7 +334,7 @@ public class SellerController {
 		return "sellerHome.tiles";
 	}
 
-	@RequestMapping("QnAList") // 고객 문의 목록
+	@RequestMapping("/QnAList") // 고객 문의 목록
 	public String getQnAList(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		if (session.getAttribute("loginVO") == null) {
@@ -345,7 +346,7 @@ public class SellerController {
 		}
 	}
 
-	@RequestMapping("QnAAnswerForm") // 고객 문의 답변 폼
+	@RequestMapping("/QnAAnswerForm") // 고객 문의 답변 폼
 	public String answerQnAForm(HttpServletRequest request, Model model, int qnaNo) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginVO")==null) {
@@ -357,7 +358,7 @@ public class SellerController {
 		}
 	}
 	
-	@RequestMapping("QnAAnswer") // 답변 등록
+	@RequestMapping("/QnAAnswer") // 답변 등록
 	public String answerQnA(HttpServletRequest request, Model model, QnAVO qnaVO) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginVO")==null) {
@@ -371,7 +372,7 @@ public class SellerController {
 		}
 	}
 	
-	@RequestMapping("OrderList") // 현재 주문 내역 리스트
+	@RequestMapping("/orderList") // 현재 주문 내역 리스트
 	public String getOrderList(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginVO")==null) {
@@ -383,7 +384,7 @@ public class SellerController {
 		}
 	}
 	
-	@RequestMapping("updateDeliveryStatus") // 배송 정보 갱신
+	@RequestMapping("/updateDeliveryStatus") // 배송 정보 갱신
 	@ResponseBody
 	public String updateDeliveryStatus(HttpServletRequest request, Model model, int orderDetailNo, String deliveryStatus) {
 		HttpSession session = request.getSession();
@@ -412,7 +413,7 @@ public class SellerController {
 		}
 	}
 
-	@RequestMapping("TotalSoldList") // 전체 판매 내역 리스트
+	@RequestMapping("/totalSoldList") // 전체 판매 내역 리스트
 	public String totalSoldOrderList(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		SellerVO sellerVO = (SellerVO) session.getAttribute("loginVO");
@@ -427,7 +428,7 @@ public class SellerController {
 	}
 
 	// 날짜별 판매 내역 조회
-	@RequestMapping("getTotalSoldListByDate")
+	@RequestMapping("/getTotalSoldListByDate")
 	@ResponseBody
 	public List<OrderDetailVO> getTotalSoldOrderListByDate(Model model, String sellerId, String startDate,
 			String lastDate) {

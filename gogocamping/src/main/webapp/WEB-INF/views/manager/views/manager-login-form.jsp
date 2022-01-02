@@ -11,7 +11,7 @@
                <div class="hero__search">
                   <div class="#">
                      <br><h3 style="font-weight: 700;">관리자 로그인</h3><br><br>
-                     <form method="post" action="managerLogin">
+                     <form method="post" action="/manager/login">
 	                    <input type="text" id="managerId" name="managerId" placeholder="  아이디" required="required" style="width: 444px; height: 50px; border: 2.5px solid #595959; border-radius: 10px;"><br><br>
 	                    <input type="password" id="password" name="password" placeholder="  비밀번호" required="required" style="width: 444px; height: 50px; border: 2.5px solid #595959; border-radius: 10px;"><br><br>
 	                    <input type="hidden" id="managerPassword" name="managerPassword">
@@ -24,8 +24,8 @@
          </div>
       </div>
 
-<script type="text/javascript" src="<c:url value='js/core.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='js/sha256.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/core.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/sha256.min.js'/>"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 	$(function(){
@@ -34,14 +34,14 @@
            $("#managerPassword").val(managerPw);
 	       $.ajax({
 	          type:"post",
-	          url:"managerLogin",
+	          url:"/manager/login",
 	          data:"managerId="+$("#managerId").val()+"&managerPassword="+$("#managerPassword").val(),
 	          success:function(result){
 	             if(result!="로그인성공"){
 	                $("#checkLogin").text(result);
 	             }
 	             else{
-	                $(location).attr('href','ManagerHome')
+	                $(location).attr('href','/manager/home')
 	             }
 	          }
 	       });//ajax

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("/customer")
 public class CustomerController {
 	@Resource
 	private CustomerMapper customerMapper;
@@ -35,11 +36,11 @@ public class CustomerController {
 	private OrderMapper orderMapper;
 	
 	
-	@RequestMapping("loginCustomerForm")
-	public String loginCustomerForm(Model model) {
+	@RequestMapping("/loginForm")
+	public String loginForm(Model model) {
 		return "customer/customer-login.tiles";
 	}
-	@RequestMapping("loginCustomer")
+	@RequestMapping("/login")
 	@ResponseBody
 	public String loginCustomer(String customerId, String customerPassword, HttpSession session) {
 		CustomerVO customerVO = customerMapper.loginCustomer(customerId, customerPassword);
@@ -51,7 +52,7 @@ public class CustomerController {
 		}
 	}
 	
-	@RequestMapping("logoutCustomer")
+	@RequestMapping("/logout")
 	public String logoutCustomer(HttpSession session, Model model) {
 		session.removeAttribute("loginVO");
 		session.removeAttribute("naverVO");
@@ -74,17 +75,17 @@ public class CustomerController {
 		return "home.tiles";
 	}
 
-	@RequestMapping("registerCustomerForm")
+	@RequestMapping("/registerCustomerForm")
 	public String registerCustomerForm(Model model) {
 		return "customer/customer-register-form.tiles";
 	}
 	
-	@RequestMapping("registerForm")
+	@RequestMapping("/registerForm")
 	public String registerForm(Model model) {
 		return "customer/register-form.tiles";
 	}
 	
-	@RequestMapping("checkId")
+	@RequestMapping("/checkId")
 	@ResponseBody
 	public String checkId(String customerId) {
 		CustomerVO customerVO = customerMapper.findCustomerId(customerId);
@@ -95,7 +96,7 @@ public class CustomerController {
 		}
 	}
 	
-	@RequestMapping("registerCustomer") 
+	@RequestMapping("/register") 
 	public String registerCustomer(String customerId, String customerPassword, String customerName, String customerEmail, String customerTel, String customerBirth, String customerPostNumber, String customerAddress, String customerDetailedAddress, Model model) {
 		customerMapper.registerCustomer(customerId, customerPassword, customerName, customerEmail, customerTel, customerBirth, customerPostNumber, customerAddress, customerDetailedAddress);
 		int totalCount = productMapper.getAllProductCount();
@@ -116,29 +117,29 @@ public class CustomerController {
 		return "redirect:/";
 	}
 
-	@RequestMapping("customer-find-id-form")
+	@RequestMapping("/findIdForm")
 	public String customerFindIdForm(Model model) {
 		return "customer/customer-find-id-form.tiles";
 	}
 	
-	@RequestMapping("customer-find-id-byEmail")
+	@RequestMapping("/findIdByEmail")
 	public String customerFindIdByEmail(Model model) {
 		return "customer/customer-find-id-byEmail.tiles";
 	}
 	
-	@RequestMapping("customer-find-id-byTel")
+	@RequestMapping("/findIdByTel")
 	public String customerFindIdByTel(Model model) {
 		return "customer/customer-find-id-byTel.tiles";
 	}
 	
-	@RequestMapping("getCustomerIdByEmail")
+	@RequestMapping("/getCustomerIdByEmail")
 	public String getCustomerIdByEmail(String customerName, String customerEmail, Model model) {
 		CustomerVO customerVO = customerMapper.findCustomerIdByEmail(customerName, customerEmail);
 		model.addAttribute("customerVO", customerVO);
 		return "customer/customer-result-byEmail.tiles";
 	}
 	
-	@RequestMapping("getCustomerIdByTel")
+	@RequestMapping("/getCustomerIdByTel")
 	public String getCustomerIdByTel(String customerName, String customerTel, Model model) {
 		model.addAttribute("customerVO", customerMapper.findCustomerIdByTel(customerName, customerTel));
 
@@ -147,7 +148,7 @@ public class CustomerController {
 		return "customer/customer-result-byTel.tiles";
 	}
 	
-	@RequestMapping("resetCustomerPassword")
+	@RequestMapping("/resetCustomerPassword")
 	public String resetCustomerPassword(String customerId, String customerPassword, HttpSession session, Model model) {
 		session.removeAttribute("athCode");
 		session.removeAttribute("checkId");
@@ -171,12 +172,12 @@ public class CustomerController {
 		return "home.tiles";
 	}
 	
-	@RequestMapping("customer-findPassword-form")
+	@RequestMapping("/findPasswordForm")
 	public String customerFindPasswordForm(Model model) {
 		return "customer/customer-findPassword-form.tiles";
 	}
 	
-	@RequestMapping("findPassword")
+	@RequestMapping("/findPassword")
 	@ResponseBody
 	public String findPassword(String customerId, String customerEmail, HttpSession session) {
 		CustomerVO cvo = new CustomerVO(customerId, customerEmail);
@@ -192,12 +193,12 @@ public class CustomerController {
 		}
 	}
 	
-	@RequestMapping("emailCode")
+	@RequestMapping("/emailCode")
 	public String emailCode(Model model) {
 		return "customer/customer-emailCode-form.tiles";
 	}
 	
-	@RequestMapping("resetPassword")
+	@RequestMapping("/resetPassword")
 	public String resetPassword(Model model) {
 		return "customer/customer-passwordRest.tiles";
 	}
@@ -216,15 +217,15 @@ public class CustomerController {
         return str;
     }
 	
-	@RequestMapping("updateCustomerInfo") //정보수정폼으로 이동
-	public String updateCustomerInfo(Model model, String customerId) {
+	@RequestMapping("/updateInfoForm") //정보수정폼으로 이동
+	public String updateInfoForm(Model model, String customerId) {
 		model.addAttribute("customerInfo", customerMapper.findCustomerId(customerId));
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-update-info.tiles";
 	}
 	
-	@RequestMapping("updateInfo") //정보수정
+	@RequestMapping("/updateInfo") //정보수정
 	public String updateInfo(String customerId, String customerEmail, String customerTel, String customerPostNumber, String customerAddress, String customerDetailedAddress,Model model) {
 		CustomerVO cvo=new CustomerVO(customerId,null, null, customerEmail, customerTel, customerPostNumber, customerAddress, customerDetailedAddress,null, null);
 		customerMapper.updateInfo(cvo);
@@ -234,15 +235,15 @@ public class CustomerController {
 		return "customer/customer-update-info.tiles";
 	}
 	
-	@RequestMapping("updateCustomerPassword") //비밀번호수정폼으로 이동
-	public String updateCustomerPassword(Model model, String customerId) {
+	@RequestMapping("/updatePassword") //비밀번호수정폼으로 이동
+	public String updatePassword(Model model, String customerId) {
 		model.addAttribute("passwordUpdate", customerMapper.equals(customerId));
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		return "customer/customer-update-password.tiles";
 	}
 	
-	@RequestMapping("updateNewPassword") //비밀번호 수정
+	@RequestMapping("/updateNewPassword") //비밀번호 수정
 	public String updateNewPassword(String customerId, String customerPassword, HttpSession session, Model model) {
 		customerMapper.updatePassword(customerPassword, customerId);
 		session.removeAttribute("loginVO");

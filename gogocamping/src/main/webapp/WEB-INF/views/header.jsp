@@ -79,16 +79,16 @@
                             <c:when test="${sessionScope.loginVO==null}">
                             
                             <div class="header__top__right__social">
-                                <a href="loginCustomerForm"><i class="fa fa-user"></i> Login</a>
+                                <a href="/customer/loginForm"><i class="fa fa-user"></i> Login</a>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="registerForm"><i class="fa fa-user"></i> 회원가입</a>
+                                <a href="/customer/registerForm"><i class="fa fa-user"></i> 회원가입</a>
                             </div>
                             </c:when>
                             <c:when test="${sessionScope.naverVO!=null}">
                             <div class="header__top__right__social">
-		                        <a href="getLikesList?customerId=${sessionScope.loginVO.customerId}"><i class="fa fa-heart"></i> <span></span></a>
-		                        <a href="getProductListInCart"><i class="fa fa-shopping-bag"></i> <span></span></a>
+		                        <a href="/likes/list?customerId=${sessionScope.loginVO.customerId}"><i class="fa fa-heart"></i> <span></span></a>
+		                        <a href="/cart/list"><i class="fa fa-shopping-bag"></i> <span></span></a>
                             </div>
                             <div class="header__top__right__auth">
                              <nav class="header__menu">
@@ -100,17 +100,17 @@
                             	</li>
                             	</ul>
                             	</nav>
-                            	<form id="orderCheckForm" action="orderCheck" method="get">
+                            	<form id="/order/orderCheckForm" action="/order/orderCheck" method="get">
                             	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId}">
                             	</form>
                             	</div>
                             	${sessionScope.loginVO.customerName}님&nbsp;&nbsp;&nbsp;
-                            	<a href="logoutCustomer">logout</a>
+                            	<a href="/customer/logout">logout</a>
                             </c:when>
                             <c:when test="${sessionScope.kakaoVO!=null }">
                             <div class="header__top__right__social">
-		                        <a href="getLikesList?customerId=${sessionScope.loginVO.customerId}"><i class="fa fa-heart"></i> <span></span></a>
-		                        <a href="getProductListInCart"><i class="fa fa-shopping-bag"></i> <span></span></a>
+		                        <a href="/likes/list?customerId=${sessionScope.loginVO.customerId}"><i class="fa fa-heart"></i> <span></span></a>
+		                        <a href="/cart/list"><i class="fa fa-shopping-bag"></i> <span></span></a>
                             </div>
                             <div class="header__top__right__auth">
                              <nav class="header__menu">
@@ -122,17 +122,17 @@
                             	</li>
                             	</ul>
                             	</nav>
-                            	<form id="orderCheckForm" action="orderCheck" method="get">
+                            	<form id="orderCheckForm" action="/order/orderCheck" method="get">
                             	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId}">
                             	</form>
                             	</div>
                             	${sessionScope.loginVO.customerName}님&nbsp;&nbsp;&nbsp;
-                            	<a href="logoutCustomer">logout</a>
+                            	<a href="/customer/logout">logout</a>
                             </c:when>
                             <c:otherwise>
                              <div class="header__top__right__social">
-                              <a href="getLikesList?customerId=${sessionScope.loginVO.customerId}"><i class="fa fa-heart"></i> <span></span></a>
-                              <a href="getProductListInCart"><i class="fa fa-shopping-bag"></i> <span></span></a>
+                              <a href="/likes/list?customerId=${sessionScope.loginVO.customerId}"><i class="fa fa-heart"></i> <span></span></a>
+                              <a href="/cart/list"><i class="fa fa-shopping-bag"></i> <span></span></a>
                             </div>
                             <div class="header__top__right__auth">
                              <nav class="header__menu">
@@ -146,18 +146,18 @@
                             	</li>
                             	</ul>
                             	</nav>
-                            	<form id="customerInfoForm" action="updateCustomerInfo" method="post"> 
+                            	<form id="customerInfoForm" action="/customer/updateInfoForm" method="post"> 
                             	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId }">
                             	</form>
-                            	<form id="updatePasswordForm" action="updateCustomerPassword" method="post">
+                            	<form id="updatePasswordForm" action="/customer/updatePassword" method="post">
                             	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId }">
                             	</form>
-                            	<form id="orderCheckForm" action="orderCheck" method="get">
+                            	<form id="orderCheckForm" action="/order/orderCheck" method="get">
                             	<input type="hidden" id="customerId" name="customerId" value="${sessionScope.loginVO.customerId}">
                             	</form>
                             	</div>
                             	${sessionScope.loginVO.customerName}님&nbsp;&nbsp;&nbsp;
-                            	<a href="logoutCustomer">logout</a>
+                            	<a href="/customer/logout">logout</a>
                             </c:otherwise>
                             </c:choose>
                         </div>
@@ -175,7 +175,7 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form"><%-- 상품 검색 --%>
-                            <form action="searchProductList" method="get" onsubmit="return checkKeyword()">
+                            <form action="/product/search" method="get" onsubmit="return checkKeyword()">
                             	<input type="hidden" id="option" name="option" value="">
                                 <input type="text" id="keyword" name="keyword" placeholder="찾으시는 상품을 검색해 보세요!">
                                 <button type="submit" class="site-btn">SEARCH</button>
@@ -202,7 +202,7 @@
                         </div>
                             <ul>
                             <c:forEach items="${allBrandList}" var="brand">
-                            	<li><a href="getProductListByBrand?brand=${brand.brand}&category=&option=">${brand.brand}</a></li>
+                            	<li><a href="/product/getProductListByBrand?brand=${brand.brand}&category=&option=">${brand.brand}</a></li>
                             </c:forEach>
                            </ul>
                     </div>
@@ -214,7 +214,7 @@
 			            	<li><a href="categoryProduct?categoryName='${category.categoryName}'">${category.categoryName}</a></li>
 			            </c:forEach> --%>
 			            <c:forEach items="${categoryList }" var="c">
-			                <li><a href="category?categoryName=${c.categoryName }&pageNo=0&option=">${c.categoryName }</a></li>
+			                <li><a href="/category/categoryProduct?categoryName=${c.categoryName }&pageNo=0&option=">${c.categoryName }</a></li>
 			            </c:forEach>
 			            </ul>
                     </nav>

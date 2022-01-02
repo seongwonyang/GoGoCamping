@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/QnA")
 public class QnAController {
 	@Resource
 	private QnAMapper qnaMapper;
@@ -23,7 +24,7 @@ public class QnAController {
 	@Resource
 	private CategoryMapper categoryMapper;
 	
-	@RequestMapping("writeQuestionPage")
+	@RequestMapping("/writePage")
 	public String writeQuestionPage(String productId, Model model) {
 		model.addAttribute("productId", productId);
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
@@ -31,7 +32,7 @@ public class QnAController {
 		return "customer/qna-write.tiles";
 	}
 	
-	@RequestMapping("writeQuestion")
+	@RequestMapping("/write")
 	public String writeQuestion(HttpServletRequest request, QnAVO qnaVO, int productId, String qnaCategory, Model model) {
 		HttpSession session = request.getSession(false);
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
@@ -43,6 +44,6 @@ public class QnAController {
 		
 		qnaMapper.writeQuestion(qnaVO);
 		
-		return "redirect:getProductDetailInfo?productId="+productId+"&sortOption=";
+		return "redirect:/product/getProductDetailInfo?productId="+productId+"&sortOption=";
 	}
 }

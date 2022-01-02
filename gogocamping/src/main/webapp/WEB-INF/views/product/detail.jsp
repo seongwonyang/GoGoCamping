@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <body>
 <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/camp.png">
+    <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -79,10 +79,10 @@
                         <a href="#none" id="insertToCart" class="primary-btn">ADD TO CART</a>
                         <c:choose>
                         	<c:when test="${checkSameProductInLikes==0}">
-                        		<a href="#none"><img id="heartIcon" src="img/likes/dislikes.png" style="width:30px;"></a>
+                        		<a href="#none"><img id="heartIcon" src="/img/likes/dislikes.png" style="width:30px;"></a>
                         	</c:when>
                         	<c:otherwise>
-                        		<a href="#none"><img id="heartIcon" src="img/likes/likes.png" style="width:30px;"></a>
+                        		<a href="#none"><img id="heartIcon" src="/img/likes/likes.png" style="width:30px;"></a>
                         	</c:otherwise>
                         </c:choose>
                         <ul>
@@ -227,7 +227,7 @@
                             		<div class="tab-pane" id="tabs-3" role="tabpanel">
                             	</c:otherwise>
                             </c:choose><br>
-                              <form action="writeQuestionPage" id="writeQuestionPage" name="writeQuestionPage" method="get">
+                              <form action="/QnA/writePage" id="writeQuestionPage" name="writeQuestionPage" method="get">
                               <input type="hidden" name="productId" value="${productVO.productId}">
 							    <div class="form-group">
 							      <select class="form-control" id="qnaOption" name="sortOption" onchange="changeQnAOption()">
@@ -251,7 +251,7 @@
 									        		<td onclick="openContent(this)"><b style="color:#575757;">&nbsp;[ ${qna.qnaCategory} ]</b> ${qna.title}</td>
 									        	</c:when>
 									        	<c:otherwise>
-									        		<td><b style="color:#575757;"><img alt="" src="../static/image/lock.png">&nbsp;[ ${qna.qnaCategory} ]</b> ${qna.title}</td>
+									        		<td><b style="color:#575757;"><img alt="" src="/static/image/lock.png">&nbsp;[ ${qna.qnaCategory} ]</b> ${qna.title}</td>
 									        	</c:otherwise>
 									        </c:choose>
 									        <td>${qna.regdate}</td>
@@ -295,7 +295,7 @@
             <div class="row">
                 <div class="categories__slider owl-carousel">
                 	<c:forEach items="${relatedProductList}" var="product">
-	                    <div class="col-lg-3" onclick="location.href='getProductDetailInfo?productId=${product.productId}'">
+	                    <div class="col-lg-3" onclick="location.href='/product/getProductDetailInfo?productId=${product.productId}&sortOption='">
 	                        <div class="categories__item set-bg" data-setbg="${product.productImg}">
 	                            <h5><a href="#">${product.productName}</a></h5>
 	                        </div>
@@ -318,12 +318,12 @@
 				let detailProductCount = document.getElementById("detailProductCount").value;
 				$.ajax({
 					type:"post",
-					url:"insertProductInCart",
+					url:"/cart/insertProductInCart",
 					data:"productId="+detailProductId+"&productCount="+detailProductCount,
 					success:function(){
 						let goToCartPage = confirm("상품이 장바구니에 담겼습니다.\n장바구니로 이동하시겠습니까?");
 						if(goToCartPage) {
-							location.href="getProductListInCart";
+							location.href="/cart/list";
 						} 
 					}
 				});//ajax
@@ -336,13 +336,13 @@
     } else {
       $.ajax({
         type:"post",
-        url:"likesAndEmptyLikes",
+        url:"/likes/likesAndEmptyLikes",
         data:"customerId="+'${sessionScope.loginVO.customerId}'+"&productId="+'${productVO.productId}',
         success: function(checkLikes) {
           if(checkLikes==1) { // 찜목록에 추가되면
-            $("#heartIcon").attr("src","img/likes/likes.png");
+            $("#heartIcon").attr("src","/img/likes/likes.png");
           } else { // 찜목록에서 삭제되면
-            $("#heartIcon").attr("src","img/likes/dislikes.png");
+            $("#heartIcon").attr("src","/img/likes/dislikes.png");
           }
         }
       });//ajax
@@ -355,14 +355,14 @@ function changeQnAOption() {
 	let o = document.getElementById("qnaOption");
 	let option = o.options[o.selectedIndex].value; 
 	alert(option);
-	location.href = "getProductDetailInfo?productId="+'${productVO.productId}'+"&sortOption="+option;
+	location.href = "/product/getProductDetailInfo?productId="+'${productVO.productId}'+"&sortOption="+option;
 }
 
 function changeReviewOption(){
 	let o = document.getElementById("reviewOption");
 	let option = o.options[o.selectedIndex].value;
 	alert(option);
-	location.href = "getProductDetailInfo?productId="+'${productVO.productId}'+"&sortOption="+option;
+	location.href = "/product/getProductDetailInfo?productId="+'${productVO.productId}'+"&sortOption="+option;
 }
 
 function openContent(elm){
@@ -376,7 +376,7 @@ function openContent(elm){
 }
 
 function removeOption() {
-	location.href = "getProductDetailInfo?productId="+'${productVO.productId}'+"&sortOption=";
+	location.href = "/product/getProductDetailInfo?productId="+'${productVO.productId}'+"&sortOption=";
 }
 
 function qnaLoginCheck() {

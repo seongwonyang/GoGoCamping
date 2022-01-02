@@ -10,7 +10,7 @@
                <div class="hero__search">
                    	<h4>카카오 아이디로 가입 완료</h4><br><br>
                    	<h5>버튼을 클릭하여 로그인하여 주시기 바랍니다.</h5><br><br>
-                   	<form action="callbackKaKao" id="callbackKaKao" method="post">
+                   	<form action="/callbackKaKao" id="callbackKaKao" method="post">
          		<div id="kakaologin">
 					<div class="kakaobtn">
 						<input type="hidden" name="kakaoId" id="kakaoId" value=""/>
@@ -20,7 +20,7 @@
 					</div>
 			  </div>
 			  </form>
-                 	<br> <img src="img/카카오가입.png" alt="">
+                 	<br> <img src="/img/카카오가입.png" alt="">
                </div>
             </div>
          </div>

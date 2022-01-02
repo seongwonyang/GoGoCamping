@@ -8,7 +8,7 @@
     </div> -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/camp.png">
+    <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -90,14 +90,14 @@
 	    function btnChange(orderDetailNo, deliveryStatus, index) {
 	    	$.ajax({
 		        type:"post",
-		        url:"updateDeliveryStatus",
+		        url:"/seller/updateDeliveryStatus",
 		        //dataType:"json",
 		        data: "orderDetailNo="+orderDetailNo+"&deliveryStatus="+deliveryStatus,
 		        success : function(result){
 		           console.log(result);
 		           if(result!="") {
 		        	   if(result=="noSession") {
-		        		   $(location).attr('href','SellerHome');
+		        		   $(location).attr('href','/seller/home');
 		        		   return;
 					   }else if(result=="배송완료") {
 						   var btnText = '<a onclick="#" type="button" class="site-btn" style="color: white; background-color: black; border-radius: 10px;">' + result + '</a>';		        		   

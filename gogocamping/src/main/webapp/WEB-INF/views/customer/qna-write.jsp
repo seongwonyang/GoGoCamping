@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <body>
 <div class="container"><hr><h2 style="text-align: center"><b>QnA</b></h2><br>
-<form action="writeQuestion" method="post" onsubmit="return checkOption()">
+<form action="/QnA/write" method="post" onsubmit="return checkOption()">
 <input type="hidden" name="productId" value="${productId}">
 	<div style="margin-bottom: 40px">
 	  <select class="form-control" id="qnaOption" name="qnaCategory">

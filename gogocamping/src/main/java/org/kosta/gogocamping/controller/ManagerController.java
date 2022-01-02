@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("/manager")
 public class ManagerController {
 	@Resource
 	private ManagerMapper managerMapper;
@@ -30,7 +31,7 @@ public class ManagerController {
 	@Resource
 	private ReviewMapper reviewMapper;
 	
-	@RequestMapping("ManagerHome")
+	@RequestMapping("/home")
 	public String managerHome(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginVO") == null) {
@@ -40,12 +41,12 @@ public class ManagerController {
 		}
 	}
 	
-	@RequestMapping("managerLoginForm")
+	@RequestMapping("/loginForm")
 	public String managerLoginForm() {		
 		return "manager/views/manager-login-form.tiles";
 	}
 	
-	@RequestMapping("managerLogin")
+	@RequestMapping("/login")
 	@ResponseBody
 	public String managerLogin(String managerId, String managerPassword, HttpServletRequest request) {
 		ManagerVO managerVO = new ManagerVO(managerId, null, managerPassword);
@@ -63,7 +64,7 @@ public class ManagerController {
 		}
 	}
 	
-	@RequestMapping("managerLogout")
+	@RequestMapping("/logout")
 	public String managerLogout(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		session.invalidate();
@@ -71,7 +72,7 @@ public class ManagerController {
 		return "manager/views/manager-login-form.tiles";
 	}
 	
-	@RequestMapping("registerAdmin")
+	@RequestMapping("/registerAdmin")
 	public String RegisterAdmin(Model model,HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if(session.getAttribute("loginVO") == null) {
@@ -87,7 +88,7 @@ public class ManagerController {
 		return "manager/views/register-admin.tiles";
 	}
 	
-	@RequestMapping("adminSeller")
+	@RequestMapping("/adminSeller")
 	public String adminSeller(String sellerId, Model model) {
 		sellerMapper.adminSeller(sellerId);
 		
@@ -101,10 +102,9 @@ public class ManagerController {
 	}
 	
 	// 브랜드별 후기 리스트 출력
-	@RequestMapping("reviewManagement")
+	@RequestMapping("/reviewManagement")
 	public String reviewManagement(Model model, HttpServletRequest request, String sellerId) {
 		HttpSession session = request.getSession();
-		System.out.println(sellerId);
 		if(session.getAttribute("loginVO") == null) {
 			return "manager/views/manager-login-form.tiles";
 		}else {
@@ -122,14 +122,14 @@ public class ManagerController {
 	}
 	
 	// 후기 상세 보기
-	@RequestMapping("getDetailReview")
+	@RequestMapping("/getDetailReview")
 	public String getDetailReview(Model model, String reviewNo) {
 		ReviewVO detailReview = reviewMapper.getDetailReview(reviewNo);
 		model.addAttribute("detailReview", detailReview);
 		return "manager/views/detail-review.tiles";
 	}
 	
-	@RequestMapping("deleteReview")
+	@RequestMapping("/deleteReview")
 	@ResponseBody
 	public String deleteReview(Model model, int reviewNo) {
 		reviewMapper.deleteReview(reviewNo);

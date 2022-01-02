@@ -14,7 +14,7 @@
 			 		<nav class="header__menu">
 			 			<ul>
 			 				<c:forEach items="${detailCategoryList}" var="detailCategory">
-			 					<li><a href="detailCategoryProduct?categoryName=${detailCategory.categoryName }&detailCategoryName=${detailCategory.detailCategoryName}&option=" style="color: black">${detailCategory.detailCategoryName}</a></li>
+			 					<li><a href="/category/detailCategoryProduct?categoryName=${detailCategory.categoryName }&detailCategoryName=${detailCategory.detailCategoryName}&option=" style="color: black">${detailCategory.detailCategoryName}</a></li>
 			 				</c:forEach>
 			 			</ul>
 			 		</nav>
@@ -49,7 +49,7 @@
                     </div>
 			<div class="row featured__filter">
 				<c:forEach items="${productListByCategory}" var="product">
-					<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat" onclick="location.href='getProductDetailInfo?productId=${product.productId}&sortOption='">
+					<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat" onclick="location.href='/product/getProductDetailInfo?productId=${product.productId}&sortOption='">
 						<div class="featured__item">
 							<div class="featured__item__pic set-bg" data-setbg="${product.productImg}">
 								<ul class="featured__item__pic__hover">
@@ -67,25 +67,25 @@
 				<ul class="pagination justify-content-center" style="margin: 20px 0">
 					<c:if test="${pagingBean.previousPageGroup}">
 						<li class="page-item"><a class="page-link"
-							href="category?categoryName=${categoryName }&pageNo=${pagingBean.startPageOfPageGroup-1}&option=${option}">Previous</a></li>
+							href="/category/categoryProduct?categoryName=${categoryName }&pageNo=${pagingBean.startPageOfPageGroup-1}&option=${option}">Previous</a></li>
 					</c:if>
 					<c:forEach begin="${pagingBean.startPageOfPageGroup}"
 						end="${pagingBean.endPageOfPageGroup}" var="page">
 						<c:choose>
 							<c:when test="${page == pagingBean.nowPage}">
 								<li class="page-item active"><a class="page-link"
-									href="category?categoryName=${categoryName }&pageNo=${page}&option=${option}">${page}</a></li>
+									href="/category/categoryProduct?categoryName=${categoryName }&pageNo=${page}&option=${option}">${page}</a></li>
 								<input type="hidden" id="pageNo" value="${page}">
 							</c:when>
 							<c:otherwise>
 								<li class="page-item"><a class="page-link"
-									href="category?categoryName=${categoryName }&pageNo=${page}&option=${option}">${page}</a></li>
+									href="/category/categoryProduct?categoryName=${categoryName }&pageNo=${page}&option=${option}">${page}</a></li>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					<c:if test="${pagingBean.nextPageGroup}">
 						<li class="page-item"><a class="page-link"
-							href="category?categoryName=${categoryName }&pageNo=${pagingBean.endPageOfPageGroup+1}&option=${option}">Next</a></li>
+							href="/category/categoryProduct?categoryName=${categoryName }&pageNo=${pagingBean.endPageOfPageGroup+1}&option=${option}">Next</a></li>
 					</c:if>
 				</ul>
             </div><%-- 페이징 처리 --%>
@@ -95,7 +95,7 @@
 <script type="text/javascript">
 	function sortProduct(i) {
 		var pageNo = document.getElementById("pageNo").value;
-		location.href = "category?categoryName="+'${categoryName }'+"&pageNo="+pageNo+"&option="+i;
+		location.href = "/category/categoryProduct?categoryName="+'${categoryName }'+"&pageNo="+pageNo+"&option="+i;
 	}
 </script>
 </body>

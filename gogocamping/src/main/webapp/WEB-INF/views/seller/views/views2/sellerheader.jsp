@@ -87,7 +87,7 @@
 	                           			${sessionScope.loginVO.sellerName} 님 환영합니다!
 	                        		</c:when>
 	                        		<c:otherwise>	                        		
-	                           			<a href="SellerRegisterForm"><i class="fa fa-user" style="color: #1c1c1c; "></i> Register</a>
+	                           			<a href="/seller/registerForm"><i class="fa fa-user" style="color: #1c1c1c; "></i> Register</a>
 	                        		</c:otherwise>
 	                        	</c:choose>
 	                        	</div>
@@ -98,7 +98,7 @@
 	                           			<a href="javascript:sellerLogout()"><i class="fa fa-user"></i>${sessionScope.loginVO.sellerId}</a>
 	                        		</c:when>
 	                        		<c:otherwise>	                        		
-	                           			<a href="SellerLoginForm"><i class="fa fa-user"></i> Login</a>
+	                           			<a href="/seller/loginForm"><i class="fa fa-user"></i> Login</a>
 	                        		</c:otherwise>
 	                        	</c:choose>
 	                        </div>
@@ -111,16 +111,16 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="SellerHome"><img src="img/sellerLogo.png" alt=""></a>
+                        <a href="/seller/home"><img src="/img/sellerLogo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-9" style="margin-top: 30px;">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="RegisterProductForm" style="color: #065E93">상품 등록</a></li>
-                            <li><a href="QnAList" style="color: #065E93">고객 문의 관리</a></li>
-                            <li><a href="OrderList" style="color: #065E93">현재 주문 내역</a></li>
-                            <li><a href="TotalSoldList" style="color: #065E93">전체 판매 내역</a></li>
+                            <li><a href="/seller/registerProductForm" style="color: #065E93">상품 등록</a></li>
+                            <li><a href="/seller/QnAList" style="color: #065E93">고객 문의 관리</a></li>
+                            <li><a href="/seller/orderList" style="color: #065E93">현재 주문 내역</a></li>
+                            <li><a href="/seller/totalSoldList" style="color: #065E93">전체 판매 내역</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -143,7 +143,7 @@
 	<script type="text/javascript">
 		function sellerLogout() {
 			if(confirm("로그아웃 하시겠습니까?")==true) {
-				location.href = "SellerLogout";
+				location.href = "/seller/logout";
 			}else {
 				return false;
 			}

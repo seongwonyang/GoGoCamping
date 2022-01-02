@@ -28,7 +28,7 @@
       			if(confirmCode!=code){
       				$("#result").text("인증코드가 일치하지 않습니다.");
       			}else{
-      				$(location).attr('href','resetPasswordForm');
+      				$(location).attr('href','/seller/resetPasswordForm');
       			}
       		});//click
       	});//ready

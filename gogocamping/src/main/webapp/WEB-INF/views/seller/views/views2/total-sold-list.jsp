@@ -12,7 +12,7 @@
     </div> -->
 
 	<!-- Breadcrumb Section Begin -->
-	<section class="breadcrumb-section set-bg" data-setbg="img/camp.png">
+	<section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
@@ -122,7 +122,7 @@
 						} else {
 							$.ajax({
 								type : "post",
-								url : "getTotalSoldListByDate",
+								url : "/seller/getTotalSoldListByDate",
 								datatype : "json",
 								data : "&startDate=" + startDate
 										+"&lastDate=" + lastDate,

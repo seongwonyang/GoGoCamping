@@ -29,21 +29,21 @@
                         <input type="password" id="customerPassword" name="customerPassword" placeholder="  비밀번호"  style="width: 444px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br>
                         <span id="checkLogin"></span><br>
                         <button type="button" class="site-btn" id="loginCustomer" style="width: 444px; height: 50px; background-color: #245207; border-radius: 10px;">로그인</button><br><br>
-                        <button type="button" class="site-btn" style="width: 134px; height: 50px; background-color: #245207; border-radius: 10px;" onclick="location.href='customer-find-id-form'">아이디 찾기</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button type="button" class="site-btn" style="width: 148px; height: 50px; background-color: #245207; border-radius: 10px;" onclick="location.href='customer-findPassword-form'">비밀번호 찾기</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button type="button" class="site-btn" style="width: 128px; height: 50px; background-color: #245207; border-radius: 10px;" onclick="location.href='registerCustomerForm'">회원가입</button>
+                        <button type="button" class="site-btn" style="width: 134px; height: 50px; background-color: #245207; border-radius: 10px;" onclick="location.href='/customer/findIdForm'">아이디 찾기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="button" class="site-btn" style="width: 148px; height: 50px; background-color: #245207; border-radius: 10px;" onclick="location.href='/customer/findPasswordForm'">비밀번호 찾기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="button" class="site-btn" style="width: 128px; height: 50px; background-color: #245207; border-radius: 10px;" onclick="location.href='/customer/registerCustomerForm'">회원가입</button>
                            </form>
                   </div>
                </div>
                <br>
-               <a href="<%=apiURL%>"><img height="50" src="img/btnG_완성형.PNG"/></a><br><br>
-               <form action="callbackKaKao" id="callbackKaKao" method="post">
+               <a href="<%=apiURL%>"><img height="50" src="/img/btnG_완성형.PNG"/></a><br><br>
+               <form action="/callbackKaKao" id="callbackKaKao" method="post">
          		<div id="kakaologin">
 					<div class="kakaobtn">
 						<input type="hidden" name="kakaoId" id="kakaoId" value=""/>
 						<input type="hidden" name="kakaoEmail" id="kakaoEmail" value=""/>
 						<input type="hidden" name="kakaoName" id="kakaoName" value=""/>
-						<a href="javascript:kakaoLogin();"> <img src="img/kakao_login_medium_narrow.png" /></a>
+						<a href="javascript:kakaoLogin();"> <img src="/img/kakao_login_medium_narrow.png" /></a>
 					</div>
 			  </div>
 			  </form>
@@ -54,8 +54,8 @@
          </div>
       </div>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript" src="<c:url value='js/core.min.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='js/sha256.min.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/js/core.min.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/js/sha256.min.js'/>"></script>
 	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script type="text/javascript">
 		$(function(){
@@ -63,7 +63,7 @@
 				var customerPw = CryptoJS.SHA256($('#customerPassword').val()).toString();
 				$.ajax({
 					type:"post",
-					url:"loginCustomer",
+					url:"/customer/login",
 					data:"customerId="+$("#customerId").val()+"&customerPassword="+customerPw,
 					success:function(result){
 						if(result!="로그인성공"){

@@ -19,23 +19,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/refund")
 public class RefundController{
 	@Resource
 	private RefundMapper refundMapper;
-	
 	@Resource
 	private SellerMapper sellerMapper;
-	
 	@Resource
 	private CategoryMapper categoryMapper;
-	
 	@Resource
 	private OrderMapper orderMapper;
-	
 	@Resource
 	private CustomerMapper customerMapper;
 	
-	@RequestMapping("refund")
+	@RequestMapping("/writePage")
 	public String refund(HttpServletRequest request, int orderDetailNo, Model model) {
 		//HttpSession session = request.getSession(false);
 		//CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
@@ -47,7 +44,7 @@ public class RefundController{
 		return "customer/refund.tiles";
 	}
 	
-	@RequestMapping("insertRefund")
+	@RequestMapping("/write")
 	public String insertRefund(HttpServletRequest request, RefundVO refundVO, int orderDetailNo, Model model) {
 		HttpSession session = request.getSession(false);
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");

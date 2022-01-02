@@ -14,7 +14,7 @@
 			 		<nav class="header__menu">
 			 			<ul>
 			 				<c:forEach items="${detailCategoryList}" var="detailCategory">
-			 					<li><a href="detailCategoryProduct?categoryName=${detailCategory.categoryName }&detailCategoryName=${detailCategory.detailCategoryName}&option=" style="color: black">${detailCategory.detailCategoryName}</a></li>
+			 					<li><a href="/category/detailCategoryProduct?categoryName=${detailCategory.categoryName }&detailCategoryName=${detailCategory.detailCategoryName}&option=" style="color: black">${detailCategory.detailCategoryName}</a></li>
 			 				</c:forEach>
 			 			</ul>
 			 		</nav>
@@ -49,7 +49,7 @@
                     </div>
 			<div class="row featured__filter">
 				<c:forEach items="${productListByDetailCategory}" var="product">
-					<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat" onclick="location.href='getProductDetailInfo?productId=${product.productId}&sortOption='">
+					<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat" onclick="location.href='/product/getProductDetailInfo?productId=${product.productId}&sortOption='">
 						<div class="featured__item">
 							<div class="featured__item__pic set-bg" data-setbg="${product.productImg}">
 								<ul class="featured__item__pic__hover">
@@ -68,7 +68,7 @@
 </section>
 <script type="text/javascript">
 	function sortProduct(i) {
-		location.href = "detailCategoryProduct?categoryName="+'${categoryName}'+"&detailCategoryName="+'${detailCategoryName}'+"&option="+i;
+		location.href = "/category/detailCategoryProduct?categoryName="+'${categoryName}'+"&detailCategoryName="+'${detailCategoryName}'+"&option="+i;
 	}
 </script>
 </body>

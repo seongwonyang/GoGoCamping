@@ -8,7 +8,7 @@
     </div> -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/camp.png">
+    <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -50,7 +50,7 @@
                                 <tr>
                                     <td>
                                         ${qna.qnaNo}
-                                        <form id="QnAAnswerForm2" action ="QnAAnswerForm" method="get">
+                                        <form id="QnAAnswerForm2" action ="/seller/QnAAnswerForm" method="get">
                                         <input type="hidden" id="qnaNo" name="qnaNo" value="${qna.qnaNo}">
                                         </form>
                                     </td>

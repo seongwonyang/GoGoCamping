@@ -6,15 +6,15 @@
 			<div class="row h-100">
 				<div class="col-lg-9 mx-auto text-center mt-7 mb-5">
 					<div class="hero__search">
-						<form method="post" action="UpdateProduct" enctype="multipart/form-data">
+						<form method="post" action="/seller/updateProduct" enctype="multipart/form-data">
 						<br><h3 style="font-weight: 700;">상품 정보 수정</h3><br><br>
 						<div class="filter__sort">
-                            <select id="categorySelect">
+                            <select id="categorySelect" required="required">
                                <c:forEach items="${categoryList }" var="category">
                                   <option value="${category.categoryName }">${category.categoryName }</option>
                                </c:forEach>
                             </select>
-                            <select id = "categorySelectDetail" name="categorySelectDetail" style="border: 2.5px solid #065E93; border-radius: 10px;">
+                            <select id = "categorySelectDetail" name="categorySelectDetail" style="border: 2.5px solid #065E93; border-radius: 10px;" required="required">
                             </select>
                         </div>
 						<img style="width: 444px; height: 120px;" src="/static/image/seller_logo/${sessionScope.loginVO.logoImgStored}">
@@ -42,7 +42,7 @@
 			    	$("#categorySelectDetail").empty();
 			    	$.ajax({
 			        type:"get",
-			        url:"getDetailCategoryList",
+			        url:"/category/getDetailCategoryList",
 			        dataType:"json",
 			        data: "category="+category,
 			        success : function(detailCategoryList){

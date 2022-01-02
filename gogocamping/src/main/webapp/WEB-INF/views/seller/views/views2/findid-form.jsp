@@ -12,21 +12,21 @@
 							<input type="text" id="businessNumber" name="businessNumber" placeholder="  사업자 번호" required="required" style="width: 444px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;"><br><br>
 							<button type="button" id="findIdBtn" class="site-btn" style="width: 444px; height: 50px; background-color: #065E93; border-radius: 10px;">아이디 찾기</button><br><br>
 							<span id="findIdResult" style="color: red">${text}</span><br><br>
-							<a href="findSellerPwForm" id="findPwLink" style="color: #065E93">${text}</a><br><br>							
+							<a href="/seller/findSellerPwForm" id="findPwLink" style="color: #065E93">${text}</a><br><br>							
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="<c:url value='js/core.min.js'/>"></script>
-		<script type="text/javascript" src="<c:url value='js/sha256.min.js'/>"></script>
+		<script type="text/javascript" src="<c:url value='/js/core.min.js'/>"></script>
+		<script type="text/javascript" src="<c:url value='/js/sha256.min.js'/>"></script>
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 	   	<script type="text/javascript">
 	   		$(function(){
 	   			$("#findIdBtn").click(function(){
 	   				$.ajax({
 	   	               type:"get",
-	   	               url:"findSellerIdByBusinessNo",
+	   	               url:"/seller/findSellerIdByBusinessNo",
 	   	               data:"sellerName="+$("#sellerName").val()+"&businessNumber="+$("#businessNumber").val(),
 	   	               success:function(result){
 	   	                  if(result=="") {
