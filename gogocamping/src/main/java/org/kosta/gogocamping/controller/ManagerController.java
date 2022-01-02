@@ -98,7 +98,7 @@ public class ManagerController {
 		model.addAttribute("sellerList", sellerList);
 		model.addAttribute("adminSellerList", adminSellerList);
 		
-		return "manager/views/register-admin.tiles";
+		return "redirect:/manager/registerAdmin";
 	}
 	
 	// 브랜드별 후기 리스트 출력

@@ -169,7 +169,7 @@ public class CustomerController {
 		model.addAttribute("allProductList", productMapper.getAllProductList(map)); // 전체 상품 리스트
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
-		return "home.tiles";
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/findPasswordForm")

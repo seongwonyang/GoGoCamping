@@ -354,14 +354,12 @@
 function changeQnAOption() {
 	let o = document.getElementById("qnaOption");
 	let option = o.options[o.selectedIndex].value; 
-	alert(option);
 	location.href = "/product/getProductDetailInfo?productId="+'${productVO.productId}'+"&sortOption="+option;
 }
 
 function changeReviewOption(){
 	let o = document.getElementById("reviewOption");
 	let option = o.options[o.selectedIndex].value;
-	alert(option);
 	location.href = "/product/getProductDetailInfo?productId="+'${productVO.productId}'+"&sortOption="+option;
 }
 

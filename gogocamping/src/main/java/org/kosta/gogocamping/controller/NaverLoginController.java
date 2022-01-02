@@ -42,7 +42,7 @@ public class NaverLoginController {
 	private CustomerMapper customerMapper;
 	
 	//네이버 로그인
-	@RequestMapping("callback")
+	@RequestMapping("/callback")
 	@Transactional
 	public String naverCallback(HttpSession session, HttpServletRequest request, Model model)
 			throws IOException, ParseException {
@@ -164,7 +164,7 @@ public class NaverLoginController {
 		return res;
 	}
 	//네이버 회원가입
-	@RequestMapping("naverRegisterCustomer")
+	@RequestMapping("/naverRegisterCustomer")
 	public String naverRegisterCustomer(String customerId, String customerName, String customerEmail, String customerTel, String customerBirth, String customerPostNumber, String customerAddress, String customerDetailedAddress) {
 		naverLoginMapper.naverRegisterCustomer(customerId, customerName, customerEmail, customerTel, customerBirth, customerPostNumber, customerAddress, customerDetailedAddress);
 		return "customer/naver-login.tiles";

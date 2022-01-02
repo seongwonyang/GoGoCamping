@@ -10,18 +10,18 @@
 						<br>
 						<h3 style="font-weight: 700;">네이버 회원 가입</h3><br><br>
 						<form action="/naverRegisterCustomer" method="post">
-						<input type="hidden" name="customerId" id="customerId" value="${naverId}">
-						<input type="text" name="customerName"  value="${name}" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<input type="text" name="customerEmail"  value="${email}" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br> 
-						<input type="text" name="customerTel" value="${phone}" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<h5 style="font-weight: 700;">생년월일</h5><br> 
-						<input type="date" name="customerBirth" placeholder="  생일" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<h5 style="font-weight: 700;">주소</h5><br> 
-						<input type="text" id="customerPostNumber" name="customerPostNumber" placeholder="  우편번호" required="required" readonly="readonly" style="width: 344px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;">
-						<button type="button" class="site-btn" id="address_kakao" style="height: 50px; background-color: #245207; border-radius: 10px; border-radius: 10px;">주소검색</button><br><br>
-						<input type="text" id="customerAddress" name="customerAddress" placeholder="  주소" required="required" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<input type="text" id="customerDetailedAddress" name="customerDetailedAddress" placeholder="  상세주소" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<button type="submit" class="site-btn" id="hash" style="height: 50px; background-color: #245207; border-radius: 10px;">가입하기</button><br><br>
+							<input type="hidden" name="customerId" id="customerId" value="${naverId}">
+							<input type="text" name="customerName"  value="${name}" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
+							<input type="text" name="customerEmail"  value="${email}" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br> 
+							<input type="text" name="customerTel" value="${phone}" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
+							<h5 style="font-weight: 700;">생년월일</h5><br> 
+							<input type="date" name="customerBirth" placeholder="  생일" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
+							<h5 style="font-weight: 700;">주소</h5><br> 
+							<input type="text" id="customerPostNumber" name="customerPostNumber" placeholder="  우편번호" required="required" readonly="readonly" style="width: 344px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;">
+							<button type="button" class="site-btn" id="address_kakao" style="height: 50px; background-color: #245207; border-radius: 10px; border-radius: 10px;">주소검색</button><br><br>
+							<input type="text" id="customerAddress" name="customerAddress" placeholder="  주소" required="required" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
+							<input type="text" id="customerDetailedAddress" name="customerDetailedAddress" placeholder="  상세주소" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
+							<button type="submit" class="site-btn" id="hash" style="height: 50px; background-color: #245207; border-radius: 10px;">가입하기</button><br><br>
 						</form>
 					</div>
 				</div>

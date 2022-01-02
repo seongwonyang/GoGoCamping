@@ -11,24 +11,24 @@
 						<br>
 						<h3 style="font-weight: 700;">회원 가입 정보</h3><br><br>
 						<form action="/customer/register" method="post" onsubmit="alert('회원가입이 완료되었습니다.')">
-						<input type="text" name="customerId" id="customerId" placeholder="  아이디" required="required" style="width: 300px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;">
-						<button type="button" class="site-btn" id="checkId" style="height: 50px; background-color: #245207; border-radius: 10px;">아이디중복확인</button><br>
-						<span id="checkIdResult"></span><br>
-						<input type="password" name="customerPassword" id="customerPassword" placeholder="  비밀번호" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;" onkeyup="passwordStrength()"><br>
-						<span id="strengthPassword" ></span><br>
-						<input type="password" name="customerPwck" id="customerPwck" placeholder="  비밀번호 확인" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;" onkeyup="checkPassword()"><br>
-						<span id="checkPassword"></span><br>
-						<input type="text" name="customerName" placeholder="  이름" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<input type="email" name="customerEmail" placeholder="  이메일" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br> 
-						<input type="text" name="customerTel" placeholder="  전화번호 ex) 010-1234-5678" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<h5 style="font-weight: 700;">생년월일</h5><br> 
-						<input type="date" name="customerBirth" placeholder="  생일" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<h5 style="font-weight: 700;">주소</h5><br> 
-						<input type="text" id="customerPostNumber" name="customerPostNumber" placeholder="  우편번호" required="required" readonly="readonly" style="width: 344px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;">
-						<button type="button" class="site-btn" id="address_kakao" style="height: 50px; background-color: #245207; border-radius: 10px; border-radius: 10px;">주소검색</button><br><br>
-						<input type="text" id="customerAddress" name="customerAddress" placeholder="  주소" required="required" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<input type="text" id="customerDetailedAddress" name="customerDetailedAddress" placeholder="  상세주소" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-						<button type="submit" class="site-btn" id="hash" style="height: 50px; background-color: #245207; border-radius: 10px;">가입하기</button><br><br>
+							<input type="text" name="customerId" id="customerId" placeholder="  아이디" required="required" style="width: 300px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;">
+							<button type="button" class="site-btn" id="checkId" style="height: 50px; background-color: #245207; border-radius: 10px;">아이디중복확인</button><br>
+							<span id="checkIdResult"></span><br>
+							<input type="password" name="customerPassword" id="customerPassword" placeholder="  비밀번호" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;" onkeyup="passwordStrength()"><br>
+							<span id="strengthPassword" ></span><br>
+							<input type="password" name="customerPwck" id="customerPwck" placeholder="  비밀번호 확인" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;" onkeyup="checkPassword()"><br>
+							<span id="checkPassword"></span><br>
+							<input type="text" name="customerName" placeholder="  이름" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
+							<input type="email" name="customerEmail" placeholder="  이메일" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br> 
+							<input type="text" name="customerTel" placeholder="  전화번호 ex) 010-1234-5678" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
+							<h5 style="font-weight: 700;">생년월일</h5><br> 
+							<input type="date" name="customerBirth" placeholder="  생일" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
+							<h5 style="font-weight: 700;">주소</h5><br> 
+							<input type="text" id="customerPostNumber" name="customerPostNumber" placeholder="  우편번호" required="required" readonly="readonly" style="width: 344px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;">
+							<button type="button" class="site-btn" id="address_kakao" style="height: 50px; background-color: #245207; border-radius: 10px; border-radius: 10px;">주소검색</button><br><br>
+							<input type="text" id="customerAddress" name="customerAddress" placeholder="  주소" required="required" readonly="readonly" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
+							<input type="text" id="customerDetailedAddress" name="customerDetailedAddress" placeholder="  상세주소" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
+							<button type="submit" class="site-btn" id="hash" style="height: 50px; background-color: #245207; border-radius: 10px;">가입하기</button><br><br>
 						</form>
 					</div>
 				</div>

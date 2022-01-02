@@ -22,6 +22,6 @@ public class HandlerInterceptorConfigure implements WebMvcConfigurer {
       .excludePathPatterns("/",  "/css/**",  "/fonts/**",  "/img/**", "/image/**",  "/js/**",  "/sass/**", "/product/**", "/category/**", "/customer/**", 
     		  "/seller/home", "/seller/registerForm", "/seller/findSellerById", "/seller/register", "/seller/registerResultPage", "/seller/findSellerIdForm", "/seller/findSellerIdByBusinessNo", "/seller/findSellerPwForm",
     		  "/seller/findSellerPwByBusinessNo", "/seller/emailCode", "/seller/resetPasswordForm", "/seller/resetSellerPassword", "/seller/loginForm", "/seller/login", 
-    		  "/manager/home", "/manager/loginForm", "/manager/login"); // 이 요청 경로들은 제외한다 
+    		  "/manager/home", "/manager/loginForm", "/manager/login", "/callbackKaKao"); // 이 요청 경로들은 제외한다 
    }
 }

@@ -13,7 +13,7 @@
 							<input type="text" id="businessNumber" name="businessNumber" placeholder="  사업자 번호" required="required" style="width: 444px; height: 50px; border: 2.5px solid #065E93; border-radius: 10px;"><br><br>
 							<button type="button" id="findPwBtn" class="site-btn" style="width: 444px; height: 50px; background-color: #065E93; border-radius: 10px;">비밀번호 찾기</button><br><br>
 							<span id="findPwResult" style="color: red">${text}</span><br><br>
-							<a href="findSellerPwForm" id="findPwLink" style="color: #065E93">${text}</a><br><br>							
+							<a href="/seller/findSellerPwForm" id="findPwLink" style="color: #065E93">${text}</a><br><br>							
 						</div>
 					</div>
 				</div>
@@ -30,6 +30,7 @@
 	   	               url:"/seller/findSellerPwByBusinessNo",
 	   	               data:"sellerId="+$("#sellerId").val()+"&sellerName="+$("#sellerName").val()+"&businessNumber="+$("#businessNumber").val(),
 	   	               success:function(result){
+	   	            	  alert(result);
 	   	                  if(result=="회원 정보가 일치하지 않습니다.") {
 	   	                     $("#findPwResult").text(result);
 	   	                  }else {

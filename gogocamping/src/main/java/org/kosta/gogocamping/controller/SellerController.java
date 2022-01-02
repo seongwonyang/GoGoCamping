@@ -157,6 +157,7 @@ public class SellerController {
 		SellerVO sellerVO = new SellerVO(sellerId, null, sellerName, null, null, businessNumber, null, null, null, null,
 				null, null, 0);
 		SellerVO sellerPw = sellerMapper.findSellerPwByBusinessNo(sellerVO);
+		System.out.println(sellerPw);
 		if (sellerPw == null) {
 			return "회원 정보가 일치하지 않습니다.";
 		} else {
@@ -198,7 +199,7 @@ public class SellerController {
 		session.removeAttribute("sellerId");
 		SellerVO sellerVO = new SellerVO(sellerId, sellerPassword);
 		sellerMapper.updatePassword(sellerVO);
-		return "home.tiles";
+		return "/seller/home";
 	}
 
 	@RequestMapping("/loginForm") // 판매자 로그인 폼
@@ -331,7 +332,7 @@ public class SellerController {
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
-		return "sellerHome.tiles";
+		return "redirect:/seller/home";
 	}
 
 	@RequestMapping("/QnAList") // 고객 문의 목록
@@ -363,11 +364,10 @@ public class SellerController {
 		if(session.getAttribute("sellerVO")==null) {
 			return "seller/views/views2/seller-login-form.tiles";
 		}else {
-			
 			SellerVO sellerVO = (SellerVO)session.getAttribute("sellerVO");
 			qnaMapper.answerQnA(qnaVO);
 			model.addAttribute("getQnAList", qnaMapper.getQnAList(sellerVO.getSellerId()));
-			return "seller/views/views2/qna-list.tiles";
+			return "redirect:/seller/QnAList";
 		}
 	}
 	
@@ -389,9 +389,8 @@ public class SellerController {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("sellerVO")==null) {
 			return "noSession";
-		}else {
-			try {
-				
+		} else {
+			try {		
 				Map<String, Object> orderMap = new HashMap<>();
 				orderMap.put("orderDetailNo", orderDetailNo);
 				if("주문완료".equals(deliveryStatus)) {
@@ -403,8 +402,8 @@ public class SellerController {
 				}
 				orderMap.put("deliveryStatus", deliveryStatus);
 				productMapper.updateDeliveryStatus(orderMap);
+				
 				return deliveryStatus;
-			
 			} catch (Exception e) {
 				//System.out.println(e.getMessage());
 				return "배송상태 변경 실패";
@@ -421,7 +420,7 @@ public class SellerController {
 		} else {
 			List<OrderDetailVO> totalSoldList = sellerMapper.getTotalSoldList(sellerVO.getSellerId());
 			model.addAttribute("totalSoldList", totalSoldList);
-			// System.out.println(sellerMapper.getTotalSoldList(sellerId));
+
 			return "seller/views/views2/total-sold-list.tiles";
 		}
 	}
@@ -439,6 +438,7 @@ public class SellerController {
 		List<OrderDetailVO> totalSoldList = sellerMapper.getTotalSoldOrderListByDate(map);
 		System.out.println(totalSoldList);
 		model.addAttribute("totalSoldList", totalSoldList);
+		
 		return totalSoldList;
 	}
 	

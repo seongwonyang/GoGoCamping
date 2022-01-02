@@ -6,16 +6,16 @@
          <div class="row h-100">
             <div class="col-lg-9 mx-auto text-center mt-7 mb-5">
                <div class="hero__search">
-                        <div class="#">
-                           <br><h3 style="font-weight: 700;">비밀번호 재설정</h3><br><br>
-                           <form action="/customer/resetCustomerPassword" method="post">
-                        		<input type="text" name="customerId" id="customerId" placeholder=" 아이디" value="${sessionScope.checkId.customerId}" readonly="readonly" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
-                        		<input type="password" name="customerPassword" id="customerPassword" placeholder="  비밀번호" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;" onkeyup="passwordStrength()"><br>
-								<span id="strengthPassword" ></span><br>
-								<input type="password" name="customerPwck" id="customerPwck" placeholder="  비밀번호 확인" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;" onkeyup="checkPassword()"><br>
-								<span id="checkPassword"></span><br>
-								<button type="submit" class="site-btn" id="resetPassword" style="width: 444px; height: 50px; background-color: #245207; border-radius: 10px;">비밀번호 변경</button>
-                           </form>
+                 <div class="#">
+                     <br><h3 style="font-weight: 700;">비밀번호 재설정</h3><br><br>
+                     <form action="/customer/resetCustomerPassword" method="post">
+                   		<input type="text" name="customerId" id="customerId" placeholder=" 아이디" value="${sessionScope.checkId.customerId}" readonly="readonly" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;"><br><br>
+                   		<input type="password" name="customerPassword" id="customerPassword" placeholder="  비밀번호" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;" onkeyup="passwordStrength()"><br>
+						<span id="strengthPassword" ></span><br>
+						<input type="password" name="customerPwck" id="customerPwck" placeholder="  비밀번호 확인" required="required" style="width: 445px; height: 50px; border: 2.5px solid #245207; border-radius: 10px;" onkeyup="checkPassword()"><br>
+						<span id="checkPassword"></span><br>
+						<button type="submit" class="site-btn" id="resetPassword" style="width: 444px; height: 50px; background-color: #245207; border-radius: 10px;">비밀번호 변경</button>
+                      </form>
                   </div>
                </div>
             </div>
