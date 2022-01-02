@@ -83,8 +83,8 @@
                             <div class="header__top__right__language">
                             	<div class="header__top__right__auth">
                                 <c:choose>
-	                        		<c:when test="${sessionScope.loginVO != null}">	                        			
-	                           			${sessionScope.loginVO.sellerName} 님 환영합니다!
+	                        		<c:when test="${sessionScope.sellerVO != null}">	                        			
+	                           			${sessionScope.sellerVO.sellerName} 님 환영합니다!
 	                        		</c:when>
 	                        		<c:otherwise>	                        		
 	                           			<a href="/seller/registerForm"><i class="fa fa-user" style="color: #1c1c1c; "></i> Register</a>
@@ -94,8 +94,8 @@
                             </div>
 	                        <div class="header__top__right__auth">
 	                        	<c:choose>
-	                        		<c:when test="${sessionScope.loginVO != null}">	                        			
-	                           			<a href="javascript:sellerLogout()"><i class="fa fa-user"></i>${sessionScope.loginVO.sellerId}</a>
+	                        		<c:when test="${sessionScope.sellerVO != null}">	                        			
+	                           			<a href="javascript:sellerLogout()"><i class="fa fa-user"></i>${sessionScope.sellerVO.sellerId}</a>
 	                        		</c:when>
 	                        		<c:otherwise>	                        		
 	                           			<a href="/seller/loginForm"><i class="fa fa-user"></i> Login</a>
@@ -117,10 +117,20 @@
                 <div class="col-lg-9" style="margin-top: 30px;">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="/seller/registerProductForm" style="color: #065E93">상품 등록</a></li>
-                            <li><a href="/seller/QnAList" style="color: #065E93">고객 문의 관리</a></li>
-                            <li><a href="/seller/orderList" style="color: #065E93">현재 주문 내역</a></li>
-                            <li><a href="/seller/totalSoldList" style="color: #065E93">전체 판매 내역</a></li>
+                        	<c:choose>
+	                        	<c:when test="${sessionScope.sellerVO != null}">
+		                            <li><a href="/seller/registerProductForm" style="color: #065E93">상품 등록</a></li>
+		                            <li><a href="/seller/QnAList" style="color: #065E93">고객 문의 관리</a></li>
+		                            <li><a href="/seller/orderList" style="color: #065E93">현재 주문 내역</a></li>
+		                            <li><a href="/seller/totalSoldList" style="color: #065E93">전체 판매 내역</a></li>
+		                        </c:when>
+		                        <c:otherwise>
+		                        	<li><a href="#" style="color: #065E93">상품 등록</a></li>
+		                            <li><a href="#" style="color: #065E93">고객 문의 관리</a></li>
+		                            <li><a href="#" style="color: #065E93">현재 주문 내역</a></li>
+		                            <li><a href="#" style="color: #065E93">전체 판매 내역</a></li>
+		                        </c:otherwise>
+	                        </c:choose>
                         </ul>
                     </nav>
                 </div>

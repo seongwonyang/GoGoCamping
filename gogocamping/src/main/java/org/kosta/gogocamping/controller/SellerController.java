@@ -51,10 +51,10 @@ public class SellerController {
 	@RequestMapping("/home") // 판매자 메인 페이지
 	public String home(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-		if (session.getAttribute("loginVO") == null) {
+		if (session.getAttribute("sellerVO") == null) {
 			return "seller/views/views2/seller-login-form.tiles";
 		}else {
-			SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			SellerVO sellerVO = (SellerVO)session.getAttribute("sellerVO");
 			model.addAttribute("getSellerProductList", productMapper.getSellerProductList(sellerVO.getSellerId()));
 			return "sellerHome.tiles";			
 		}
@@ -216,7 +216,7 @@ public class SellerController {
 
 		if (loginVO != null && loginVO.getRegisterAdmin() == 1) {
 			HttpSession session = request.getSession(false);
-			session.setAttribute("loginVO", loginVO);
+			session.setAttribute("sellerVO", loginVO);
 			return "로그인성공";
 		} else if (loginVO != null && loginVO.getRegisterAdmin() == 0) {
 			return "가입 승인이 이루어지지 않았습니다.";
@@ -236,7 +236,7 @@ public class SellerController {
 	@RequestMapping("/registerProductForm") // 상품 등록 폼
 	public String registerProductForm(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-		if (session.getAttribute("loginVO") == null) {
+		if (session.getAttribute("sellerVO") == null) {
 			return "seller/views/views2/seller-login-form.tiles";
 		}else {
 			model.addAttribute("categoryList", categoryMapper.getCategoryList());
@@ -247,10 +247,10 @@ public class SellerController {
 	@RequestMapping("/updateProductForm") // 상품 수정 폼
 	public String updateProductForm(HttpServletRequest request, Model model, int productId) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("loginVO")==null) {
+		if(session.getAttribute("sellerVO")==null) {
 			return "seller/views/views2/seller-login-form.tiles";
 		}else {
-			SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			SellerVO sellerVO = (SellerVO)session.getAttribute("sellerVO");
 			model.addAttribute("getSellerProductList", productMapper.getSellerProductList(sellerVO.getSellerId()));
 			model.addAttribute("categoryList", categoryMapper.getCategoryList());
 			model.addAttribute("getProductInfo", productMapper.getProductInfo(productId));
@@ -262,7 +262,7 @@ public class SellerController {
 	public String registerProduct(String productName, int price, String productInfo, int stock, String categorySelectDetail,
 			@RequestParam("productImg") MultipartFile productImgFile, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+		SellerVO sellerVO = (SellerVO)session.getAttribute("sellerVO");
 		int categoryNo = categoryMapper.getCategoryNoByDetailCategoryName(categorySelectDetail);
 		CategoryVO categoryVO = new CategoryVO(categoryNo, null, null);
 		try {
@@ -300,7 +300,7 @@ public class SellerController {
 	public String updateProduct(String productName, int price, String productInfo, int stock, String categorySelectDetail, int productId,
 			@RequestParam("productImg") MultipartFile productImgFile, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+		SellerVO sellerVO = (SellerVO)session.getAttribute("sellerVO");
 		int categoryNo = categoryMapper.getCategoryNoByDetailCategoryName(categorySelectDetail);
 		CategoryVO categoryVO = new CategoryVO(categoryNo, null, null);
 		try {
@@ -337,10 +337,10 @@ public class SellerController {
 	@RequestMapping("/QnAList") // 고객 문의 목록
 	public String getQnAList(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-		if (session.getAttribute("loginVO") == null) {
+		if (session.getAttribute("sellerVO") == null) {
 			return "seller/views/views2/seller-login-form.tiles";
 		}else {
-			SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			SellerVO sellerVO = (SellerVO)session.getAttribute("sellerVO");
 			model.addAttribute("getQnAList", qnaMapper.getQnAList(sellerVO.getSellerId()));
 			return "seller/views/views2/qna-list.tiles";
 		}
@@ -349,10 +349,9 @@ public class SellerController {
 	@RequestMapping("/QnAAnswerForm") // 고객 문의 답변 폼
 	public String answerQnAForm(HttpServletRequest request, Model model, int qnaNo) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("loginVO")==null) {
+		if(session.getAttribute("sellerVO")==null) {
 			return "seller/views/views2/seller-login-form.tiles";
 		}else {
-			// SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
 			model.addAttribute("getQnAListByNo", qnaMapper.getQnAListByNo(qnaNo));
 			return "seller/views/views2/qna-answer-form.tiles";
 		}
@@ -361,11 +360,11 @@ public class SellerController {
 	@RequestMapping("/QnAAnswer") // 답변 등록
 	public String answerQnA(HttpServletRequest request, Model model, QnAVO qnaVO) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("loginVO")==null) {
+		if(session.getAttribute("sellerVO")==null) {
 			return "seller/views/views2/seller-login-form.tiles";
 		}else {
 			
-			SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			SellerVO sellerVO = (SellerVO)session.getAttribute("sellerVO");
 			qnaMapper.answerQnA(qnaVO);
 			model.addAttribute("getQnAList", qnaMapper.getQnAList(sellerVO.getSellerId()));
 			return "seller/views/views2/qna-list.tiles";
@@ -375,10 +374,10 @@ public class SellerController {
 	@RequestMapping("/orderList") // 현재 주문 내역 리스트
 	public String getOrderList(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("loginVO")==null) {
+		if(session.getAttribute("sellerVO")==null) {
 			return "seller/views/views2/seller-login-form.tiles";
 		}else {
-			SellerVO sellerVO = (SellerVO)session.getAttribute("loginVO");
+			SellerVO sellerVO = (SellerVO)session.getAttribute("sellerVO");
 			model.addAttribute("getOrderList", productMapper.getOrderList(sellerVO.getSellerId()));
 			return "seller/views/views2/order-list.tiles";
 		}
@@ -388,7 +387,7 @@ public class SellerController {
 	@ResponseBody
 	public String updateDeliveryStatus(HttpServletRequest request, Model model, int orderDetailNo, String deliveryStatus) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("loginVO")==null) {
+		if(session.getAttribute("sellerVO")==null) {
 			return "noSession";
 		}else {
 			try {
@@ -416,8 +415,8 @@ public class SellerController {
 	@RequestMapping("/totalSoldList") // 전체 판매 내역 리스트
 	public String totalSoldOrderList(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-		SellerVO sellerVO = (SellerVO) session.getAttribute("loginVO");
-		if (session.getAttribute("loginVO") == null) {
+		SellerVO sellerVO = (SellerVO) session.getAttribute("sellerVO");
+		if (session.getAttribute("sellerVO") == null) {
 			return "seller/views/views2/seller-login-form.tiles";
 		} else {
 			List<OrderDetailVO> totalSoldList = sellerMapper.getTotalSoldList(sellerVO.getSellerId());
