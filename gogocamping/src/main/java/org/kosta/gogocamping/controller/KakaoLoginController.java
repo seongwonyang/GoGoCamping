@@ -34,7 +34,7 @@ public class KakaoLoginController {
 	private CustomerMapper customerMapper;
 	
 	//카카오 로그인
-	@RequestMapping("callbackKaKao")
+	@RequestMapping("/callbackKaKao")
 	@Transactional
 	public String callackKaKao(HttpSession session, HttpServletRequest request, Model model) {
 		String customerId = request.getParameter("kakaoId");
@@ -69,7 +69,7 @@ public class KakaoLoginController {
 			model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 			session.setAttribute("loginVO", customerVO);
 			session.setAttribute("kakaoVO", kvo);
-			return "home.tiles";
+			return "redirect:/";
 		}
 	}
 	//카카오 회원가입

@@ -8,19 +8,19 @@
          <div class="row h-100">
             <div class="col-lg-9 mx-auto text-center mt-7 mb-5">
                <div class="hero__search">
-                   	<h4>카카오 아이디로 가입 완료</h4><br><br>
-                   	<h5>버튼을 클릭하여 로그인하여 주시기 바랍니다.</h5><br><br>
+                  	<h4>카카오 아이디로 가입 완료</h4><br><br>
+                  	<h5>버튼을 클릭하여 로그인하여 주시기 바랍니다.</h5><br><br>
                    	<form action="/callbackKaKao" id="callbackKaKao" method="post">
-         		<div id="kakaologin">
-					<div class="kakaobtn">
-						<input type="hidden" name="kakaoId" id="kakaoId" value=""/>
-						<input type="hidden" name="kakaoEmail" id="kakaoEmail" value=""/>
-						<input type="hidden" name="kakaoName" id="kakaoName" value=""/>
-						<a href="javascript:kakaoLogin();"> <img src="img/kakao_login_medium_narrow.png" /></a>
-					</div>
-			  </div>
-			  </form>
-                 	<br> <img src="/img/카카오가입.png" alt="">
+		         		 <div id="kakaologin">
+							<div class="kakaobtn">
+								<input type="hidden" name="kakaoId" id="kakaoId" value=""/>
+								<input type="hidden" name="kakaoEmail" id="kakaoEmail" value=""/>
+								<input type="hidden" name="kakaoName" id="kakaoName" value=""/>
+								<a href="javascript:kakaoLogin();"> <img src="/img/kakao_login_medium_narrow.png" /></a>
+							</div>
+					 	 </div>
+			  		</form>
+                 <br><img src="/img/카카오가입.png" alt="">
                </div>
             </div>
          </div>

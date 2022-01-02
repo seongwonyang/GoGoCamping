@@ -43,31 +43,11 @@ create table naver_login(
 );
 ALTER TABLE customer MODIFY customer_password NULL;
 
-
---네이버 로그인
-create table naver_login(
-	customer_id varchar2(100) primary key,
-	customer_name varchar2(100) not null,
-	naver_email varchar2(100) not null
-)
-select naver_id from naver_login where naver_email='ch3655@jr.naver.com'
-
-drop table naver_login
-
 --카카오 로그인
 create table kakao_login(
 	customer_id varchar2(100) primary key,
 	customer_name varchar2(100) not null,
 	kakao_email varchar2(100) not null
-)
-
-drop table naver_login
-
--- 카카오 로그인
-create table kakao_login(
-   customer_id varchar2(100) primary key,
-   customer_name varchar2(100) not null,
-   kakao_email varchar2(100) not null
 )
 
 drop table manager;

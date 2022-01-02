@@ -70,7 +70,7 @@
 							$("#checkLogin").text(result);
 						}
 						else{
-							$(location).attr('href','/')
+							$(location).attr('href','/');
 						}
 					}
 				});//ajax

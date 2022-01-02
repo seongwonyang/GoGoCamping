@@ -104,7 +104,7 @@ public class CartController {
 	
 	@RequestMapping("/insertProductInCart") 
 	@ResponseBody
-	public void insertProductInCart(HttpServletRequest request, int productId, int productCount) { // 장바구니 담기 HttpSession session =
+	public void insertProductInCart(HttpServletRequest request, int productId, int productCount) { // 장바구니 담기 
 		HttpSession session = request.getSession(false);
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
 		  

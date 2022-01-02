@@ -204,7 +204,7 @@ $(function(){
 					data: {"checkedDeleteList" : checkedDeleteList},
 					success:function(result){
 						if(result) {
-							location.replace("getProductListInCart"); // 새로고침
+							location.replace("/cart/list"); // 새로고침
 						} else {
 							alert("삭제 실패");
 						}//else

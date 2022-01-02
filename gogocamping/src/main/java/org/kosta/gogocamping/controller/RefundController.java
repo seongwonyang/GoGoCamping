@@ -62,7 +62,7 @@ public class RefundController{
 		model.addAttribute("orderList", list);
 		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
 		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
-		return "customer/customer-orderCheck.tiles";
+		return "redirect:/order/orderCheck";
 	}
 	
 }
