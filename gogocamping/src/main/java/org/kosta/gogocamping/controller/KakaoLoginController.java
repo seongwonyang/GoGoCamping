@@ -58,7 +58,7 @@ public class KakaoLoginController {
 		}
 	}
 	//카카오 회원가입
-	@RequestMapping("kakaoRegisterCustomer")
+	@RequestMapping("/kakaoRegisterCustomer")
 	public String naverRegisterCustomer(String customerId, String customerName, String customerEmail, String customerTel, String customerBirth, String customerPostNumber, String customerAddress, String customerDetailedAddress) {
 		kakaoLoginMapper.kakaoRegisterCustomer(customerId, customerName, customerEmail, customerTel, customerBirth, customerPostNumber, customerAddress, customerDetailedAddress);
 		return "customer/kakao-login.tiles";
