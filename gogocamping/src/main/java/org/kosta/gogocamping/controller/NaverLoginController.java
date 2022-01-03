@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,7 +16,6 @@ import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 import org.kosta.gogocamping.model.domain.CustomerVO;
 import org.kosta.gogocamping.model.domain.NaverLoginVO;
-import org.kosta.gogocamping.model.domain.PagingBean;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
 import org.kosta.gogocamping.model.mapper.CustomerMapper;
 import org.kosta.gogocamping.model.mapper.NaverLoginMapper;
@@ -87,26 +85,10 @@ public class NaverLoginController {
 						return "customer/naver-register.tiles";
 					}else {
 						CustomerVO customerVO = customerMapper.findCustomerId(customerId); 
-						
 						model.addAttribute("isConnectedToNaver", true);
-						int totalCount = productMapper.getAllProductCount();
-						PagingBean pagingBean = new PagingBean(totalCount);
-
-						int startRowNumber = pagingBean.getStartRowNumber();
-						int endRowNumber = pagingBean.getEndRowNumber();
-
-						Map<String, Object> map = new HashMap<>();
-						map.put("startRowNumber", startRowNumber);
-						map.put("endRowNumber", endRowNumber);
-						map.put("option", "");
-						
-						model.addAttribute("pagingBean", pagingBean);
-						model.addAttribute("allProductList", productMapper.getAllProductList(map)); // 전체 상품 리스트
-						model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-						model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 						session.setAttribute("loginVO", customerVO);
 						session.setAttribute("naverVO", nvo);
-						return "home.tiles";
+						return "redirect:/";
 					}
 				}
 			}

@@ -19,7 +19,6 @@ public class HomeController {
 	private ProductMapper productMapper;
 	@Resource
 	private SellerMapper sellerMapper;
-	
 	@Resource
 	private CategoryMapper categoryMapper;
 

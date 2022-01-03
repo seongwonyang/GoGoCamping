@@ -69,14 +69,14 @@
                                     <c:when test="${order.deliveryStatus == '배송완료'}">
 	                                    <td class="shoping__cart__price">
 	                                    	<input type="hidden" name="orderDetailNo" id="orderDetailNo" value="${order.orderDetailNo}">
-	                                    	<form id="submitId" action="orderCheck" method="get">
+	                                    	<form id="submitId" action="/order/orderCheck" method="post">
 	                                    		<input type="hidden" name="customerId" id="customerId" value="${sessionScope.loginVO.customerId}">
 	                                    	</form>
 	                                    		<a class="buyConfirm" data-detailno="${order.orderDetailNo}">
 	                                    		<button type="button" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">구매확정</button></a>
 	                                    </td>
 	                                    <td class="shoping__cart__price">
-	                                    	<button type="button" onclick="location.href=/refund/writePage?orderDetailNo='${order.orderDetailNo}'" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">교환/환불</button>
+	                                    	<button type="button" onclick="location.href='/refund/writePage?orderDetailNo=${order.orderDetailNo}'" class="site-btn" style="width: 110px; height: 50px; background-color: #245207; border-radius: 10px;">교환/환불</button>
 	                                    </td>
                                     </c:when>
                                     <c:when test="${order.deliveryStatus == '주문취소'}">

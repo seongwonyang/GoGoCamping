@@ -7,7 +7,7 @@
 			<div class="row h-100">
 				<div class="col-lg-9 mx-auto text-center mt-7 mb-5">
 					<div class="hero__search">				
-						<form method="post" action="refund/write" enctype="multipart/form-data" onsubmit="return checkOption()">
+						<form method="post" action="/refund/write" enctype="multipart/form-data" onsubmit="return checkOption()">
 						   <input type="hidden" name="orderDetailNo" id="orderDetailNo" value="${refundProduct.orderDetailNo }">
 						   <div style="margin-bottom: 40px" >
 						   	 <h4><b>${refundProduct.productVO.productName }</b></h4><br>

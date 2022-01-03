@@ -9,12 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.gogocamping.model.domain.CartVO;
+import org.kosta.gogocamping.model.domain.CategoryVO;
 import org.kosta.gogocamping.model.domain.CustomerVO;
+import org.kosta.gogocamping.model.domain.SellerVO;
 import org.kosta.gogocamping.model.mapper.CartMapper;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
 import org.kosta.gogocamping.model.mapper.SellerMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +32,15 @@ public class CartController {
 	@Resource
 	private CategoryMapper categoryMapper;
 	
+	@ModelAttribute("allBrandList")
+	public List<SellerVO> allBrandList() {
+		return sellerMapper.getAllBrandList(); // 전체 브랜드 리스트
+	}
+	@ModelAttribute("categoryList")
+	public List<CategoryVO> categoryList() {
+		return categoryMapper.getCategoryList(); // 전체 카테고리 리스트
+	}
+	
 	@RequestMapping("/list")
 	public String getProductListInCart(HttpServletRequest request, Model model) { // 장바구니 확인
 		HttpSession session = request.getSession(false);
@@ -36,9 +48,6 @@ public class CartController {
 		
 		model.addAttribute("productListInCart", cartMapper.getProductListInCart(customerVO.getCustomerId())); // 장바구니 목록
 		model.addAttribute("totalCountInCart", cartMapper.getTotalCountInCart(customerVO.getCustomerId())); // 장바구니에 담긴 총 상품수
-		
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		
 		return "customer/cart.tiles";
 	}
@@ -81,9 +90,6 @@ public class CartController {
 			
 		model.addAttribute("productListInCart", cartMapper.getProductListInCart(customerVO.getCustomerId())); // 장바구니 목록
 		model.addAttribute("totalCountInCart", cartMapper.getTotalCountInCart(customerVO.getCustomerId())); // 장바구니에 담긴 총 상품수
-		
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		
 		return "customer/cart.tiles";
 	}

@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.kosta.gogocamping.model.domain.CategoryVO;
 import org.kosta.gogocamping.model.domain.CustomerVO;
 import org.kosta.gogocamping.model.domain.PagingBean;
 import org.kosta.gogocamping.model.domain.ProductVO;
@@ -24,6 +25,7 @@ import org.kosta.gogocamping.model.mapper.SellerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -41,6 +43,15 @@ public class ProductController {
 	private QnAMapper qnaMapper;
 	@Resource
 	private LikesMapper likesMapper;
+	
+	@ModelAttribute("allBrandList")
+	public List<SellerVO> allBrandList() {
+		return sellerMapper.getAllBrandList(); // 전체 브랜드 리스트
+	}
+	@ModelAttribute("categoryList")
+	public List<CategoryVO> categoryList() {
+		return categoryMapper.getCategoryList(); // 전체 카테고리 리스트
+	}
 
 	@Autowired
 	public ProductController(ProductMapper productMapper, CategoryMapper categoryMapper, SellerMapper sellerMapper) {
@@ -74,8 +85,6 @@ public class ProductController {
 		}
 		model.addAttribute("pagingBean", pagingBean);
 		model.addAttribute("option", option);
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 
 		return "home.tiles";
 	}
@@ -96,8 +105,6 @@ public class ProductController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("option", option);
 		model.addAttribute("searchTotalProductCount", totalCount);
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 
 		return "product/search-product.tiles";
 	}
@@ -113,8 +120,6 @@ public class ProductController {
 		model.addAttribute("category", category);
 		model.addAttribute("option", option);
 		model.addAttribute("brandCategoryList", productMapper.getBrandCategroyList(map)); 
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 
 		if(category != "") {
 			if(option.equals("popular")) {
@@ -167,8 +172,6 @@ public class ProductController {
 			model.addAttribute("checkSameProductInLikes", 0);
 		}
 		
-		model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		model.addAttribute("productVO", productVO);
 		model.addAttribute("sellerVO", sellerVO);
 		model.addAttribute("relatedProductList", relatedProductList);

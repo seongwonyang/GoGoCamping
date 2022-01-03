@@ -2,17 +2,20 @@ package org.kosta.gogocamping.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.kosta.gogocamping.model.domain.CategoryVO;
 import org.kosta.gogocamping.model.domain.PagingBean;
+import org.kosta.gogocamping.model.domain.SellerVO;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
 import org.kosta.gogocamping.model.mapper.ProductMapper;
 import org.kosta.gogocamping.model.mapper.SellerMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -25,13 +28,15 @@ public class CategoryController {
 	CategoryMapper categoryMapper;
 	@Resource
 	SellerMapper sellerMapper;
-
-	/*
-	 * @RequestMapping("categoryList") public String getCategoryList(Model model) {
-	 * List<CategoryVO> category = categoryMapper.getCateroryList();
-	 * model.addAttribute("category", category); System.out.println(category);
-	 * return "/header.jsp"; }
-	 */
+	
+	@ModelAttribute("allBrandList")
+	public List<SellerVO> allBrandList() {
+		return sellerMapper.getAllBrandList(); // 전체 브랜드 리스트
+	}
+	@ModelAttribute("categoryList")
+	public List<CategoryVO> categoryList() {
+		return categoryMapper.getCategoryList(); // 전체 카테고리 리스트
+	}
 
 	@RequestMapping("/categoryProduct") // 카테고리(대분류)별 상품조회
 	public String getProductListByCategory(String categoryName, int pageNo, String option, Model model) {
@@ -60,8 +65,6 @@ public class CategoryController {
 	      model.addAttribute("pagingBean", pagingBean);
 	      model.addAttribute("categoryName", categoryName);
 	      model.addAttribute("detailCategoryList", categoryMapper.getDetailCategory(map));
-		  model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		  model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		
 	      return "product/category.tiles";
 	}
@@ -82,8 +85,6 @@ public class CategoryController {
 	      model.addAttribute("categoryName", categoryName);
 	      model.addAttribute("detailCategoryName", detailCategoryName);
 	      model.addAttribute("detailCategoryList", categoryMapper.getDetailCategory(map));
-		  model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-		  model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 		
 		return "product/detail-category.tiles";
 	}
