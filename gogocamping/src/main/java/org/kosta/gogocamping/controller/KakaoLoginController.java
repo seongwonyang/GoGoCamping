@@ -52,21 +52,6 @@ public class KakaoLoginController {
 			return "customer/kakao-register.tiles";
 		}else {
 			CustomerVO customerVO = customerMapper.findCustomerId(customerId); 
-			int totalCount = productMapper.getAllProductCount();
-			PagingBean pagingBean = new PagingBean(totalCount);
-
-			int startRowNumber = pagingBean.getStartRowNumber();
-			int endRowNumber = pagingBean.getEndRowNumber();
-
-			Map<String, Object> map = new HashMap<>();
-			map.put("startRowNumber", startRowNumber);
-			map.put("endRowNumber", endRowNumber);
-			map.put("option", "");
-			
-			model.addAttribute("pagingBean", pagingBean);
-			model.addAttribute("allProductList", productMapper.getAllProductList(map)); // 전체 상품 리스트
-			model.addAttribute("allBrandList", sellerMapper.getAllBrandList()); // 전체 브랜드 리스트
-			model.addAttribute("categoryList", categoryMapper.getCategoryList()); // 전체 카테고리 리스트
 			session.setAttribute("loginVO", customerVO);
 			session.setAttribute("kakaoVO", kvo);
 			return "redirect:/";
