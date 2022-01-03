@@ -35,8 +35,8 @@
 			</div>
 		</div>
 	</div>
-<script type="text/javascript" src="<c:url value='js/core.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='js/sha256.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/core.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/sha256.min.js'/>"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script> 
 <script type="text/javascript">

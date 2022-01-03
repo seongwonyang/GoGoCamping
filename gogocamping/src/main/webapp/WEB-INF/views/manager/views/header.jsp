@@ -28,7 +28,7 @@
                            				<a href="/manager/loginForm"><i class="fa fa-user"></i> Login</a>
                            			</c:when>
                            			<c:otherwise>
-                           				<a id="logout" href="javascript:managerLogout()"><i class="fa fa-user"></i> 관리자 계정</a>
+                           				<a id="logout" href="javascript:managerLogout()">관리자 &nbsp;&nbsp;<i class="fa fa-user"> 로그아웃</i></a>
                            			</c:otherwise>
                            		</c:choose>
 
@@ -45,7 +45,7 @@
                         <a href="/manager/home"><img src="/img/managerLogo.png" alt=""></a>
                     </div>
                 </div>
-                <div class="col-lg-9" style="margin-top: 30px;">
+                <div class="col-lg-9" style="margin-top: 50px;">
                     <nav class="header__menu">
                         <ul>
                         	<c:choose>
@@ -61,7 +61,7 @@
                         </ul>
                     </nav>
                 </div>
-            </div>
+            </div><hr>
             <div class="humberger__open">
                 <i class="fa fa-bars"></i>
             </div>

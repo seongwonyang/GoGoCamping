@@ -181,6 +181,7 @@ public class ProductController {
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("qnaCount", qnaCount);
 		model.addAttribute("option", sortOption);
+		model.addAttribute("categoryName", categoryName);
 		
 		return "product/detail.tiles";
 	}

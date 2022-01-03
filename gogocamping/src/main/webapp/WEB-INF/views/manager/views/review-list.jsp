@@ -26,7 +26,7 @@ th, td {
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="hero__categories">
-					<div class="hero__categories__all">
+					<div class="hero__categories__all" style="background: #585858">
 						<i class="fa fa-bars">
 						</i>
 						<span onclick="openBrandList">Brands</span>

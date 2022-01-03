@@ -663,7 +663,8 @@ ol {
 
 .hero__search {
 	overflow: hidden;
-	margin-top: 40px;
+	margin-top: 0px;
+	margin-bottom: 10px;
 }
 
 .hero__search__form {
