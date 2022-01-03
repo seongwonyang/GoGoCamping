@@ -95,7 +95,7 @@
 	                        <div class="header__top__right__auth">
 	                        	<c:choose>
 	                        		<c:when test="${sessionScope.sellerVO != null}">	                        			
-	                           			<a href="javascript:sellerLogout()"><i class="fa fa-user"></i>${sessionScope.sellerVO.sellerId}</a>
+	                           			<a href="javascript:sellerLogout()"><i class="fa fa-user"></i> 로그아웃</a>
 	                        		</c:when>
 	                        		<c:otherwise>	                        		
 	                           			<a href="/seller/loginForm"><i class="fa fa-user"></i> Login</a>

@@ -172,17 +172,6 @@
                         <a href="/"><img src="/img/logo.png" alt=""></a>
                     </div>
                 </div>
-                <div class="col-lg-9">
-                    <div class="hero__search">
-                        <div class="hero__search__form"><%-- 상품 검색 --%>
-                            <form action="/product/search" method="get" onsubmit="return checkKeyword()">
-                            	<input type="hidden" id="option" name="option" value="">
-                                <input type="text" id="keyword" name="keyword" placeholder="찾으시는 상품을 검색해 보세요!">
-                                <button type="submit" class="site-btn">SEARCH</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="humberger__open">
                 <i class="fa fa-bars"></i>
@@ -208,6 +197,19 @@
                     </div>
                 </div>
                 <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form"><%-- 상품 검색 --%>
+                            <form action="/product/search" method="get" onsubmit="return checkKeyword()">
+                            	<input type="hidden" id="option" name="option" value="">
+                                <input type="text" id="keyword" name="keyword" placeholder="찾으시는 상품을 검색해 보세요!">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div><hr>
+            <div class="row" style="text-align: center;">
+	            <div class="col-lg-12">
                     <nav class="header__menu">
 			            <ul>
 			            <%-- <c:forEach items="${category}" var="category">
@@ -219,7 +221,7 @@
 			            </ul>
                     </nav>
                 </div>
-            </div>
+            </div><hr>
         </div>
     </section>
     <!-- Hero Section End -->
