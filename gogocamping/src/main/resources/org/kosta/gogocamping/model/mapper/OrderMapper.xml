@@ -10,6 +10,7 @@
 	 	<result column="product_id" property="productVO.productId"/>
 	 	<result column="product_name" property="productVO.productName"/>
 	 	<result column="product_img" property="productVO.productImg"/>
+	 	<result column="product_img_stored" property="productVO.productImgStored"/>
 	 	<result column="price" property="productVO.price"/>
 </resultMap>
 <!-- 주문하기 -->
@@ -30,7 +31,7 @@
 
 <!-- 주문조회 -->
 <select id="selectOrderList" resultMap="orderDetailMap">
-	select o.order_no, o.order_date, o.order_detail_no, o.order_date, o.order_count, o.order_price, o.delivery_status, o.refund_check,p.product_id, p.product_name, p.product_img
+	select o.order_no, o.order_date, o.order_detail_no, o.order_date, o.order_count, o.order_price, o.delivery_status, o.refund_check,p.product_id, p.product_name, p.product_img, p.product_img_stored
 	from (select i.order_no, i.order_date, i.customer_id, d.order_count, d.order_price, d.delivery_status, d.refund_check, d.product_id, d.order_detail_no
 	from order_info i , order_detail d
 	where i.order_no = d.order_no) o, product p

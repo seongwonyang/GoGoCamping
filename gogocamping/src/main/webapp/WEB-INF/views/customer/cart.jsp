@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
 	<!-- Breadcrumb Section Begin -->
@@ -53,8 +54,17 @@
                                 		<input type="checkbox" value="${cart.cartNo}" name="chk" checked="checked">
                                 	</td>
                                     <td class="shoping__cart__item">
-                                        <img style="height: 100px; width: 100px;" src="${cart.productVO.productImg}" alt="" onclick="location.href='/product/getProductDetailInfo?productId=${cart.productVO.productId}&sortOption='">
-                                        <h5 onclick="location.href='/product/getProductDetailInfo?productId=${cart.productVO.productId}&sortOption='">${cart.productVO.productName}</h5>
+                                        <div>
+				                        	<c:choose>
+				                        		<c:when test="${fn:startsWith(cart.productVO.productImgStored, 'http')}">
+				                        			<img style="height: 100px; width: 100px;" src="${cart.productVO.productImgStored}" onclick="location.href='/product/getProductDetailInfo?productId=${cart.productVO.productId}&sortOption='">
+				                        		</c:when>
+				                        		<c:otherwise>
+				                        			<img style="height: 100px; width: 100px;" src="../static/image/product_img/${cart.productVO.productImgStored}">
+				                        		</c:otherwise>
+				                        	</c:choose>
+				                        	<h5 onclick="location.href='/product/getProductDetailInfo?productId=${cart.productVO.productId}&sortOption='">${cart.productVO.productName}</h5>
+				                        </div>    
                                     </td>
                                     <td class="shoping__cart__price">
                                     	<fmt:formatNumber value="${cart.productVO.price}" pattern="#,###" />원

@@ -6,11 +6,12 @@
 	<result property="productVO.productId" column="product_id"/>
 	<result property="productVO.productName" column="product_name"/>
 	<result property="productVO.productImg" column="product_img"/>
+	<result property="productVO.productImgStored" column="product_img_stored"/>
 	<result property="productVO.sellerVO.sellerId" column="seller_id"/>
 	<result property="productVO.sellerVO.brand" column="brand"/>
 </resultMap>
 <sql id="selectReview">
-	select r.review_no, r.grade, r.review_content, to_char(r.review_regdate, 'YYYY-MM-DD HH24:MI:SS') as review_regdate, r.customer_id, r.product_id, p.product_name, p.product_img, s.seller_id, s.brand
+	select r.review_no, r.grade, r.review_content, to_char(r.review_regdate, 'YYYY-MM-DD HH24:MI:SS') as review_regdate, r.customer_id, r.product_id, p.product_name, p.product_img, p.product_img_stored, s.seller_id, s.brand
 		from review r, product p, seller s
 		where r.product_id=p.product_id
 		and s.seller_id=p.seller_id

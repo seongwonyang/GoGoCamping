@@ -52,7 +52,15 @@
             	<c:forEach items="${likesList}" var="likes">
 	                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
 	                    <div class="featured__item">
-	                        <div class="featured__item__pic set-bg" data-setbg="${likes.productVO.productImg}" onclick="location.href='/product/getProductDetailInfo?productId=${likes.productVO.productId}&sortOption='">
+	                        <div>
+	                        	<c:choose>
+	                        		<c:when test="${fn:startsWith(likes.productVO.productImgStored, 'http')}">
+	                        			<img src="${likes.productVO.productImgStored}" onclick="location.href='/product/getProductDetailInfo?productId=${likes.productVO.productId}&sortOption='">
+	                        		</c:when>
+	                        		<c:otherwise>
+	                        			<img src="../static/image/product_img/${likes.productVO.productImgStored}" onclick="location.href='/product/getProductDetailInfo?productId=${likes.productVO.productId}&sortOption='">
+	                        		</c:otherwise>
+	                        	</c:choose>
 	                        </div>
 	                        <div class="text-center">
 	                        	<a href="#none" class="heartIcon" data-productid="${likes.productVO.productId}"><img id="heart${likes.productVO.productId}" src="/img/likes/likes.png" class="text-center" style="align:center; width:30px;"></a>

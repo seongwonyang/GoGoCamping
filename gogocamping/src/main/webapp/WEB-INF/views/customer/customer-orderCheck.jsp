@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
 	<div align="center">
@@ -28,10 +29,19 @@
                                 <tr>
                                 	<td class="shoping__cart__prices">
                                 		${order.orderInfoVO.orderNo }<br>
-                                		<img style="height: 100px; width: 100px;" src="${order.productVO.productImg}" alt="" onclick="location.href='/product/getProductDetailInfo?productId=${order.productVO.productId}&sortOption='">
+                                		<div>
+				                        	<c:choose>
+				                        		<c:when test="${fn:startsWith(order.productVO.productImgStored, 'http')}">
+				                        			<img style="height: 100px; width: 100px;" src="${order.productVO.productImgStored}" onclick="location.href='/product/getProductDetailInfo?productId=${order.productVO.productId}&sortOption='">
+				                        		</c:when>
+				                        		<c:otherwise>
+				                        			<img style="height: 100px; width: 100px;" src="../static/image/product_img/${order.productVO.productImgStored}" onclick="location.href='/product/getProductDetailInfo?productId=${order.productVO.productId}&sortOption='">
+				                        		</c:otherwise>
+				                        	</c:choose>
+				                        </div>
                                 	</td>
                                     <td class="shoping__cart__prices">
-                                        <h5 onclick="location.href='/product/getProductDetailInfo?productId=${order.productVO.productId}&sortOption='">${order.productVO.productName}</h5>
+                                        <h5 onclick="location.href='/product/getProductDetailInfo?productId=${order.productVO.productId}&sortOption='" >${order.productVO.productName}</h5>
                                     </td>
                                     <td class="shoping__cart__prices">
                                         ${order.orderInfoVO.orderDate}
