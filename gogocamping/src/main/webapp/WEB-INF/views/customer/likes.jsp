@@ -73,32 +73,6 @@
 	                </div>
 	            </c:forEach>
 	            </div>
-		            <div><%-- 페이징 처리 --%>
-						<ul class="pagination justify-content-center" style="margin: 20px 0">
-							<c:if test="${pagingBean.previousPageGroup}">
-								<li class="page-item"><a class="page-link"
-									href="/product/getAllProductList?pageNo=${pagingBean.startPageOfPageGroup-1}&option=${option}">Previous</a></li>
-							</c:if>
-							<c:forEach begin="${pagingBean.startPageOfPageGroup}"
-								end="${pagingBean.endPageOfPageGroup}" var="page">
-								<c:choose>
-									<c:when test="${page == pagingBean.nowPage}">
-										<li class="page-item active"><a class="page-link"
-											href="/product/getAllProductList?pageNo=${page}&option=${option}">${page}</a></li>
-										<input type="hidden" id="pageNo" value="${page}">
-									</c:when>
-									<c:otherwise>
-										<li class="page-item"><a class="page-link"
-											href="/product/getAllProductList?pageNo=${page}&option=${option}">${page}</a></li>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							<c:if test="${pagingBean.nextPageGroup}">
-								<li class="page-item"><a class="page-link"
-									href="/product/getAllProductList?pageNo=${pagingBean.endPageOfPageGroup+1}&option=${option}">Next</a></li>
-							</c:if>
-						</ul>
-		            </div><%-- 페이징 처리 --%>
             	</div>
         	</div>
     	</div>
