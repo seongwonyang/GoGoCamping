@@ -4,11 +4,6 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
-    <!-- Page Preloder -->
-   <!--  <div id="preloder">
-        <div class="loader"></div>
-    </div> -->
-
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">
@@ -16,10 +11,6 @@
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h2>Go Go Camping</h2>
-                        <!-- <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
-                            <span>Shop</span>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -30,18 +21,18 @@
     <!-- Product Section Begin -->
     <section class="product spad">
         <div class="container">
+          <h5><b><span style="color: green">'${keyword}' </span></b>에 대한 검색결과</h5>
             <div class="row">
                 <div class="col-lg-12 col-md-7">
                     <div class="filter__item"><!-- 전체 상품리스트 조회 -->
-                    <span><b><span style="color: green">'${keyword}' </span></b>에 대한 검색결과&nbsp;
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
                                 <div class="filter__sort">
                                     <select id="sort" onchange="sortProduct(this.value)">
-                                    	<option value="" selected="selected" disabled="disabled">----정렬----</option>
+                                    	<option value="" selected="selected">신상품순</option>
                                    		<option value="popular" ${option == 'popular' ? 'selected="selected"' : ''}>인기순</option>
+                                   		<option value="low" ${option == 'low' ? 'selected="selected"' : ''}>낮은 가격순</option>
 								        <option value="high" ${option == 'high' ? 'selected="selected"' : ''}>높은 가격순</option>
-								        <option value="low" ${option == 'low' ? 'selected="selected"' : ''}>낮은 가격순</option>
                                     </select>
                                 </div>
                             </div>
@@ -78,21 +69,6 @@
         	</div>
     	</div>
     </section>
-<!-- <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript">
-	$(function(){
-		$("#sort").change(function(){
-			$.ajax({
-				type:"get",
-				url:"getSortedProductList",
-				data:"option=" + $("#sort option:selected").val() +"&pageNo="+$("#pageNo").val(),
-				success:function(sortedList) {
-					console.log(sortedList);
-				}
-			});
-		});
-	});
-</script> -->
 <script type="text/javascript">
 	function sortProduct(i) {
 		location.href = "/product/search?keyword=${keyword}&option="+i;

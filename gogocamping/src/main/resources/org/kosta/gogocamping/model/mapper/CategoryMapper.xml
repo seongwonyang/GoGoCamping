@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.CategoryMapper">
 <select id="getCategoryList" resultType="CategoryVO">
-   select distinct category_name from category
+   select category_name from category group by category_name order by min(category_no)
 </select>
 <resultMap id="productMap" type="ProductVO">
    <result property="sellerVO.sellerId" column="seller_id"/>
@@ -25,7 +25,7 @@
          over(order by price desc) 
       </when>
       <otherwise>
-         over(order by product_name) 
+         over(order by product_id desc) 
       </otherwise>
    </choose>  
       as rnum from product p, category c where p.category_no = c.category_no and c.category_name = #{categoryName} ) pc

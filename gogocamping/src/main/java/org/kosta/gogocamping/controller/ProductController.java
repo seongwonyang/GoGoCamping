@@ -119,13 +119,11 @@ public class ProductController {
 		if(category != "") {
 			if(option.equals("popular")) { 
 				model.addAttribute("productListByBrand", productMapper.getProductListByBrandAndCategoryByPopular(map));
-				System.out.println(option + " getProductListByBrandAndCategoryByPopular");
 			}
 			model.addAttribute("productListByBrand", productMapper.getProductListByBrandAndCategory(map));
 		} else {
 			if(option.equals("popular")) { 
 				model.addAttribute("productListByBrand", productMapper.getProductListByBrandByPopular(map));
-				System.out.println(option + " getProductListByBrandByPopular");
 			}
 			model.addAttribute("productListByBrand", productMapper.getProductListByBrand(map));
 		}

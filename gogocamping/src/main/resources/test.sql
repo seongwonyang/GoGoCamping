@@ -263,4 +263,9 @@ from product p, seller s, category c
 where p.seller_id = s.seller_id and p.category_no = c.category_no
 and s.brand = '지프(JEEP)' and c.category_name = '침낭/매트/해먹' order by c desc
 
+ select category_name 
+ from (select category_name from category group by category_name order by category_no) 
+ 
+select category_name
+from category group by category_name order by min(category_no)
 
