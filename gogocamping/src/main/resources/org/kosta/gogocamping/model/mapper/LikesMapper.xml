@@ -18,10 +18,11 @@
 	<result property="productVO.productName" column="product_name"/>
 	<result property="productVO.price" column="price"/>
 	<result property="productVO.productImg" column="product_img"/>
+	<result property="productVO.productImgStored" column="product_img_stored"/>
 	<result property="customerVO.customerId" column="customer_id"/>
 </resultMap>
 <select id="getLikesList" parameterType="String" resultMap="likesMap">
-	select l.likes_no, l.customer_id, p.product_id,p.product_name,p.price,p.product_img
+	select l.likes_no, l.customer_id, p.product_id,p.product_name,p.price,p.product_img, p.product_img_stored
 	from likes l, product p 
 	where l.product_id=p.product_id 
 	and l.customer_id = #{value}

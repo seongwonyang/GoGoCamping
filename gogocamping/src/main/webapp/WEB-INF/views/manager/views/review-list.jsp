@@ -61,8 +61,18 @@ th, td {
 			<tbody>
 				<c:forEach items="${reviewList}" var="reviewList">
 					<tr>
-						<td style="width: 200px; text-align: left;">
-							<img src="${reviewList.productVO.productImg}">  ${reviewList.productVO.productName}
+						<td style="width: 200px;">
+							<div>
+	                        	<c:choose>
+	                        		<c:when test="${fn:startsWith(reviewList.productVO.productImgStored, 'http')}">
+	                        			<img style="height: 100px; width: 100px;" src="${reviewList.productVO.productImgStored}">
+	                        		</c:when>
+	                        		<c:otherwise>
+	                        			<img style="height: 100px; width: 100px;" src="../static/image/product_img/${reviewList.productVO.productImgStored}">
+	                        		</c:otherwise>
+	                        	</c:choose>
+	                        </div>
+	                        ${reviewList.productVO.productName}
 						</td>
 						<td>
 							<a href="/manager/getDetailReview?reviewNo=${reviewList.reviewNo}">${reviewList.reviewContent}</a>

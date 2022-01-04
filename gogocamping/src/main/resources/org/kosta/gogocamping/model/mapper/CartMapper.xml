@@ -8,6 +8,7 @@
 	<result property="productVO.productInfo" column="product_info"/>
 	<result property="productVO.stock" column="stock"/>
 	<result property="productVO.productImg" column="product_img"/>
+	<result property="productVO.productImgStored" column="product_img_stored"/>
 </resultMap> 
 
 <!-- 장바구니 담기 -->
