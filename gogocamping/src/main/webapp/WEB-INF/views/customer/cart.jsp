@@ -53,7 +53,7 @@
                                 		<input type="checkbox" value="${cart.cartNo}" name="chk" checked="checked">
                                 	</td>
                                     <td class="shoping__cart__item">
-                                        <img src="${cart.productVO.productImg}" alt="" onclick="location.href='/product/getProductDetailInfo?productId=${cart.productVO.productId}&sortOption='">
+                                        <img style="height: 100px; width: 100px;" src="${cart.productVO.productImg}" alt="" onclick="location.href='/product/getProductDetailInfo?productId=${cart.productVO.productId}&sortOption='">
                                         <h5 onclick="location.href='/product/getProductDetailInfo?productId=${cart.productVO.productId}&sortOption='">${cart.productVO.productName}</h5>
                                     </td>
                                     <td class="shoping__cart__price">

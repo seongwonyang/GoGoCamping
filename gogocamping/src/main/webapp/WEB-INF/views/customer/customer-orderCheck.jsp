@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
 	<div align="center">
 		<h3 style="font-weight: 700;">주문조회</h3>
@@ -13,9 +14,9 @@
                             <thead>
                                 <tr>
                                 	<th>주문번호</th>
-                                    <th class="shoping__product">상품명</th>
+                                    <th>상품명</th>
                                     <th>주문일자</th>
-                                    <th>수량</th>
+                                    <th>&nbsp;&nbsp;&nbsp;수량&nbsp;&nbsp;&nbsp;</th>
                                     <th>총 가격</th>
                                     <th>배송상태</th>
                                     <th></th>
@@ -25,22 +26,21 @@
                             <tbody>
                             <c:forEach items="${orderList }" var="order">
                                 <tr>
-                                	<td>
+                                	<td class="shoping__cart__prices">
                                 		${order.orderInfoVO.orderNo }<br>
-                                		<img src="${order.productVO.productImg}" alt="" onclick="location.href='/product/getProductDetailInfo?productId=${order.productVO.productId}&sortOption='">
+                                		<img style="height: 100px; width: 100px;" src="${order.productVO.productImg}" alt="" onclick="location.href='/product/getProductDetailInfo?productId=${order.productVO.productId}&sortOption='">
                                 	</td>
                                     <td class="shoping__cart__prices">
-                                   
                                         <h5 onclick="location.href='/product/getProductDetailInfo?productId=${order.productVO.productId}&sortOption='">${order.productVO.productName}</h5>
                                     </td>
-                                    <td class="shoping__cart__price">
+                                    <td class="shoping__cart__prices">
                                         ${order.orderInfoVO.orderDate}
                                     </td>
-                                    <td class="shoping__cart__price">
+                                    <td class="shoping__cart__prices">
                                         ${order.orderCount}
                                     </td>
-                                    <td class="shoping__cart__price">
-                                        ${order.orderPrice}	
+                                    <td class="shoping__cart__prices">
+                                        <fmt:formatNumber value="${order.orderPrice}" pattern="#,###" />원	
                                     </td>
                                     <td class="shoping__cart__quantity">
 										${order.deliveryStatus}
