@@ -16,9 +16,7 @@ public interface CartMapper {
 	void UpdateProductInCart(Map<String, Object> map);
 
 	List<CartVO> getProductListInCart(String customerId);
-
-	void changeProductCountInCart(Map<String, Object> map);
-
+	
 	void deleteProductInCart(int cartNo);
 
 	int getTotalCountInCart(String customerId);

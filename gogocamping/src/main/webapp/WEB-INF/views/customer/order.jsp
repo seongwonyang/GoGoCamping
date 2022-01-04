@@ -173,35 +173,35 @@ function payyy(){
      });    
  }
 
-$(function(){
-	$("#same").change(function() { // 주문자 정보와 동일
-		var checked = $("input[name=same]:checked").length;
-
- 		if(checked == 1) { 
- 			$("#receiverName").val('${sessionScope.loginVO.customerName}');
- 			$("#receiverTel").val('${sessionScope.loginVO.customerTel}');
- 			$("#orderPostNumber").val('${sessionScope.loginVO.customerPostNumber}');
- 			$("#orderAddress").val('${sessionScope.loginVO.customerAddress}');
- 			$("#orderDetailedAddress").val('${sessionScope.loginVO.customerDetailedAddress}');
-		} else {
-			$("#receiverName").val('');
-			$("#receiverTel").val('');
-			$("#orderPostNumber").val('');
-			$("#orderAddress").val('');
-			$("#orderDetailedAddress").val('');
-		}
-	});//same
+	$(function(){
+		$("#same").change(function() { // 주문자 정보와 동일
+			var checked = $("input[name=same]:checked").length;
 	
-    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
-        //카카오 지도 발생
-        new daum.Postcode({
-            oncomplete: function(data) { //선택시 입력값 세팅
-            	document.getElementById("orderPostNumber").value = data.zonecode; //우편번호 넣기
-                document.getElementById("orderAddress").value = data.address; // 주소 넣기
-                document.querySelector("input[name=orderDetailedAddress]").focus(); //상세입력 포커싱
-            }
-        }).open();
-    });//address_kakao
-});//ready
+	 		if(checked == 1) { 
+	 			$("#receiverName").val('${sessionScope.loginVO.customerName}');
+	 			$("#receiverTel").val('${sessionScope.loginVO.customerTel}');
+	 			$("#orderPostNumber").val('${sessionScope.loginVO.customerPostNumber}');
+	 			$("#orderAddress").val('${sessionScope.loginVO.customerAddress}');
+	 			$("#orderDetailedAddress").val('${sessionScope.loginVO.customerDetailedAddress}');
+			} else {
+				$("#receiverName").val('');
+				$("#receiverTel").val('');
+				$("#orderPostNumber").val('');
+				$("#orderAddress").val('');
+				$("#orderDetailedAddress").val('');
+			}
+		});//same
+		
+	    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+	        //카카오 지도 발생
+	        new daum.Postcode({
+	            oncomplete: function(data) { //선택시 입력값 세팅
+	            	document.getElementById("orderPostNumber").value = data.zonecode; //우편번호 넣기
+	                document.getElementById("orderAddress").value = data.address; // 주소 넣기
+	                document.querySelector("input[name=orderDetailedAddress]").focus(); //상세입력 포커싱
+	            }
+	        }).open();
+	    });//address_kakao
+	});//ready
 </script>
 </body>
