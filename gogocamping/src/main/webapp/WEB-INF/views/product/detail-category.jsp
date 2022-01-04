@@ -52,10 +52,16 @@
 				<c:forEach items="${productListByDetailCategory}" var="product">
 					<div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat" onclick="location.href='/product/getProductDetailInfo?productId=${product.productId}&sortOption='">
 						<div class="featured__item">
-							<div class="featured__item__pic set-bg" data-setbg="${product.productImg}">
-								<ul class="featured__item__pic__hover">
-								</ul>
-							</div>
+							<div>
+	                        	<c:choose>
+	                        		<c:when test="${fn:startsWith(product.productImgStored, 'http')}">
+	                        			<img src="${product.productImgStored}">
+	                        		</c:when>
+	                        		<c:otherwise>
+	                        			<img src="../static/image/product_img/${product.productImgStored}">
+	                        		</c:otherwise>
+	                        	</c:choose>
+	                        </div>
 							<div class="featured__item__text">
 								<h6><a class="move" href="#">${product.productName}</a></h6>
 								<h5><fmt:formatNumber value="${product.price}" pattern="#,###" />원</h5>
