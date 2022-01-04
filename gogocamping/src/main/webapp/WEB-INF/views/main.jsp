@@ -4,11 +4,6 @@
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
-    <!-- Page Preloder -->
-   <!--  <div id="preloder">
-        <div class="loader"></div>
-    </div> -->
-
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">
@@ -16,10 +11,6 @@
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h2>Go Go Camping</h2>
-                        <!-- <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
-                            <span>Shop</span>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -37,10 +28,10 @@
                             <div class="col-lg-4 col-md-5">
                                 <div class="filter__sort">
                                     <select id="sort" onchange="sortProduct(this.value)">
-                                    	<option value="" selected="selected" disabled="disabled">----정렬----</option>
+                                    	<option value="" selected="selected">신상품순</option>
                                    		<option value="popular" ${option == 'popular' ? 'selected="selected"' : ''}>인기순</option>
+                                   		<option value="low" ${option == 'low' ? 'selected="selected"' : ''}>낮은 가격순</option>
 								        <option value="high" ${option == 'high' ? 'selected="selected"' : ''}>높은 가격순</option>
-								        <option value="low" ${option == 'low' ? 'selected="selected"' : ''}>낮은 가격순</option>
                                     </select>
                                 </div>
                             </div>
@@ -61,9 +52,8 @@
             	<c:forEach items="${allProductList}" var="product">
 	                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
 	                    <div class="featured__item" onclick="location.href='/product/getProductDetailInfo?productId=${product.productId}&sortOption='">
-	                        <div class="featured__item__pic set-bg" data-setbg="${product.productImgStored}">
-	                            <ul class="featured__item__pic__hover">
-	                            </ul>
+	                        <div>
+								<img src="${product.productImgStored}">
 	                        </div>
 	                        <div class="featured__item__text">
 		                        <h6><a class="move" href="#">${product.productName}</a></h6>
@@ -77,7 +67,7 @@
 						<ul class="pagination justify-content-center" style="margin: 20px 0">
 							<c:if test="${pagingBean.previousPageGroup}">
 								<li class="page-item"><a class="page-link"
-									href="/product/getAllProductList?pageNo=${pagingBean.startPageOfPageGroup-1}&option=${option}">Previous</a></li>
+									href="/product/getAllProductList?pageNo=${pagingBean.startPageOfPageGroup-1}&option=${option}"><<</a></li>
 							</c:if>
 							<c:forEach begin="${pagingBean.startPageOfPageGroup}"
 								end="${pagingBean.endPageOfPageGroup}" var="page">
@@ -95,7 +85,7 @@
 							</c:forEach>
 							<c:if test="${pagingBean.nextPageGroup}">
 								<li class="page-item"><a class="page-link"
-									href="/product/getAllProductList?pageNo=${pagingBean.endPageOfPageGroup+1}&option=${option}">Next</a></li>
+									href="/product/getAllProductList?pageNo=${pagingBean.endPageOfPageGroup+1}&option=${option}">>></a></li>
 							</c:if>
 						</ul>
 		            </div><%-- 페이징 처리 --%>

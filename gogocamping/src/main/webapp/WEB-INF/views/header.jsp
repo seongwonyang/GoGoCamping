@@ -212,10 +212,7 @@
 	            <div class="col-lg-12">
                     <nav class="header__menu">
 			            <ul>
-			            <%-- <c:forEach items="${category}" var="category">
-			            	<li><a href="categoryProduct?categoryName='${category.categoryName}'">${category.categoryName}</a></li>
-			            </c:forEach> --%>
-			            <c:forEach items="${categoryList }" var="c">
+			            <c:forEach items="${categoryList}" var="c">
 			                <li><a href="/category/categoryProduct?categoryName=${c.categoryName }&pageNo=0&option=">${c.categoryName }</a></li>
 			            </c:forEach>
 			            </ul>

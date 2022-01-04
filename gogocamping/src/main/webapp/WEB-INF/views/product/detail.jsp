@@ -89,14 +89,6 @@
                             <li><b>재고량 :</b> <span>${productVO.stock} 개</span></li>
                             <li><b>판매자 :</b> <span>${sellerVO.brand}</span></li>
                             <li><b>분류 :</b> <span>${categoryName}</span></li>
-                            <!-- <li><b>Share on</b>
-                                <div class="share">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                </div>
-                            </li> -->
                         </ul>
                     </div>
                 </div>
