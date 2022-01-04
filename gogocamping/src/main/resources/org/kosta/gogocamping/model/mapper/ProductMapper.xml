@@ -35,7 +35,7 @@
 			over(order by price desc) 
 		</when>
 		<otherwise>
-			over(order by product_name) 
+			over(order by product_id desc) 
 		</otherwise>
 	</choose>
 	as rnum from product p) where rnum between #{startRowNumber} and #{endRowNumber}
@@ -44,7 +44,8 @@
 <select id="getAllProductListByPopular" parameterType="Map" resultType="ProductVO">
 	select rnum, product_id, product_name, price, product_img, product_img_stored, c from (
 	select * from (
-		select p.*, row_number() over(order by (select count(*) from order_detail where product_id = p.product_id group by p.product_id)) as rnum,
+		select p.*, row_number() over(order by (select count(*) from order_detail 
+		where product_id = p.product_id group by p.product_id)) as rnum,
 		nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
 		from product p
 	) order by c desc) where rnum between #{startRowNumber} and #{endRowNumber}
@@ -65,7 +66,7 @@
 				over(order by price desc) 
 			</when>
 			<otherwise>
-				over(order by product_name) 
+				over(order by product_id desc) 
 			</otherwise>
 		</choose>
 	   as rnum, c.category_name, c.detail_category_name
@@ -118,13 +119,14 @@
 			order by price desc
 		</when>
 		<otherwise>
-			order by product_name
+			order by product_id desc
 		</otherwise>
 	</choose>
 </select>
 <!-- 브랜드 전체 상품 조회(인기순 정렬) -->
 <select id="getProductListByBrandByPopular" resultMap="productMap" parameterType="Map">
-	select s.brand, p.*, nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
+	select s.brand, p.*, 
+	nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
 	from product p, seller s
 	where p.seller_id = s.seller_id
 	and s.brand = #{brand} order by c desc
@@ -143,7 +145,7 @@
 			order by price desc
 		</when>
 		<otherwise>
-			order by product_name
+			order by product_id desc
 		</otherwise>
 	</choose>
 </select>

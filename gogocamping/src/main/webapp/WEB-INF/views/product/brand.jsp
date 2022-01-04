@@ -4,11 +4,6 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
-    <!-- Page Preloder -->
-   <!--  <div id="preloder">
-        <div class="loader"></div>
-    </div> -->
-
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">
@@ -16,10 +11,6 @@
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h2>Go Go Camping</h2>
-                        <!-- <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
-                            <span>Shop</span>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -50,10 +41,10 @@
                             <div class="col-lg-4 col-md-5">
                                 <div class="filter__sort">
                                      <select id="sort" onchange="sortProduct(this.value)">
-                                     	<option value="" selected="selected" disabled="disabled">----정렬----</option>
+                                    	<option value="" selected="selected">신상품순</option>
                                    		<option value="popular" ${option == 'popular' ? 'selected="selected"' : ''}>인기순</option>
+                                   		<option value="low" ${option == 'low' ? 'selected="selected"' : ''}>낮은 가격순</option>
 								        <option value="high" ${option == 'high' ? 'selected="selected"' : ''}>높은 가격순</option>
-								        <option value="low" ${option == 'low' ? 'selected="selected"' : ''}>낮은 가격순</option>
                                     </select>
                                 </div>
                             </div>
