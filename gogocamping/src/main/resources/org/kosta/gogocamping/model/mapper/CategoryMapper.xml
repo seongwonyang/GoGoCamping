@@ -65,7 +65,7 @@
          order by price desc
       </when>
       <otherwise>
-         order by product_name
+         order by product_id desc
       </otherwise>
    </choose>  
 </select>

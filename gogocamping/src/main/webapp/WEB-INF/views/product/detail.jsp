@@ -25,8 +25,16 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
-                            <img class="product__details__pic__item--large"
-                                src="${productVO.productImg}" alt="">
+                            <div class="product__details__pic__item--large">
+	                        	<c:choose>
+	                        		<c:when test="${fn:startsWith(productVO.productImgStored, 'http')}">
+	                        			<img src="${productVO.productImgStored}">
+	                        		</c:when>
+	                        		<c:otherwise>
+	                        			<img src="../static/image/product_img/${productVO.productImgStored}">
+	                        		</c:otherwise>
+	                        	</c:choose>
+	                        </div>
                         </div>
                     </div>
                 </div>
@@ -288,8 +296,16 @@
                 <div class="categories__slider owl-carousel">
                 	<c:forEach items="${relatedProductList}" var="product">
 	                    <div class="col-lg-3" onclick="location.href='/product/getProductDetailInfo?productId=${product.productId}&sortOption='">
-	                        <div class="categories__item set-bg" data-setbg="${product.productImg}">
-	                            <h5><a href="#">${product.productName}</a></h5>
+	                        <div class="categories__item set-bg">
+	                        	<c:choose>
+	                        		<c:when test="${fn:startsWith(product.productImgStored, 'http')}">
+	                        			<img src="${product.productImgStored}">
+	                        		</c:when>
+	                        		<c:otherwise>
+	                        			<img src="../static/image/product_img/${product.productImgStored}">
+	                        		</c:otherwise>
+	                        	</c:choose>
+	                        	<h5><a href="#">${product.productName}</a></h5>
 	                        </div>
 	                    </div>
 	                </c:forEach>

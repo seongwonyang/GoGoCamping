@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
     <!-- Breadcrumb Section Begin -->
@@ -52,8 +53,15 @@
             	<c:forEach items="${allProductList}" var="product">
 	                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
 	                    <div class="featured__item" onclick="location.href='/product/getProductDetailInfo?productId=${product.productId}&sortOption='">
-	                        <div>
-								<img src="${product.productImgStored}">
+               	           <div>
+	                        	<c:choose>
+	                        		<c:when test="${fn:startsWith(product.productImgStored, 'http')}">
+	                        			<img src="${product.productImgStored}">
+	                        		</c:when>
+	                        		<c:otherwise>
+	                        			<img src="../static/image/product_img/${product.productImgStored}">
+	                        		</c:otherwise>
+	                        	</c:choose>
 	                        </div>
 	                        <div class="featured__item__text">
 		                        <h6><a class="move" href="#">${product.productName}</a></h6>
