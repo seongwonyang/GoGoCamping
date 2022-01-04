@@ -56,7 +56,8 @@ public class OrderController {
 		
 		for(int i=0; i<checkList.size(); i++) {
 			productList.add(orderService.getCheckedProductListInCart(checkList.get(i)));
-			totalPrice += (orderService.getCheckedProductListInCart(checkList.get(i)).getProductCount()) * (orderService.getCheckedProductListInCart(checkList.get(i)).getProductVO().getPrice());
+			totalPrice += (orderService.getCheckedProductListInCart(checkList.get(i)).getProductCount()) * 
+					(orderService.getCheckedProductListInCart(checkList.get(i)).getProductVO().getPrice());
 		}
 
 		model.addAttribute("productList", productList);

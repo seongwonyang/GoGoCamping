@@ -9,6 +9,8 @@
 	<result property="productVO.stock" column="stock"/>
 	<result property="productVO.productImg" column="product_img"/>
 </resultMap> 
+
+<!-- 장바구니 담기 -->
 <select id="checkSameProductInCart" parameterType="map" resultType="int">
 	select count(*) from cart where customer_id = #{customerId} and product_id = #{productId}
 </select>
@@ -20,32 +22,40 @@
 	update cart set product_count = product_count+#{productCount} 
 	where customer_id = #{customerId} and product_id = #{productId}
 </update>
+
+<!-- 장바구니에 담긴 상품리스트 조회 -->
 <select id="getProductListInCart" parameterType="String" resultMap="cartMap">
 	select c.*, p.* from cart c, product p 
 	where c.product_id = p.product_id and c.customer_id = #{value}
 	order by c.cart_no desc
 </select>
-<update id="changeProductCountInCart" parameterType="map">
-	update cart set product_count = #{productCount} where cart_no = #{cartNo}
-</update>
+
+<!-- 장바구니에 담긴 상품 삭제 -->
 <delete id="deleteProductInCart" parameterType="int">
 	delete from cart where cart_no = #{value}
 </delete>
+
+<!-- 장바구니에 담긴 상품 가격, 개수 조회 -->
 <select id="getTotalCountInCart" parameterType="String" resultType="int">
 	select count(*) from cart where customer_id = #{value}
 </select>
 <select id="getCheckedProductPrice" parameterType="int" resultType="int">
-	select p.price from cart c, product p where c.product_id = p.product_id and cart_no = #{value}
+	select p.price from cart c, product p 
+	where c.product_id = p.product_id and cart_no = #{value}
 </select>
 <select id="getCheckedProductCount" parameterType="int" resultType="int">
 	select product_count from cart where cart_no = #{value}
 </select>
+
+<!-- 상품 수량 변경 -->
 <update id="plusProductCountInCart" parameterType="int">
 	update cart set product_count = product_count+1 where cart_no = #{value}
 </update>
 <update id="minusProductCountInCart" parameterType="int">
 	update cart set product_count = product_count-1 where cart_no = #{value}
 </update>
+
+<!-- 선택된 상품 리스트 조회 -->
 <select id="getCheckedProductListInCart" parameterType="int" resultMap="cartMap">
 	select c.*, p.* from cart c, product p 
 	where c.product_id = p.product_id and c.cart_no = #{value}

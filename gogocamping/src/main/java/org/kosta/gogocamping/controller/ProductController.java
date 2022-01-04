@@ -115,36 +115,35 @@ public class ProductController {
 		map.put("brand", brand);
 		map.put("category", category);
 		map.put("option", option);
-		
-		model.addAttribute("brand", brand);
-		model.addAttribute("category", category);
-		model.addAttribute("option", option);
-		model.addAttribute("brandCategoryList", productMapper.getBrandCategroyList(map)); 
 
 		if(category != "") {
-			if(option.equals("popular")) {
+			if(option.equals("popular")) { 
 				model.addAttribute("productListByBrand", productMapper.getProductListByBrandAndCategoryByPopular(map));
 				System.out.println(option + " getProductListByBrandAndCategoryByPopular");
 			}
 			model.addAttribute("productListByBrand", productMapper.getProductListByBrandAndCategory(map));
 		} else {
-			if(option.equals("popular")) {
+			if(option.equals("popular")) { 
 				model.addAttribute("productListByBrand", productMapper.getProductListByBrandByPopular(map));
 				System.out.println(option + " getProductListByBrandByPopular");
 			}
 			model.addAttribute("productListByBrand", productMapper.getProductListByBrand(map));
 		}
+		model.addAttribute("brand", brand);
+		model.addAttribute("category", category);
+		model.addAttribute("option", option);
+		model.addAttribute("brandCategoryList", productMapper.getBrandCategroyList(map)); 
 		
 		return "product/brand.tiles"; 
 	}
 
-	@RequestMapping("/getProductDetailInfo") // 상품 상세보기
+	@RequestMapping("/getProductDetailInfo") // 상품 상세
 	public String getProductDetailInfo(int productId, String sortOption, Model model, HttpServletRequest request) {
 		ProductVO productVO = productMapper.getProductDetailInfo(productId);
 		SellerVO sellerVO = sellerMapper.getSellerInfoByProduct(productVO.getSellerVO().getSellerId());
 		String categoryName = categoryMapper.getCategoryNameByProductId(productId);
 		
-		ArrayList<ProductVO> relatedProductList = productMapper.getRelatedProductList(categoryName); //관련 상품 리스트
+		ArrayList<ProductVO> relatedProductList = productMapper.getRelatedProductList(categoryName); // 관련 상품 리스트
 		
 		Map<String, Object> sortMap = new HashMap<>();
 		sortMap.put("productId", productId);

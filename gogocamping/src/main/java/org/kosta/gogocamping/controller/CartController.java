@@ -52,9 +52,9 @@ public class CartController {
 		return "customer/cart.tiles";
 	}
 	
-	@RequestMapping("/getCheckedProductTotalPriceInCart")
+	@RequestMapping("/getCheckedProductTotalPrice") 
 	@ResponseBody
-	public int getCheckedProductTotalPriceInCart(@RequestParam List<Integer> checkList) { // 선택된 상품 가격 합계
+	public int getCheckedProductTotalPriceInCart(@RequestParam List<Integer> checkList) { 
 		int cartNo, productPrice, productCount, checkedTotalPrice = 0;
 		
 		for(int i=0; i<checkList.size(); i++) {
@@ -68,7 +68,7 @@ public class CartController {
 	
 	@RequestMapping("/getTotalPriceInCart")
 	@ResponseBody
-	public int getTotalPriceInCart(HttpServletRequest request) {
+	public int getTotalPriceInCart(HttpServletRequest request) { // 전체 상품 가격 합계
 		HttpSession session = request.getSession(false);
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
 		
@@ -81,18 +81,24 @@ public class CartController {
 		return totalPrice;
 	}
 	
-	@RequestMapping("/deleteProductInCart")
-	public String deleteProductInCart(HttpServletRequest request, int cartNo, Model model) { // 장바구니 상품 삭제
+	@RequestMapping("/insertProductInCart")
+	@ResponseBody
+	public void insertProductInCart(HttpServletRequest request, int productId, int productCount) { // 장바구니 담기
 		HttpSession session = request.getSession(false);
 		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
-
-		cartMapper.deleteProductInCart(cartNo); // 장바구니에서 상품 삭제
-			
-		model.addAttribute("productListInCart", cartMapper.getProductListInCart(customerVO.getCustomerId())); // 장바구니 목록
-		model.addAttribute("totalCountInCart", cartMapper.getTotalCountInCart(customerVO.getCustomerId())); // 장바구니에 담긴 총 상품수
-		
-		return "customer/cart.tiles";
-	}
+		  
+		Map<String, Object> map = new HashMap<>(); 
+		map.put("customerId", customerVO.getCustomerId()); 
+		map.put("productId", productId);
+		map.put("productCount", productCount);
+		  
+		// 장바구니에 같은 상품이 있는지 확인 
+		if(cartMapper.checkSameProductInCart(map) == 0) { //같은 상품이 없을 경우 (결과값 0) 
+			cartMapper.insertProductInCart(map); 
+		} else { // 같은 상품이 있을 경우 (수량만 증가)
+			cartMapper.UpdateProductInCart(map); 
+		}  
+	} 
 	
 	@RequestMapping("/deleteCheckedProduct")
 	@ResponseBody
@@ -108,50 +114,20 @@ public class CartController {
 		return result;
 	}
 	
-	@RequestMapping("/insertProductInCart") 
-	@ResponseBody
-	public void insertProductInCart(HttpServletRequest request, int productId, int productCount) { // 장바구니 담기 
-		HttpSession session = request.getSession(false);
-		CustomerVO customerVO = (CustomerVO) session.getAttribute("loginVO");
-		  
-		Map<String, Object> map = new HashMap<>(); 
-		map.put("customerId", customerVO.getCustomerId()); 
-		map.put("productId", productId);
-		map.put("productCount", productCount);
-		  
-		// 장바구니에 같은 상품이 있는지 확인 
-		if(cartMapper.checkSameProductInCart(map) == 0) { //같은 상품이 없을 경우 (결과값 0) 
-			cartMapper.insertProductInCart(map); 
-		} else { // 같은 상품이 있을 경우 (수량만 증가)
-			cartMapper.UpdateProductInCart(map); 
-		}  
-	}
-	
-	@RequestMapping("/changeProductCountInCart")
-	@ResponseBody
-	public void changeProductCountInCart(int cartNo, int productCount) { // 상품 수량 변경
-		Map<String, Object> map = new HashMap<>(); 
-		map.put("cartNo", cartNo);
-		map.put("productCount", productCount);
-		
-		cartMapper.changeProductCountInCart(map);
-	} 
-	
 	@RequestMapping("/deleteProduct")
-	@ResponseBody
-	public void deleteProduct(int cartNo) {
-		cartMapper.deleteProductInCart(cartNo);
+	@ResponseBody public void deleteProduct(int cartNo) { // 개별 상품 삭제
+		cartMapper.deleteProductInCart(cartNo); 
 	}
-	
-	@RequestMapping("/plusProductCountInCart")
+	 
+	@RequestMapping("/plusProductCount")
 	@ResponseBody
-	public void plusProductCountInCart(int cartNo) {
+	public void plusProductCountInCart(int cartNo) { // 상품 수량 변경
 		cartMapper.plusProductCountInCart(cartNo);
 	}
 	
-	@RequestMapping("/minusProductCountInCart")
+	@RequestMapping("/minusProductCount")
 	@ResponseBody
-	public void minusProductCountInCart(int cartNo) {
+	public void minusProductCountInCart(int cartNo) { // 상품 수량 변경
 		cartMapper.minusProductCountInCart(cartNo);
 	}
 	

@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-7">
                     <div class="filter__item"><!-- 전체 상품리스트 조회 -->
-                    <span><b><span style="color: green">'${keyword}' </span></b>에 대한 검색결과&nbsp;<%-- <b><span style="color: green">[${searchTotalProductCount}건]</span></b> --%></span><br><br>
+                    <span><b><span style="color: green">'${keyword}' </span></b>에 대한 검색결과&nbsp;
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
                                 <div class="filter__sort">

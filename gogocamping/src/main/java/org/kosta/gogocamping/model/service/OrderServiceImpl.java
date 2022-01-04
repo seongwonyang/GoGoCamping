@@ -52,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Override
 	@Transactional
-	public void order(OrderDetailVO orderDetailVO, int productId, int productCount, int cartNo) { // 주문
+	public void order(OrderDetailVO orderDetailVO, int productId, int productCount, int cartNo) { 
 		// 1. 주문 상세 정보 insert
 		orderMapper.insertOrderDetail(orderDetailVO);
 		// 2. 상품 재고량 감소
