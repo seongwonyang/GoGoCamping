@@ -90,6 +90,7 @@
 								      </label><br>
 								    </div>
 								    <input type="hidden" name="checkList" value="${checkList}">
+								    <br><span id="account"></span><br>
                                 <button type="button" class="site-btn" onclick="payyy()">결제하기</button>
                             </div>
                         </div>
@@ -105,6 +106,16 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 <script type="text/javascript">
+$(function(){
+	$("input:radio[name='payment']").change(function() {
+		if($("input:radio[name='payment']:checked").val()=="cash"){
+			$("#account").text("입금계좌 : 농협 356-1008-1323-53");
+		}else{
+			$("#account").text("");
+		}
+	});
+});
+
 function payyy(){
      // 폼 객체 접근
      var thisForm = document.order;
@@ -125,8 +136,19 @@ function payyy(){
     	 return false; 	 
      }
      
-     if (payment_check !== "card"){ // 카드 결제가 아니라면 오더 컨트롤러로 제출
-         thisForm.submit();
+     var receiverName = thisForm.receiverName.value;
+     var receiverTel = thisForm.receiverTel.value;
+     var orderPostNumber = thisForm.receiverTel.value;
+     var orderAddress = thisForm.orderAddress.value;
+     var orderDetailedAddress = thisForm.orderDetailedAddress.value;
+     
+     if(!receiverName || !receiverTel || !orderPostNumber || !orderAddress || !orderDetailedAddress){
+      	alert("주문정보를 입력해주세요.");
+ 		return false;
+ 	 }
+     
+     if (payment_check != "card"){ // 카드 결제가 아니라면 오더 컨트롤러로 제출
+     	thisForm.submit();
      }; 
 
      //주문 상품의 총 가격 input[name='kakaoTotalPrice']

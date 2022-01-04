@@ -17,11 +17,11 @@
 </sql>
 	<select id="getAllReviewList" resultMap="reviewMap">
 	<include refid="selectReview"></include>
-		order by r.grade desc
+		order by r.review_regdate desc 
 	</select>
 	<select id="getReviewListByBrand" parameterType="String" resultMap="reviewMap">
 		<include refid="selectReview"></include>
-		and s.seller_id=${value}
+		and s.seller_id=${value} order by r.review_regdate desc
 	</select>
 	<select id="getDetailReview" parameterType="String" resultMap="reviewMap">
 		select r.review_no, r.grade, r.review_content, to_char(r.review_regdate, 'YYYY-MM-DD HH24:MI:SS') as review_regdate, r.customer_id, r.product_id, p.product_name
