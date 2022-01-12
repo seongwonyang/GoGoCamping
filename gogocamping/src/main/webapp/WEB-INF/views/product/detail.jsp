@@ -146,8 +146,7 @@
 		                                    aria-selected="false">QnA( ${qnaCount} )</a>
 		                            </li>
                         		</c:otherwise>
-                        	</c:choose>
-                            
+                        	</c:choose>            
                         </ul>
                         <div class="tab-content">
                         	<c:choose>
@@ -231,7 +230,7 @@
                               <input type="hidden" name="productId" value="${productVO.productId}">
 							    <div class="form-group">
 							      <select class="form-control" id="qnaOption" name="sortOption" onchange="changeQnAOption()">
-							      	<option value="default" ${option == '' ? 'selected="selected"' : ''}>문의유형</option>
+							      	<option value="default" ${option == '' ? 'selected="selected"' : ''} disabled="disabled">문의유형</option>
 							        <option value="product" ${option == 'product' ? 'selected="selected"' : ''}>상품문의</option>
 							        <option value="delivery" ${option == 'delivery' ? 'selected="selected"' : ''}>배송문의</option>
 							      </select>

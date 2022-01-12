@@ -1,4 +1,4 @@
--- test data
+-- insert data
 -- 텐트/타프/쉘터
 insert into category(category_no,category_name,detail_category_name)
 values(category_seq.nextval,'텐트/타프/쉘터','거실형/2룸 텐트');
@@ -168,8 +168,6 @@ insert into category(category_no,category_name,detail_category_name)
 values(category_seq.nextval,'액세서리','패션ACC');
 insert into category(category_no,category_name,detail_category_name)
 values(category_seq.nextval,'액세서리','기타 용품');
-
-commit
 
 insert into seller(seller_id,seller_name,seller_password,business_number,seller_email,brand,logo_img,logo_img_stored,seller_tel,seller_post_number,seller_address,seller_detailed_address,register_admin)
 values('snowpeak','스노우피크 판매자이름','a','스노우피크 사업자번호','snowpeak@naver.com','스노우피크(Snowpeak)','스노우피크 logo_img','스노우피크 logo_img_stored','스노우피크 tel','스노우피크 주소','스노우피크 상세주소','스노우피크 우편번호',1);
@@ -679,4 +677,49 @@ values(product_seq.nextval,'스테인레스 팩 30', 5900,'강도가 높고 긁�
 insert into product(product_id,product_name,price,product_info,stock,product_img,product_img_stored,seller_id,category_no)
 values(product_seq.nextval,'알루미늄 핀 팩', 1990,'알루미늄 핀 팩', 400,'http://camp18.cafe24.com/web/product/main/MONTBELL/C45D104SI_1000.jpg','http://camp18.cafe24.com/web/product/main/MONTBELL/C45D104SI_1000.jpg','montbell', 12);
 
-commit
+-- 회원
+insert into customer(customer_id,customer_name,customer_password,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
+values('didtjddnjs','양성원','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소',to_date('1998/11/08','YYYY-MM-DD'),sysdate);
+insert into customer(customer_id,customer_name,customer_password,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
+values('rlarmsdud','김근영','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소',to_date('1998/11/08','YYYY-MM-DD'),sysdate);
+insert into customer(customer_id,customer_name,customer_password,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
+values('dlatpgml','임세희','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소',to_date('1998/11/08','YYYY-MM-DD'),sysdate);
+insert into customer(customer_id,customer_name,customer_password,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
+values('wldnjs','임지원','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소',to_date('1998/11/08','YYYY-MM-DD'),sysdate);
+insert into customer(customer_id,customer_name,customer_password,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
+values('tlsdbfk','신유라','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소',to_date('1998/11/08','YYYY-MM-DD'),sysdate);
+insert into customer(customer_id,customer_name,customer_password,customer_email,customer_tel,customer_post_number,customer_address,customer_detailed_address,customer_birth,customer_regdate)
+values('wngud','이주형','a','customer@naver.com','010-0000-0000','00000','소비자 주소','소비자 상세주소',to_date('1998/11/08','YYYY-MM-DD'),sysdate);
+
+-- 리뷰
+insert into review(review_no,grade,review_content,review_regdate,customer_id,product_id)
+values(review_seq.nextval,3,'나름 ㄱㅊㄱㅊ',sysdate,'rlarmsdud',69);
+insert into review(review_no,grade,review_content,review_regdate,customer_id,product_id)
+values(review_seq.nextval,1,'너무 비싸요 가성비 개구림; 킹받네',sysdate,'dlatpgml',69);
+insert into review(review_no,grade,review_content,review_regdate,customer_id,product_id)
+values(review_seq.nextval,4,'여행가서 잘 썼습니다~',sysdate,'wldnjs',69);
+insert into review(review_no,grade,review_content,review_regdate,customer_id,product_id)
+values(review_seq.nextval,5,'맘에 들어요 굿굿',sysdate,'tlsdbfk',69);
+insert into review(review_no,grade,review_content,review_regdate,customer_id,product_id)
+values(review_seq.nextval,4,'좋아요',sysdate,'wngud',69);
+
+-- QnA
+insert into QnA(qna_no, qna_category, title, content, regdate, product_id, customer_id)
+values(qna_seq.nextval,'상품문의','재입고 언제되나요?','재입고 언제되나요?',sysdate,69,'rlarmsdud');
+insert into QnA(qna_no, qna_category, title, content, regdate, product_id, customer_id)
+values(qna_seq.nextval,'배송문의','오전에 주문하면 배송은 언제쯤 가능할까요?','오전에 주문하면 배송은 언제쯤 가능할까요?',sysdate,69,'dlatpgml');
+insert into QnA(qna_no, qna_category, title, content, regdate, product_id, customer_id)
+values(qna_seq.nextval,'배송문의','지금 주문했는데 언제쯤 발송될까요?','지금 주문했는데 언제쯤 발송될까요?',sysdate,69,'wldnjs');
+insert into QnA(qna_no, qna_category, title, content, regdate, product_id, customer_id)
+values(qna_seq.nextval,'상품문의','텐트는 도착했는데 폴대가 없어요. 확인 부탁드려요','텐트는 도착했는데 폴대가 없어요. 확인 부탁드려요.',sysdate,69,'tlsdbfk');
+insert into QnA(qna_no, qna_category, title, content, regdate, product_id, customer_id)
+values(qna_seq.nextval,'배송문의','주문했는데 배송일까지 얼마나 걸리는지 알 수 있을까요?','주문했는데 배송일까지 얼마나 걸리는지 알 수 있을까요?',sysdate,69,'wngud');
+
+
+
+
+
+
+
+
+

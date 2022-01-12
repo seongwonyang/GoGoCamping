@@ -62,6 +62,7 @@ public class CategoryController {
 	    	  model.addAttribute("productListByCategory", categoryMapper.getProductListByCategory(map));
 	      }   
 	      model.addAttribute("option", option);
+	      model.addAttribute("totalCount", totalCount);
 	      model.addAttribute("pagingBean", pagingBean);
 	      model.addAttribute("categoryName", categoryName);
 	      model.addAttribute("detailCategoryList", categoryMapper.getDetailCategory(map));

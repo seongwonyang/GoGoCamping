@@ -112,14 +112,6 @@
 					strength.innerHTML = '<span style="color:red">위험</span>';
 				}
 			}
-			/* function checkExt() {
-				if (/(\.gif|\.jpg|\.jpeg|\.png)$/i.test(document.getElementById("logoImg").value) == false) {
-					alert("이미지 형식의 파일을 선택하십시오");
-					document.getElementById("logoImg").value = "";
-					readURL(input);
-					return false;
-				}
-			} */
 			function readURL(input) {
 				if (input.files && input.files[0]) {
 				    var reader = new FileReader();

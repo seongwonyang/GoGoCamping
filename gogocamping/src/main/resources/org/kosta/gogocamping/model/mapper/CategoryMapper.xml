@@ -33,7 +33,7 @@
 </select>
 <!-- 카테고리(대분류)별 상품조회 (인기순 정렬) -->
 <select id="getProductListByCategoryByPopular" resultMap="productMap" parameterType="Map">
-	select rnum, product_id, product_name, price, product_img, category_name, detail_category_name, c from (
+	select rnum, product_id, product_name, price, product_img, product_img_stored, category_name, detail_category_name, c from (
 	select * from (
 	   select p.*, row_number() over(order by (select count(*) from order_detail where product_id = p.product_id group by p.product_id) desc) as rnum, c.category_name, c.detail_category_name,
 	   nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c

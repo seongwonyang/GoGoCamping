@@ -54,7 +54,6 @@
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
-                        <%-- 쓸라면 쓰고 --%>
                             </div>
                         </div>
                     </div>

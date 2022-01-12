@@ -1,15 +1,11 @@
 package org.kosta.gogocamping.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.gogocamping.model.domain.CustomerVO;
 import org.kosta.gogocamping.model.domain.KakaoLoginVO;
-import org.kosta.gogocamping.model.domain.PagingBean;
 import org.kosta.gogocamping.model.mapper.CategoryMapper;
 import org.kosta.gogocamping.model.mapper.CustomerMapper;
 import org.kosta.gogocamping.model.mapper.KakaoLoginMapper;

@@ -3,9 +3,19 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
-	<div align="center">
-		<h3 style="font-weight: 700;">주문조회</h3>
-	</div>
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Order List</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
     <section class="shoping-cart spad">
         <div class="container">
             <div class="row">
@@ -116,48 +126,46 @@
             </div>
           </div>
     </section>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript">
-        //구매확정
-    	$(function(){
-    		$(".buyConfirm").click(function() {
-    			if (!confirm("구매를 확정하시겠습니까?")) {
-    	            return false;
-    	        } else {
-    	        	$("#orderDetailNo").val($(this).data('detailno'));
-    	        }
-    			$.ajax({
-					type:"post",
-					url:"/order/buyConfirm",
-					data:"orderDetailNo="+$(this).data('detailno'),
-					success:function(result){
-						if(result=="구매확정"){
-							$("#submitId").submit();
-						}
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+   	$(function(){
+   		$(".buyConfirm").click(function() { //구매확정
+   			if (!confirm("구매를 확정하시겠습니까?")) {
+   	            return false;
+   	        } else {
+   	        	$("#orderDetailNo").val($(this).data('detailno'));
+   	        }
+   			$.ajax({
+				type:"post",
+				url:"/order/buyConfirm",
+				data:"orderDetailNo="+$(this).data('detailno'),
+				success:function(result){
+					if(result=="구매확정"){
+						$("#submitId").submit();
 					}
-				});//ajax
-    		});//click
-    		//주문취소
-    		
-    		$(".orderCancel").click(function() {
-    			if (!confirm("주문을 취소하시겠습니까?")) {
-    	            return false;
-    	        } else {
-    	        	$("#orderDetailNo").val($(this).data('detailno'));
-        			$("#productId").val($(this).data('productid'));
-        			$("#orderCount").val($(this).data('ordercount'));
-    	        }
-    			$.ajax({
-					type:"post",
-					url:"/order/orderCancel",
-					data:"orderDetailNo="+$(this).data('detailno')+"&productId="+$(this).data('productid')+"&orderCount="+$(this).data('ordercount'),
-					success:function(result){
-						if(result=="주문취소"){
-							$("#submitId").submit();
-						}
+				}
+			});//ajax
+   		});//click
+
+   		$(".orderCancel").click(function() { //주문취소
+   			if (!confirm("주문을 취소하시겠습니까?")) {
+   	            return false;
+   	        } else {
+   	        	$("#orderDetailNo").val($(this).data('detailno'));
+       			$("#productId").val($(this).data('productid'));
+       			$("#orderCount").val($(this).data('ordercount'));
+   	        }
+   			$.ajax({
+				type:"post",
+				url:"/order/orderCancel",
+				data:"orderDetailNo="+$(this).data('detailno')+"&productId="+$(this).data('productid')+"&orderCount="+$(this).data('ordercount'),
+				success:function(result){
+					if(result=="주문취소"){
+						$("#submitId").submit();
 					}
-				});//ajax
-    		});//click
-    	});//ready
-    </script>
+				}
+			});//ajax
+   		});//click
+   	});//ready
+</script>
 </body>

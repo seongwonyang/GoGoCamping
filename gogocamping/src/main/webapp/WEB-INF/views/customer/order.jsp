@@ -107,94 +107,94 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 <script type="text/javascript">
-$(function(){
-	$("input:radio[name='payment']").change(function() {
-		if($("input:radio[name='payment']:checked").val()=="cash"){
-			$("#account").text("입금계좌 : 농협 356-1008-1323-53");
-		}else{
-			$("#account").text("");
-		}
+	$(function(){
+		$("input:radio[name='payment']").change(function() {
+			if($("input:radio[name='payment']:checked").val()=="cash"){
+				$("#account").text("입금계좌 : 농협 356-1008-1323-53");
+			}else{
+				$("#account").text("");
+			}
+		});
 	});
-});
 
-function payyy(){
-     // 폼 객체 접근
-     var thisForm = document.order;
-
-     // 결제 내용에 동의하십니까 내용.
-     var order_check = thisForm.agree.checked;
-
-     if (!order_check){
-         alert('상위 주문 내용 확인에 동의해주세요.');
-         return false;
-     } 
-
-     // 결제 방식 선택
-     var payment_check = thisForm.elements["payment"].value; // 결제방식 라디오 버튼
-     
-     if($("input:radio[name='payment']").is(':checked') == false){
-    	 alert("결제 방식을 선택해주세요.");
-    	 return false; 	 
-     }
-     
-     var receiverName = thisForm.receiverName.value;
-     var receiverTel = thisForm.receiverTel.value;
-     var orderPostNumber = thisForm.receiverTel.value;
-     var orderAddress = thisForm.orderAddress.value;
-     var orderDetailedAddress = thisForm.orderDetailedAddress.value;
-     
-     if(!receiverName || !receiverTel || !orderPostNumber || !orderAddress || !orderDetailedAddress){
-      	alert("주문정보를 입력해주세요.");
- 		return false;
- 	 }
-     
-     if (payment_check != "card"){ // 카드 결제가 아니라면 오더 컨트롤러로 제출
-     	thisForm.submit();
-     }; 
-
-     //주문 상품의 총 가격 input[name='kakaoTotalPrice']
-     total_price = '${totalPrice}';
-     
-     // 여러 종류를 주문할 때
-     var order_name = $("input[name='kakaoProductName']").eq(0).attr("value");
-     var count = $("input[name='kakaoProductName']").length;
-     if (count > 1){
-         order_name += ' 외 ' + (count-1) + '종';
-     } 
-
-     $(function(){
-         var IMP = window.IMP;
-         IMP.init('imp96816484');
-
-        IMP.request_pay({
-            pg : 'kakao',
-            pay_method : 'card',
-            merchant_uid : 'merchant_' + new Date().getTime(),
-            name : order_name,
-            amount : total_price,
-            buyer_email : '${sessionScope.loginVO.customerEmail}',
-            buyer_name :  '${sessionScope.loginVO.customerName}',
-            buyer_tel :  '${sessionScope.loginVO.customerTel}',
-            buyer_addr :   thisForm.elements["orderAddress"].value + " " + thisForm.elements["orderDetailedAddress"].value,
-            buyer_postcode :  thisForm.elements["orderPostNumber"].value,
-            m_redirect_url : '/khx/payEnd.action'
-        }, function(rsp) {
-         if ( rsp.success ) { // 성공시
-             var msg = '결제가 완료되었습니다.';
-             msg += '고유ID : ' + rsp.imp_uid;
-             msg += '상점 거래ID : ' + rsp.merchant_uid;
-             msg += '결제 금액 : ' + rsp.paid_amount;
-             msg += '카드 승인번호 : ' + rsp.apply_num;
-             thisForm.submit();   
-
-         } else { // 실패시
-             var msg = '결제에 실패하였습니다.';
-             msg += '에러내용 : ' + rsp.error_msg;r
-             alert("실패");
-         }
-         });
-     });    
- }
+	function payyy(){
+	     // 폼 객체 접근
+	     var thisForm = document.order;
+	
+	     // 결제 내용에 동의하십니까 내용.
+	     var order_check = thisForm.agree.checked;
+	
+	     if (!order_check){
+	         alert('상위 주문 내용 확인에 동의해주세요.');
+	         return false;
+	     } 
+	
+	     // 결제 방식 선택
+	     var payment_check = thisForm.elements["payment"].value; // 결제방식 라디오 버튼
+	     
+	     if($("input:radio[name='payment']").is(':checked') == false){
+	    	 alert("결제 방식을 선택해주세요.");
+	    	 return false; 	 
+	     }
+	     
+	     var receiverName = thisForm.receiverName.value;
+	     var receiverTel = thisForm.receiverTel.value;
+	     var orderPostNumber = thisForm.receiverTel.value;
+	     var orderAddress = thisForm.orderAddress.value;
+	     var orderDetailedAddress = thisForm.orderDetailedAddress.value;
+	     
+	     if(!receiverName || !receiverTel || !orderPostNumber || !orderAddress || !orderDetailedAddress){
+	      	alert("주문정보를 입력해주세요.");
+	 		return false;
+	 	 }
+	     
+	     if (payment_check != "card"){ // 카드 결제가 아니라면 오더 컨트롤러로 제출
+	     	thisForm.submit();
+	     }; 
+	
+	     //주문 상품의 총 가격 input[name='kakaoTotalPrice']
+	     total_price = '${totalPrice}';
+	     
+	     // 여러 종류를 주문할 때
+	     var order_name = $("input[name='kakaoProductName']").eq(0).attr("value");
+	     var count = $("input[name='kakaoProductName']").length;
+	     if (count > 1){
+	         order_name += ' 외 ' + (count-1) + '종';
+	     } 
+	
+	     $(function(){
+	         var IMP = window.IMP;
+	         IMP.init('imp96816484');
+	
+	        IMP.request_pay({
+	            pg : 'kakao',
+	            pay_method : 'card',
+	            merchant_uid : 'merchant_' + new Date().getTime(),
+	            name : order_name,
+	            amount : total_price,
+	            buyer_email : '${sessionScope.loginVO.customerEmail}',
+	            buyer_name :  '${sessionScope.loginVO.customerName}',
+	            buyer_tel :  '${sessionScope.loginVO.customerTel}',
+	            buyer_addr :   thisForm.elements["orderAddress"].value + " " + thisForm.elements["orderDetailedAddress"].value,
+	            buyer_postcode :  thisForm.elements["orderPostNumber"].value,
+	            m_redirect_url : '/khx/payEnd.action'
+	        }, function(rsp) {
+	         if ( rsp.success ) { // 성공시
+	             var msg = '결제가 완료되었습니다.';
+	             msg += '고유ID : ' + rsp.imp_uid;
+	             msg += '상점 거래ID : ' + rsp.merchant_uid;
+	             msg += '결제 금액 : ' + rsp.paid_amount;
+	             msg += '카드 승인번호 : ' + rsp.apply_num;
+	             thisForm.submit();   
+	
+	         } else { // 실패시
+	             var msg = '결제에 실패하였습니다.';
+	             msg += '에러내용 : ' + rsp.error_msg;r
+	             alert("실패");
+	         }
+	         });
+	     });    
+	}
 
 	$(function(){
 		$("#same").change(function() { // 주문자 정보와 동일

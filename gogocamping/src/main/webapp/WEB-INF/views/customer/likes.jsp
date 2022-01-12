@@ -4,22 +4,13 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <!-- <fmt:formatNumber value="${price}" pattern="#,###" /> -->
 <body>
-    <!-- Page Preloder -->
-   <!--  <div id="preloder">
-        <div class="loader"></div>
-    </div> -->
-
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Go Go Camping</h2>
-                        <!-- <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
-                            <span>Shop</span>
-                        </div> -->
+                        <h2>Wish List</h2>
                     </div>
                 </div>
             </div>

@@ -53,55 +53,55 @@
             </div>
          </div>
       </div>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript" src="<c:url value='/js/core.min.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/js/sha256.min.js'/>"></script>
-	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-	<script type="text/javascript">
-		$(function(){
-			$("#loginCustomer").click(function() {
-				var customerPw = CryptoJS.SHA256($('#customerPassword').val()).toString();
-				$.ajax({
-					type:"post",
-					url:"/customer/login",
-					data:"customerId="+$("#customerId").val()+"&customerPassword="+customerPw,
-					success:function(result){
-						if(result!="로그인성공"){
-							$("#checkLogin").text(result);
-						}
-						else{
-							$(location).attr('href','/');
-						}
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="<c:url value='/js/core.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/sha256.min.js'/>"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#loginCustomer").click(function() {
+			var customerPw = CryptoJS.SHA256($('#customerPassword').val()).toString();
+			$.ajax({
+				type:"post",
+				url:"/customer/login",
+				data:"customerId="+$("#customerId").val()+"&customerPassword="+customerPw,
+				success:function(result){
+					if(result!="로그인성공"){
+						$("#checkLogin").text(result);
 					}
-				});//ajax
-			});//click
-		});//ready
-		
-		//카카오 로그인 시작시점
-		window.Kakao.init("1b1a8cddc6c5a14dfed5268de34d0861");
-		function kakaoLogin(){
-			window.Kakao.Auth.login({
-				scope:'profile_nickname,account_email',
-				success: function(authObj){
-					//console.log(authObj);
-					window.Kakao.API.request({
-						url: '/v2/user/me',
-					    data: {
-					        property_keys: ["kakao_account.email","properties.nickname"]
-					    },
-					    success: function(response) {
-					    	$("#kakaoId").val(response.id);
-					        $("#kakaoEmail").val(response.kakao_account.email);
-					        $("#kakaoName").val(response.properties.nickname);
-					        $("#callbackKaKao").submit();
-					    },
-					    fail: function(error) {
-					        console.log(error);
-					    }
-					});
+					else{
+						$(location).attr('href','/');
+					}
 				}
-			});
-		}
+			});//ajax
+		});//click
+	});//ready
+	
+	//카카오 로그인 시작시점
+	window.Kakao.init("1b1a8cddc6c5a14dfed5268de34d0861");
+	function kakaoLogin(){
+		window.Kakao.Auth.login({
+			scope:'profile_nickname,account_email',
+			success: function(authObj){
+				//console.log(authObj);
+				window.Kakao.API.request({
+					url: '/v2/user/me',
+				    data: {
+				        property_keys: ["kakao_account.email","properties.nickname"]
+				    },
+				    success: function(response) {
+				    	$("#kakaoId").val(response.id);
+				        $("#kakaoEmail").val(response.kakao_account.email);
+				        $("#kakaoName").val(response.properties.nickname);
+				        $("#callbackKaKao").submit();
+				    },
+				    fail: function(error) {
+				        console.log(error);
+				    }
+				});
+			}
+		});
+	}
 </script>
    </body>
 </html>

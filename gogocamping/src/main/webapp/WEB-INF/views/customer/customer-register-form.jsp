@@ -40,77 +40,81 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script> 
 <script type="text/javascript">
-window.onload = function(){
-    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
-        //카카오 지도 발생
-        new daum.Postcode({
-            oncomplete: function(data) { //선택시 입력값 세팅
-            	document.getElementById("customerPostNumber").value = data.zonecode; //우편번호 넣기
-                document.getElementById("customerAddress").value = data.address; // 주소 넣기
-                document.querySelector("input[name=customerDetailedAddress]").focus(); //상세입력 포커싱
-            }
-        }).open();
-    });
-}
-$(function() {
-	$("#checkId").click(function(){
-		$.ajax({
-			type:"get",
-			url:"/customer/checkId",
-			data:"customerId="+$("#customerId").val(),
-			success:function(result){
-				$("#checkIdResult").text(result);
+	window.onload = function(){
+	    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+	        //카카오 지도 발생
+	        new daum.Postcode({
+	            oncomplete: function(data) { //선택시 입력값 세팅
+	            	document.getElementById("customerPostNumber").value = data.zonecode; //우편번호 넣기
+	                document.getElementById("customerAddress").value = data.address; // 주소 넣기
+	                document.querySelector("input[name=customerDetailedAddress]").focus(); //상세입력 포커싱
+	            }
+	        }).open();
+	    });
+	}
+	$(function() {
+		$("#checkId").click(function(){
+			if($("#customerId").val() == "") {
+				alert("아이디를 입력하세요.");
+				return false;
 			}
-		});//ajax
-	});//click
-	$("#hash").click(function(){
-		var customerPassword = $("#customerPassword").val();
-		var customerPwck = $("#customerPwck").val();
-		if($("#checkIdResult").text() != "사용가능한 아이디입니다."){
-			alert("아이디 중복확인 하세요.");
+			$.ajax({
+				type:"get",
+				url:"/customer/checkId",
+				data:"customerId="+$("#customerId").val(),
+				success:function(result){
+					$("#checkIdResult").text(result);
+				}
+			});//ajax
+		});//click
+		$("#hash").click(function(){
+			var customerPassword = $("#customerPassword").val();
+			var customerPwck = $("#customerPwck").val();
+			if($("#checkIdResult").text() != "사용가능한 아이디입니다."){
+				alert("아이디 중복확인 하세요.");
+				return false;
+			}
+			if(customerPassword != customerPwck){
+				alert("비밀번호를 확인하세요.");
+				return false;
+			}else{
+				var customerPw = CryptoJS.SHA256($('#customerPassword').val()).toString(); 
+				$('#customerPassword').val(customerPw);
+			}
+		});//click
+	});//ready
+	function checkPassword() {
+		var customerPw = document.getElementById("customerPassword").value;
+		var customerPwck = document.getElementById("customerPwck").value;
+		if (customerPw == customerPwck) {
+			document.getElementById("checkPassword").innerHTML = "비밀번호 일치"
+			return true;
+		} else {
+			document.getElementById("checkPassword").innerHTML = "비밀번호 불일치"
 			return false;
 		}
-		if(customerPassword != customerPwck){
-			alert("비밀번호를 확인하세요.");
-			return false;
-		}else{
-			var customerPw = CryptoJS.SHA256($('#customerPassword').val()).toString(); 
-			$('#customerPassword').val(customerPw);
+	}
+	function passwordStrength() {
+		var strength = document.getElementById('strengthPassword');
+		var strongRegex = new RegExp(
+				"^(?=.{8,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*\\W).*$", "g");
+		var mediumRegex = new RegExp(
+				"^(?=.{8,})(((?=.*[a-zA-Z])(?=.*[0-9]))|((?=.*[a-zA-Z])(?=.*[0-9]))).*$",
+				"g");
+		var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+		var pwd = document.getElementById("customerPassword");
+		if (pwd.value.length == 0) {
+			strength.innerHTML = '비밀번호 강도체크';
+		} else if (false == enoughRegex.test(pwd.value)) {
+			strength.innerHTML = '비밀번호가 짧습니다.';
+		} else if (strongRegex.test(pwd.value)) {
+			strength.innerHTML = '<span style="color:green">강력</span>';
+		} else if (mediumRegex.test(pwd.value)) {
+			strength.innerHTML = '<span style="color:orange">중간</span>';
+		} else {
+			strength.innerHTML = '<span style="color:red">위험</span>';
 		}
-	});//click
-});//ready
-function checkPassword() {
-	var customerPw = document.getElementById("customerPassword").value;
-	var customerPwck = document.getElementById("customerPwck").value;
-	if (customerPw == customerPwck) {
-		document.getElementById("checkPassword").innerHTML = "비밀번호 일치"
-		return true;
-	} else {
-		document.getElementById("checkPassword").innerHTML = "비밀번호 불일치"
-		return false;
 	}
-}
-function passwordStrength() {
-	var strength = document.getElementById('strengthPassword');
-	var strongRegex = new RegExp(
-			"^(?=.{8,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*\\W).*$", "g");
-	var mediumRegex = new RegExp(
-			"^(?=.{8,})(((?=.*[a-zA-Z])(?=.*[0-9]))|((?=.*[a-zA-Z])(?=.*[0-9]))).*$",
-			"g");
-	var enoughRegex = new RegExp("(?=.{6,}).*", "g");
-	var pwd = document.getElementById("customerPassword");
-	if (pwd.value.length == 0) {
-		strength.innerHTML = '비밀번호 강도체크';
-	} else if (false == enoughRegex.test(pwd.value)) {
-		strength.innerHTML = '비밀번호가 짧습니다.';
-	} else if (strongRegex.test(pwd.value)) {
-		strength.innerHTML = '<span style="color:green">강력</span>';
-	} else if (mediumRegex.test(pwd.value)) {
-		strength.innerHTML = '<span style="color:orange">중간</span>';
-	} else {
-		strength.innerHTML = '<span style="color:red">위험</span>';
-	}
-}
 </script>
 </body>
 </html>

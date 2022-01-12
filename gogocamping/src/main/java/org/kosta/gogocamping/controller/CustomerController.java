@@ -67,7 +67,6 @@ public class CustomerController {
 		session.removeAttribute("loginVO");
 		session.removeAttribute("naverVO");
 		session.removeAttribute("kakaoVO");
-		
 		return "redirect:/";
 	}
 
@@ -123,7 +122,6 @@ public class CustomerController {
 	@RequestMapping("/getCustomerIdByTel")
 	public String getCustomerIdByTel(String customerName, String customerTel, Model model) {
 		model.addAttribute("customerVO", customerMapper.findCustomerIdByTel(customerName, customerTel));
-
 		return "customer/customer-result-byTel.tiles";
 	}
 	
@@ -132,7 +130,6 @@ public class CustomerController {
 		session.removeAttribute("athCode");
 		session.removeAttribute("checkId");
 		customerMapper.updatePassword(customerPassword, customerId);
-
 		return "redirect:/";
 	}
 	
@@ -164,7 +161,7 @@ public class CustomerController {
 	
 	@RequestMapping("/resetPassword")
 	public String resetPassword(Model model) {
-		return "customer/customer-passwordRest.tiles"; // 수정필요
+		return "customer/customer-passwordReset.tiles"; 
 	}
 	
 	public String getTempPassword(){
@@ -184,7 +181,6 @@ public class CustomerController {
 	@RequestMapping("/updateInfoForm") //정보수정폼으로 이동
 	public String updateInfoForm(Model model, String customerId) {
 		model.addAttribute("customerInfo", customerMapper.findCustomerId(customerId));
-
 		return "customer/customer-update-info.tiles";
 	}
 	
@@ -193,14 +189,12 @@ public class CustomerController {
 		CustomerVO cvo=new CustomerVO(customerId,null, null, customerEmail, customerTel, customerPostNumber, customerAddress, customerDetailedAddress,null, null);
 		customerMapper.updateInfo(cvo);
 		model.addAttribute("customerInfo", customerMapper.findCustomerId(customerId));
-
 		return "customer/customer-update-info.tiles";
 	}
 	
 	@RequestMapping("/updatePassword") //비밀번호수정폼으로 이동
 	public String updatePassword(Model model, String customerId) {
 		model.addAttribute("passwordUpdate", customerMapper.equals(customerId));
-
 		return "customer/customer-update-password.tiles";
 	}
 	
@@ -208,7 +202,6 @@ public class CustomerController {
 	public String updateNewPassword(String customerId, String customerPassword, HttpSession session, Model model) {
 		customerMapper.updatePassword(customerPassword, customerId);
 		session.removeAttribute("loginVO");
-
 		return "redirect:/";
 	}	
 	

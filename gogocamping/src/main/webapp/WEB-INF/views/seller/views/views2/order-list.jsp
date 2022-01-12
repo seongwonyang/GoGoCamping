@@ -2,11 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <body>
-    <!-- Page Preloder -->
-   <!--  <div id="preloder">
-        <div class="loader"></div>
-    </div> -->
-
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
         <div class="container">

@@ -53,7 +53,7 @@
 						                                        ${seller.brand }
 						                                    </td>
 						                                    <td class="shoping__cart__price">
-						                                        ${seller.businessNumber }123456789
+						                                        ${seller.businessNumber }
 						                                    </td>
 						                                    <td class="shoping__cart__price">
 						                                        ${seller.sellerTel }

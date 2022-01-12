@@ -3,14 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%><%@ taglib
 	prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%-- <fmt:formatNumber value="${price}" pattern="#,###" /> --%>
-
 <body>
-	<!-- Page Preloder -->
-	<!--  <div id="preloder">
-        <div class="loader"></div>
-    </div> -->
-
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg" data-setbg="/img/camp.png">
 		<div class="container">
@@ -98,51 +91,49 @@
 		</div>
 	</section>
 	<!-- Product Section End -->
-	
-	<script>
-	document.getElementById('lastDate').valueAsDate = new Date();
-	</script>
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			$("#searchByDateBtn").click(
-					function() {
-						// 검색 시작 날짜 가져오기
-						let startDate = $("#startDate").val();
-						// 검색 마지막 날짜 가져오기
-						let lastDate = $("#lastDate").val();
-						if (startDate == "" || lastDate == "") { // 날짜를 입력하지 않은 경우
-							alert("날짜를 입력하세요");
-						} else if(startDate>lastDate) {
-							alert("시작 날짜가 마지막 날짜보다 클 수 없습니다");
-						} else {
-							$.ajax({
-								type : "post",
-								url : "/seller/getTotalSoldListByDate",
-								datatype : "json",
-								data : "&startDate=" + startDate
-										+"&lastDate=" + lastDate,
-								success : function(data) {
-									let code = "";
-									
-									let total = 0;
-									for(let i=0; i<data.length; i++){
-										code += "<tr>";
-										code += "<td>"+data[i].orderDetailNo+"</td>";
-										code += "<td>"+data[i].productVO.productName+"</td>";
-										code += "<td>"+data[i].orderCount+"</td>";
-										code += "<td>"+data[i].orderInfoVO.orderDate+"</td>";
-										code += "<td>"+data[i].orderPrice+"</td>";
-										code += "</tr>";
-										total += data[i].orderPrice;
-									}
-									$("#totalSoldListResult").html(code);
-									$("#totalPrice").text(total);
-								}
-							});
 
+<script>
+document.getElementById('lastDate').valueAsDate = new Date();
+</script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#searchByDateBtn").click(
+			function() {
+				// 검색 시작 날짜 가져오기
+				let startDate = $("#startDate").val();
+				// 검색 마지막 날짜 가져오기
+				let lastDate = $("#lastDate").val();
+				if (startDate == "" || lastDate == "") { // 날짜를 입력하지 않은 경우
+					alert("날짜를 입력하세요");
+				} else if(startDate>lastDate) {
+					alert("시작 날짜가 마지막 날짜보다 클 수 없습니다");
+				} else {
+					$.ajax({
+						type : "post",
+						url : "/seller/getTotalSoldListByDate",
+						datatype : "json",
+						data : "&startDate=" + startDate
+								+"&lastDate=" + lastDate,
+						success : function(data) {
+							let code = "";
+							let total = 0;
+							for(let i=0; i<data.length; i++){
+								code += "<tr>";
+								code += "<td>"+data[i].orderDetailNo+"</td>";
+								code += "<td>"+data[i].productVO.productName+"</td>";
+								code += "<td>"+data[i].orderCount+"</td>";
+								code += "<td>"+data[i].orderInfoVO.orderDate+"</td>";
+								code += "<td>"+data[i].orderPrice+"</td>";
+								code += "</tr>";
+								total += data[i].orderPrice;
+							}
+							$("#totalSoldListResult").html(code);
+							$("#totalPrice").text(total);
 						}
-					});
-		});
-	</script>
+					});//ajax
+				}//else
+			});
+	});
+</script>
 </body>
