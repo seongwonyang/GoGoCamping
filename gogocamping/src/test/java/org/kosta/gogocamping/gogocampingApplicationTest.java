@@ -9,5 +9,5 @@ class SpringBootStudy6RestApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
+	
 }

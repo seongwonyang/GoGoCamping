@@ -1,4 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.CategoryMapper">
+<select id="getCategoryList" resultType="CategoryVO">
+   select category_name from category group by category_name order by min(category_no)
+</select>
+<resultMap id="productMap" type="ProductVO">
+   <result property="sellerVO.sellerId" column="seller_id"/>
+   <result property="sellerVO.sellerEmail" column="seller_email"/>
+   <result property="sellerVO.brand" column="brand"/>
+   <result property="sellerVO.sellerTel" column="seller_tel"/>
+   <result property="categoryVO.categoryNo" column="category_no"/>
+   <result property="categoryVO.categoryName" column="category_name"/>
+   <result property="categoryVO.detailCategoryName" column="detail_category_name"/>
+</resultMap> 
+<!-- 카테고리(대분류)별 상품조회 -->
+<select id="getProductListByCategory" resultMap="productMap" parameterType="Map">
+   select rnum, pc.category_no, pc.product_id, pc.product_name, pc.price, pc.product_img, pc.product_img_stored, pc.category_name, pc.detail_category_name
+   from ( select p.*, c.category_name, c.detail_category_name, row_number() 
+   <choose>
+      <when test='option.equals("low")'>
+         over(order by price) 
+      </when>
+      <when test='option.equals("high")'>
+         over(order by price desc) 
+      </when>
+      <otherwise>
+         over(order by product_id desc) 
+      </otherwise>
+   </choose>  
+      as rnum from product p, category c where p.category_no = c.category_no and c.category_name = #{categoryName} ) pc
+   where rnum between #{startRowNumber} and #{endRowNumber}
+</select>
+<!-- 카테고리(대분류)별 상품조회 (인기순 정렬) -->
+<select id="getProductListByCategoryByPopular" resultMap="productMap" parameterType="Map">
+	select rnum, product_id, product_name, price, product_img, product_img_stored, category_name, detail_category_name, c from (
+	select * from (
+	   select p.*, row_number() over(order by (select count(*) from order_detail where product_id = p.product_id group by p.product_id) desc) as rnum, c.category_name, c.detail_category_name,
+	   nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
+	   from product p, category c where p.category_no=c.category_no and c.category_name = #{categoryName}
+	) order by c desc )
+	where rnum between #{startRowNumber} and #{endRowNumber}
+</select>
+<select id="getCategoryCount" parameterType="Map" resultType="int">
+   select count(*)
+   from product p, seller s, category c
+   where p.seller_id = s.seller_id and p.category_no = c.category_no
+   and c.category_name = #{categoryName}
+</select>
+<select id="getDetailCategory" parameterType="Map" resultType="CategoryVO">
+   select * from category where category_name = #{categoryName}
+</select>
+<!-- 카테고리(소분류)별 상품조회 -->
+<select id="getProductListByDetailCategory" resultMap="productMap" parameterType="Map">
+   select p.*, c.*
+   from product p, category c
+   where p.category_no = c.category_no
+   and c.category_name = #{categoryName}
+   and c.detail_category_name = #{detailCategoryName}
+   <choose>
+      <when test='option.equals("low")'>
+         order by price
+      </when>
+      <when test='option.equals("high")'>
+         order by price desc
+      </when>
+      <otherwise>
+         order by product_id desc
+      </otherwise>
+   </choose>  
+</select>
+<!-- 카테고리(소분류)별 상품조회 (인기순 정렬) -->
+<select id="getProductListByDetailCategoryByPopular" resultMap="productMap" parameterType="Map">
+	select p.*, c.*, nvl((select count(*) from order_detail where product_id = p.product_id group by p.product_id), 0) as c
+	from product p, category c
+	where p.category_no = c.category_no
+	and c.category_name = #{categoryName} and c.detail_category_name = #{detailCategoryName}
+	order by c desc
+</select>
+
+<!-- 대분류 카테고리 조회 -->
+<select id="getCategoryNameByProductId" parameterType="int" resultType="String">
+   select c.category_name
+   from product p, category c
+   where p.category_no = c.category_no and product_id = #{value}
+</select>
+
+<!-- 선택된 대분류에 따른 소분류 카테고리 조회 -->
+<select id="getDetailCategoryList" parameterType="String" resultType="CategoryVO">
+   select detail_category_name from category where category_name = #{value}
+</select>
+
+<select id="getCategoryNoByDetailCategoryName" parameterType="String" resultType="int">
+	select category_no from category where detail_category_name = #{value}
+</select>
 </mapper>

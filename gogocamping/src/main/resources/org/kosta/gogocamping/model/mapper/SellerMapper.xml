@@ -1,4 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.SellerMapper">
+
+<select id="getAllBrandList" resultType="SellerVO"> <!-- 브랜드 리스트 조회 -->
+select seller_id, brand from seller
+</select>
+
+<resultMap type="SellerVO" id="sellerMap">
+	<id property="sellerId" column="seller_id"/>
+	<result property="sellerId" column="seller_id"/>
+	<result property="sellerName" column="seller_name"/>
+	<result property="sellerPassword" column="seller_password"/>
+	<result property="businessNumber" column="business_number"/>
+	<result property="sellerEmail" column="seller_email"/>
+	<result property="brand" column="brand"/>
+	<result property="sellerTel" column="seller_tel"/>
+	<result property="sellerPostNumber" column="seller_post_number"/>
+	<result property="sellerAddress" column="seller_address"/>
+	<result property="sellerDetailedAddress" column="seller_detailed_address"/>
+	<result property="registerAdmin" column="register_admin"/>
+</resultMap>
+<resultMap type="OrderDetailVO" id="orderDetailMap">
+	<id property="orderDetailNo" column="order_detail_no"/>
+	<result property="orderCount" column="order_count"/>
+	<result property="orderInfoVO.orderDate" column="order_date"/>
+	<result property="orderPrice" column="order_price"/>
+	<result property="deliveryStatus" column="delivery_status"/>
+	<result property="deliveryCompldate" column="delivery_compldate"/>
+	<result property="refundCheck" column="refund_check"/>
+	<result property="orderInfoVO.orderNo" column="order_no"/>
+	<result property="productVO.productName" column="product_name"/>
+	<result property="productVO.sellerVO.sellerId" column="seller_id"/>
+</resultMap>
+<select id="getSellerNotAdmin" resultMap="sellerMap">
+	SELECT * FROM seller WHERE register_admin=0
+</select>
+
+<select id="getSellerAdmin" resultMap="sellerMap">
+	SELECT * FROM seller WHERE register_admin=1
+</select>
+
+<update id="adminSeller" parameterType="String">
+	UPDATE seller SET register_admin=1 WHERE seller_id=#{value}
+</update>
+
+<insert id="registerSeller" parameterType="SellerVO">
+	insert into seller(seller_id, seller_password, seller_name, business_number, seller_email, brand, logo_img, logo_img_stored, seller_tel, seller_post_number, seller_address, seller_detailed_address, register_admin) 
+	values(#{sellerId}, #{sellerPassword}, #{sellerName}, #{businessNumber}, #{sellerEmail}, #{brand}, #{logoImg}, #{logoImgStored}, #{sellerTel}, #{sellerPostNumber}, #{sellerAddress}, #{sellerDetailedAddress}, 0)
+</insert>
+<select id="loginSeller" resultType="SellerVO" parameterType="SellerVO">
+	select seller_id, seller_password, seller_name, business_number, seller_email, brand, logo_img, logo_img_stored, seller_tel, seller_post_number, seller_address, seller_detailed_address, register_admin
+	from seller where seller_id=#{sellerId} and seller_password=#{sellerPassword}
+</select>
+<select id="findSellerById" resultType="SellerVO">
+	select seller_id from seller where seller_id=#{value}
+</select>
+<select id="findSellerIdByBusinessNo" resultType="String" parameterType="sellerVO">
+	select seller_id from seller where seller_name=#{sellerName} and business_number=#{businessNumber}
+</select>
+<select id="findSellerPwByBusinessNo" resultType="SellerVO" parameterType="sellerVO">
+	select * from seller where seller_id=#{sellerId} and seller_name=#{sellerName} and business_number=#{businessNumber}	
+</select>
+<update id="updatePassword" parameterType="customerVO">
+	update seller set seller_password = #{sellerPassword} where seller_id = #{sellerId}
+</update>
+<sql id="getSoldList">
+	select oi.order_no, od.order_detail_no, p.product_name, od.order_count, to_char(oi.order_date, 'YYYY-MM-DD') as order_date, od.order_price, od.delivery_status, p.seller_id
+	from order_info oi, order_detail od, product p
+	where oi.order_no = od.order_no
+	and od.product_id=p.product_id
+	and od.delivery_status = '배송완료'
+</sql>
+<select id="getTotalSoldList" parameterType="String" resultMap="orderDetailMap">
+	<include refid="getSoldList"></include>
+	and p.seller_id=#{value}
+	order by order_date desc
+</select>
+<select id="getTotalSoldOrderListByDate" parameterType="Map" resultMap="orderDetailMap">
+	<include refid="getSoldList"></include>
+	and p.seller_id=#{sellerId}
+	and oi.order_date between to_date(#{startDate}, 'YYYY-MM-DD') 
+	and to_date(#{lastDate}, 'YYYY-MM-DD')+1
+	order by order_date desc
+</select>
+<select id="getSellerInfoByProduct" parameterType="String" resultType="SellerVO">
+	select seller_id, seller_name, business_number, seller_email, brand, seller_tel, seller_post_number, seller_detailed_address, logo_img_stored
+	from seller where seller_id = #{value}
+</select>
 </mapper>

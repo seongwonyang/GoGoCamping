@@ -1,4 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.gogocamping.model.mapper.LikesMapper">
+<select id="checkSameProductInLikes" parameterType="Map" resultType="int">
+	select count(*)
+	from likes
+	where customer_id=#{customerId} and product_id=#{productId} 
+</select>
+<insert id="insertProductLikes" parameterType="Map">
+	insert into likes(likes_no,customer_id,product_id)
+	values(likes_seq.nextval, #{customerId}, #{productId})
+</insert>
+<delete id="deletProductLikes" parameterType="Map">
+	delete from likes where customer_id = #{customerId} and product_id = #{productId}
+</delete>
+<resultMap type="LikesVO" id="likesMap">
+	<result property="productVO.productId" column="product_id"/>
+	<result property="productVO.productName" column="product_name"/>
+	<result property="productVO.price" column="price"/>
+	<result property="productVO.productImg" column="product_img"/>
+	<result property="productVO.productImgStored" column="product_img_stored"/>
+	<result property="customerVO.customerId" column="customer_id"/>
+</resultMap>
+<select id="getLikesList" parameterType="String" resultMap="likesMap">
+	select l.likes_no, l.customer_id, p.product_id,p.product_name,p.price,p.product_img, p.product_img_stored
+	from likes l, product p 
+	where l.product_id=p.product_id 
+	and l.customer_id = #{value}
+	order by l.likes_no desc
+</select>
 </mapper>
